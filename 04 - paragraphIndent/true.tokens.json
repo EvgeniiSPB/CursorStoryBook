@@ -1,0 +1,23 @@
+{
+  "indent": {
+    "L": {
+      "$type": "number",
+      "$value": 44,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:91:30",
+        "com.figma.scopes": [
+          "PARAGRAPH_INDENT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:6aef28643824c1c5958cfc778290f137753496ce/-1:-1",
+          "targetVariableName": "paragraphSizes/900",
+          "targetVariableSetId": "VariableCollectionId:9f7556016679d0d37e7ffc42e3e1d45719b0b857/-1:-1",
+          "targetVariableSetName": "00 - xBase"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "true"
+  }
+}

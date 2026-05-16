@@ -1,0 +1,29 @@
+@import './generated/tokens.css';
+@import './generated/segments/index.css';
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKyDTCTLu2SlD2s.woff2')
+    format('woff2');
+}
+
+:root {
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-size: var(--font-sizes-body-m, 16px);
+  line-height: var(--line-heights-body-m, 1.5);
+  color: var(--text-primary, var(--primary-primary));
+  background-color: var(--black-and-white-white, #fff);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

@@ -1,0 +1,9 @@
+node_modules
+dist
+storybook-static
+debug-storybook.log
+*.log
+.DS_Store
+src/styles/generated
+
+*storybook.log
