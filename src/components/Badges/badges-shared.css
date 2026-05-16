@@ -1,0 +1,48 @@
+/* JetBrains Mono Medium — fontWeights/special/medium */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap');
+
+.badge-canvas {
+  background-color: #e4e4e4;
+  padding: calc(var(--spaces-static-600, 24) * 1px);
+  min-width: min(100%, 480px);
+  box-sizing: border-box;
+}
+
+.badge-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  align-items: flex-start;
+}
+
+.badge-showcase__column {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  align-items: flex-start;
+}
+
+.badge-showcase__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: center;
+}
+
+.badge-label-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: calc(var(--font-sizes-special-one-size, 11) * 1px);
+  font-weight: 500;
+  font-style: normal;
+  line-height: calc(var(--line-heights-special-one-size, 12) * 1px);
+  letter-spacing: 0.88px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}

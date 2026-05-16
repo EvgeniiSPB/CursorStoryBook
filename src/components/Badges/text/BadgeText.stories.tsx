@@ -1,43 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { Decorator } from '@storybook/react-vite';
-import type { ReactNode } from 'react';
-import { Badge, type BadgeProps, type BadgeType } from './Badge';
-import './badge.css';
+import { BadgeText, type BadgeTextProps, type BadgeTextType } from './BadgeText';
+import {
+  badgeCanvasDecorator,
+  tonnedSegmentDecorator,
+  TONNED_SEGMENT,
+} from '../decorators';
 
-const types: BadgeType[] = ['filled', 'outlined', 'brand', 'tonned'];
-
-/** Tonned в макете на segment metallic; локально, без смены global toolbar */
-const TONNED_SEGMENT = 'metallic';
-
-function TonnedSegmentScope({
-  type,
-  children,
-}: {
-  type?: BadgeType;
-  children: ReactNode;
-}) {
-  if (type === 'tonned') {
-    return <div data-segment={TONNED_SEGMENT}>{children}</div>;
-  }
-  return <>{children}</>;
-}
-
-/** Фон превью как в макете Figma (#E4E4E4) */
-const badgeCanvasDecorator: Decorator = (Story) => (
-  <div className="badge-canvas">
-    <Story />
-  </div>
-);
-
-const tonnedSegmentDecorator: Decorator = (Story) => (
-  <div data-segment={TONNED_SEGMENT}>
-    <Story />
-  </div>
-);
+const types: BadgeTextType[] = ['filled', 'outlined', 'brand', 'tonned'];
 
 const meta = {
-  title: 'Badge',
-  component: Badge,
+  title: 'Badges/Text',
+  component: BadgeText,
   tags: ['autodocs'],
   decorators: [badgeCanvasDecorator],
   parameters: {
@@ -57,12 +30,12 @@ const meta = {
     type: 'filled',
     icon: true,
   },
-  render: (args: BadgeProps) => (
-    <TonnedSegmentScope type={args.type}>
-      <Badge {...args} />
-    </TonnedSegmentScope>
+  render: (args: BadgeTextProps) => (
+    <div {...(args.type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}>
+      <BadgeText {...args} />
+    </div>
   ),
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof BadgeText>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -117,8 +90,8 @@ export const AllVariants: Story = {
           className="badge-showcase__column"
           {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
         >
-          <Badge type={type} icon />
-          <Badge type={type} icon={false} />
+          <BadgeText type={type} icon />
+          <BadgeText type={type} icon={false} />
         </div>
       ))}
     </div>

@@ -1,0 +1,95 @@
+@import '../badges-shared.css';
+
+.badge-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: max-content;
+  padding: calc(var(--spaces-static-100, 4) * 1px)
+    calc(var(--spaces-static-300, 12) * 1px);
+  border-radius: calc(var(--radii-static-800, 32) * 1px);
+  border: 1px solid transparent;
+  letter-spacing: 0.88px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-text--with-icon {
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+.badge-text__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.badge-text__icon-svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.badge-text--filled {
+  background-color: var(--badge-filled-base-body, #ffffff);
+  border-color: transparent;
+}
+
+.badge-text--filled .badge-text__label {
+  color: var(--badge-filled-base-text, #34373c);
+}
+
+.badge-text--filled .badge-text__icon {
+  color: var(--badge-filled-base-icon, #34373c);
+}
+
+.badge-text--outlined {
+  background-color: transparent;
+  border-color: var(--badge-outlined-base-border, #34373c);
+}
+
+.badge-text--outlined .badge-text__label {
+  color: var(--badge-outlined-base-text, #34373c);
+}
+
+.badge-text--outlined .badge-text__icon {
+  color: var(--badge-outlined-base-icon, #34373c);
+}
+
+.badge-text--brand {
+  background-color: var(--badge-filled-brand-constant-body, #ebcd00);
+  border-color: transparent;
+}
+
+.badge-text--brand .badge-text__label {
+  color: var(--badge-filled-brand-constant-text, #a30f33);
+}
+
+.badge-text--brand .badge-text__icon {
+  color: var(--badge-filled-brand-constant-icon, #a30f33);
+}
+
+.badge-text--tonned {
+  background-color: var(--segment-8, var(--badge-tonned-body-normal));
+  border-color: transparent;
+}
+
+.badge-text--tonned:hover {
+  background-color: var(--segment-12, var(--badge-tonned-body-hover));
+}
+
+.badge-text--tonned:active {
+  background-color: var(--segment-16, var(--badge-tonned-body-click));
+}
+
+.badge-text--tonned .badge-text__label {
+  color: var(--badge-tonned-text, #34373c);
+}
+
+.badge-text--tonned .badge-text__icon {
+  color: var(--badge-tonned-icon, #34373c);
+}
