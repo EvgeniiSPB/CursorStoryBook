@@ -30,19 +30,45 @@
 }
 
 .badge-label-base {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   margin: 0;
   padding: 0;
+  width: 100%;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: calc(var(--font-sizes-special-one-size, 11) * 1px);
   font-weight: 500;
   font-style: normal;
   line-height: calc(var(--line-heights-special-one-size, 12) * 1px);
   letter-spacing: 0.88px;
+  text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
+}
+
+/* Figma badge - digits + numbers (4024:147 / 4024:146) */
+.badge-digits {
+  --badge-digits-min-width-2: 32px;
+  --badge-digits-min-width-3: 36px;
+  --badge-digits-core-width-2: 20px;
+  --badge-digits-core-width-3: 28px;
+}
+
+/* Figma: text - core — центр по обеим осям */
+.badge-text__core,
+.badge-digits__core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  box-sizing: border-box;
+}
+
+.badge-text__label,
+.badge-digits__label {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
 }

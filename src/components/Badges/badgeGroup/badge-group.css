@@ -1,0 +1,12 @@
+.badge-group {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+  width: fit-content;
+}
+
+/* Figma badgeGroup: 97×20 (digits=2 → min 32), 101×20 (digits=3 → 36) */
+.badge-group > .badge-text,
+.badge-group > .badge-digits {
+  flex-shrink: 0;
+}

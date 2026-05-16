@@ -12,3 +12,8 @@ export {
   type BadgeDigitsType,
   type BadgeDigitsCharacters,
 } from './digits/BadgeDigits';
+export {
+  BadgeGroup,
+  type BadgeGroupProps,
+  type BadgeGroupDigits,
+} from './badgeGroup/BadgeGroup';

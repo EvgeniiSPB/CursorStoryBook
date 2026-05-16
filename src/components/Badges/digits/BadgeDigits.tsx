@@ -3,6 +3,7 @@ import './badge-digits.css';
 
 export type BadgeDigitsType = 'outlined' | 'outlinedConstantInverted' | 'tonned';
 
+/** Figma characters: 1-2 (digits=2, min-width 32px) | 3 (digits=3, min-width 36px) */
 export type BadgeDigitsCharacters = '1-2' | '3';
 
 const defaultLabel: Record<BadgeDigitsCharacters, string> = {
@@ -42,7 +43,9 @@ export function BadgeDigits({
 
   return (
     <span className={classes} {...props}>
-      <span className="badge-digits__label badge-label-base">{label}</span>
+      <span className="badge-digits__core">
+        <span className="badge-digits__label badge-label-base">{label}</span>
+      </span>
     </span>
   );
 }

@@ -29,7 +29,9 @@ export function BadgeText({
   return (
     <span className={classes} {...props}>
       {icon ? <BadgeTextIcon type={type} /> : null}
-      <span className="badge-text__label badge-label-base">{children}</span>
+      <span className="badge-text__core">
+        <span className="badge-text__label badge-label-base">{children}</span>
+      </span>
     </span>
   );
 }
