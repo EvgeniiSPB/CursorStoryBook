@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { TagGroup, type TagGroupProps } from './TagGroup';
+import { TagGroup } from './TagGroup';
 import type { TagState, TagType } from './Tag';
 
 const variants: TagType[] = ['brand', 'brandConstantInverted'];
@@ -65,9 +65,4 @@ export const AllVariants: Story = {
       </div>
     </div>
   ),
-};
-
-export const Interactive: Story = {
-  name: 'Interactive (hover each tag)',
-  render: (args: TagGroupProps) => <TagGroup {...args} />,
 };
