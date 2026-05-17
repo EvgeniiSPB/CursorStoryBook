@@ -1,0 +1,99 @@
+@import '../Badges/badges-shared.css';
+
+.tab-feature-digit {
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-normal, rgba(255, 255, 255, 0.2));
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: calc(var(--radii-static-800, 32) * 1px);
+  background: transparent;
+  cursor: pointer;
+  color: var(--tab-feature-digit-text, #ffffff);
+}
+
+.tab-feature-digit__ring,
+.tab-feature-digit__progress {
+  position: absolute;
+  inset: 1.39%;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+
+.tab-feature-digit__progress {
+  display: none;
+}
+
+.tab-feature-digit__label {
+  position: relative;
+  z-index: 1;
+  color: var(--tab-feature-digit-text, #ffffff);
+}
+
+.tab-feature-digit__ring circle,
+.tab-feature-digit__progress path {
+  vector-effect: non-scaling-stroke;
+}
+
+.tab-feature-digit__ring circle {
+  stroke: var(--tab-feature-digit-ring-stroke);
+  stroke-width: 1;
+}
+
+.tab-feature-digit__progress path {
+  stroke: var(--tab-feature-digit-border-active, #ffffff);
+  stroke-width: 1;
+}
+
+.tab-feature-digit:hover:not(.tab-feature-digit--state-hover):not(.tab-feature-digit--state-click):not(
+    .tab-feature-digit--state-active
+  ):not(.tab-feature-digit--active) {
+  background-color: var(--tab-feature-digit-body-hover, rgba(255, 255, 255, 0.08));
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-hover, rgba(255, 255, 255, 0.24));
+}
+
+.tab-feature-digit:active:not(.tab-feature-digit--state-hover):not(.tab-feature-digit--state-click):not(
+    .tab-feature-digit--state-active
+  ):not(.tab-feature-digit--active) {
+  background-color: var(--tab-feature-digit-body-click, rgba(255, 255, 255, 0.12));
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-click, rgba(255, 255, 255, 0.28));
+}
+
+.tab-feature-digit--state-hover,
+.tab-feature-digit--state-hover:hover,
+.tab-feature-digit--state-hover:active {
+  background-color: var(--tab-feature-digit-body-hover, rgba(255, 255, 255, 0.08));
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-hover, rgba(255, 255, 255, 0.24));
+}
+
+.tab-feature-digit--state-click,
+.tab-feature-digit--state-click:hover,
+.tab-feature-digit--state-click:active {
+  background-color: var(--tab-feature-digit-body-click, rgba(255, 255, 255, 0.12));
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-click, rgba(255, 255, 255, 0.28));
+}
+
+.tab-feature-digit--state-active,
+.tab-feature-digit--active {
+  --tab-feature-digit-ring-stroke: var(--tab-feature-digit-border-normal, rgba(255, 255, 255, 0.2));
+}
+
+.tab-feature-digit--state-active .tab-feature-digit__progress,
+.tab-feature-digit--active .tab-feature-digit__progress {
+  display: block;
+}
+
+.tab-feature-digit--state-hover,
+.tab-feature-digit--state-click,
+.tab-feature-digit--state-active {
+  pointer-events: none;
+  cursor: default;
+}
