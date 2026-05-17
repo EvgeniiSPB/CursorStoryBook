@@ -1,0 +1,126 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: max-content;
+  height: calc(var(--line-heights-body-m, 20) * 1px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+}
+
+.tag__core {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tag__label {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-size: calc(var(--font-sizes-body-m, 16) * 1px);
+  line-height: calc(var(--line-heights-body-m, 20) * 1px);
+  white-space: nowrap;
+}
+
+.tag--topic-1st-lvl .tag__label {
+  font-weight: 500;
+}
+
+.tag--topic-2nd-lvl .tag__label {
+  font-weight: 400;
+}
+
+/* brand */
+.tag--brand .tag__label {
+  color: var(--tag-brand-text-normal, #a30f33);
+}
+
+.tag--brand:hover:not(.tag--state-hover):not(.tag--state-click) .tag__label {
+  color: var(--tag-brand-text-hover, #93002b);
+}
+
+.tag--brand:active:not(.tag--state-hover):not(.tag--state-click) .tag__label {
+  color: var(--tag-brand-text-click, #800024);
+}
+
+.tag--brand.tag--state-hover .tag__label,
+.tag--brand.tag--state-hover:hover .tag__label,
+.tag--brand.tag--state-hover:active .tag__label {
+  color: var(--tag-brand-text-hover, #93002b);
+}
+
+.tag--brand.tag--state-click .tag__label,
+.tag--brand.tag--state-click:hover .tag__label,
+.tag--brand.tag--state-click:active .tag__label {
+  color: var(--tag-brand-text-click, #800024);
+}
+
+.tag--state-hover,
+.tag--state-click {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* brandConstantInverted */
+.tag--brand-constant-inverted .tag__label {
+  color: var(--tag-brand-constant-inverted-text-normal, #ebcd00);
+}
+
+.tag--brand-constant-inverted:hover:not(.tag--state-hover):not(.tag--state-click)
+  .tag__label {
+  color: var(--tag-brand-constant-inverted-text-hover, #fcde32);
+}
+
+.tag--brand-constant-inverted:active:not(.tag--state-hover):not(.tag--state-click)
+  .tag__label {
+  color: var(--tag-brand-constant-inverted-text-click, #b29b00);
+}
+
+.tag--brand-constant-inverted.tag--state-hover .tag__label,
+.tag--brand-constant-inverted.tag--state-hover:hover .tag__label,
+.tag--brand-constant-inverted.tag--state-hover:active .tag__label {
+  color: var(--tag-brand-constant-inverted-text-hover, #fcde32);
+}
+
+.tag--brand-constant-inverted.tag--state-click .tag__label,
+.tag--brand-constant-inverted.tag--state-click:hover .tag__label,
+.tag--brand-constant-inverted.tag--state-click:active .tag__label {
+  color: var(--tag-brand-constant-inverted-text-click, #b29b00);
+}
+
+/* All variants: строки hover/click — без живого hover на соседних тегах */
+.tag-showcase__row--static .tag {
+  pointer-events: none;
+  cursor: default;
+}
+
+.tag-showcase-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50vh;
+  box-sizing: border-box;
+}
+
+/* Figma 4119:488 — 4 колонки, gap 32px (static/800) по X и Y */
+.tag-showcase--figma {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: calc(var(--spaces-static-800, 32) * 1px);
+}
+
+.tag-showcase--figma .tag-showcase__column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--spaces-static-800, 32) * 1px);
+}
