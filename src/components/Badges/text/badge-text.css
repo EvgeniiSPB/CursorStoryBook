@@ -27,16 +27,6 @@
 }
 
 .badge-text__icon {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-}
-
-.badge-text__icon-svg {
-  display: block;
   width: 16px;
   height: 16px;
 }

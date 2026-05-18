@@ -1,0 +1,43 @@
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-primary);
+}
+
+.icon--20 {
+  width: calc(var(--x-base-500, 20) * 1px);
+  height: calc(var(--x-base-500, 20) * 1px);
+}
+
+.icon--28 {
+  width: calc(var(--x-base-700, 28) * 1px);
+  height: calc(var(--x-base-700, 28) * 1px);
+}
+
+.icon__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Figma icon20: 20px container → 12×12 viewbox → shape inset */
+.icon--inset .icon__viewbox {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
+.icon--inset .icon__shape {
+  position: absolute;
+  top: 16.25%;
+  right: 9.7%;
+  bottom: 16.25%;
+  left: 11%;
+}
+
+.icon--inset .icon__shape .icon__svg {
+  width: 100%;
+  height: 100%;
+}
