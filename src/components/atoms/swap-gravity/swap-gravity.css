@@ -1,0 +1,15 @@
+.swap-gravity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.swap-gravity__bound {
+  width: calc(var(--swap-gravity-size) * 1px);
+  height: calc(var(--swap-gravity-size) * 1px);
+  flex-shrink: 0;
+  background: var(--meta-body, var(--primary-12, rgba(52, 55, 60, 0.12)));
+  border: 1px dashed var(--meta-border, var(--primary-40, rgba(52, 55, 60, 0.4)));
+  box-sizing: border-box;
+}

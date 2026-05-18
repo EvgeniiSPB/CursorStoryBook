@@ -1,0 +1,15 @@
+.swap-static {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.swap-static__bound {
+  width: calc(var(--swap-static-size) * 1px);
+  height: calc(var(--swap-static-size) * 1px);
+  flex-shrink: 0;
+  background: var(--brand-constant-12, rgba(163, 15, 51, 0.12));
+  border: 1px dashed var(--brand-constant-40, rgba(163, 15, 51, 0.4));
+  box-sizing: border-box;
+}

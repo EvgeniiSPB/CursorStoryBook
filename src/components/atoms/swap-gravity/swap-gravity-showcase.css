@@ -1,0 +1,19 @@
+.swap-gravity-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+}
+
+/* Figma !swap - gravity: vertical stack, 32px gap between variants */
+.swap-gravity-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: calc(var(--x-base-800, 32) * 1px);
+  padding-top: calc(var(--x-base-1000, 40) * 1px);
+  box-sizing: border-box;
+}
