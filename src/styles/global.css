@@ -1,4 +1,7 @@
 @import './generated/tokens.css';
+@import './generated/typography-modes/index.css';
+@import './generated/line-height-modes/index.css';
+@import './generated/text-styles/index.css';
 @import './generated/segments/index.css';
 
 @font-face {
@@ -11,7 +14,7 @@
 }
 
 :root {
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-family: var(--font-families-body, 'Oceanic Text'), system-ui, sans-serif;
   font-size: var(--font-sizes-body-m, 16px);
   line-height: var(--line-heights-body-m, 1.5);
   color: var(--text-primary, var(--primary-primary));

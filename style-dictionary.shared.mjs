@@ -50,10 +50,13 @@ export function setupStyleDictionary() {
   return StyleDictionary;
 }
 
+/** Default typography mode in Figma (`03 - typography` → Oceanic Text) */
+export const defaultTypographyModeFile = '03 - typography/Oceanic Text.tokens.json';
+
 export const baseTokenSources = [
   '00 - xBase/4 px.tokens.json',
   '02 - lineHeights/tight.tokens.json',
-  '03 - typography/Oceanic Grotesk.tokens.json',
+  defaultTypographyModeFile,
   '04 - paragraphIndent/false.tokens.json',
   '06 - semantic/light.tokens.json',
   'Mode 1.tokens.json',
@@ -63,7 +66,20 @@ export const baseTokenSources = [
 
 export const segmentDir = '07 - segment';
 
-/** Slug for data-segment / CSS file name (e.g. "vivid violet" → "vivid-violet") */
+/** Figma variable modes for font family collection (`03 - typography`) */
+export const typographyDir = '03 - typography';
+
+export const defaultFontModeSlug = 'oceanic-text';
+
+/** Figma variable modes for line height collection (`02 - lineHeights`) */
+export const lineHeightsDir = '02 - lineHeights';
+
+export const defaultLineHeightModeSlug = 'tight';
+
+/** Figma `text - paragraph` (171:839) uses line-heights mode wide */
+export const textParagraphLineHeightModeSlug = 'wide';
+
+/** Slug for data-segment / data-font-mode (e.g. "Oceanic Text" → "oceanic-text") */
 export function segmentNameToSlug(name) {
   return name.trim().toLowerCase().replace(/\s+/g, '-');
 }

@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import { TextCore } from './TextCore';
 import {
+  TEXT_CORE_FIGMA_FONT_FAMILIES,
   TEXT_CORE_LARGEST_BOUND_HEIGHT_PX,
   TEXT_CORE_LARGEST_BOUND_WIDTH_PX,
   TEXT_CORE_PLAYGROUND_PADDING_PX,
@@ -52,6 +53,11 @@ const meta = {
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component: `Figma \`text - core\` (24:330): body → **${TEXT_CORE_FIGMA_FONT_FAMILIES.body}**, special → **${TEXT_CORE_FIGMA_FONT_FAMILIES.special}**. Showcase фиксирует эти семейства поверх глобального Font.`,
+      },
+    },
   },
   argTypes: {
     typography: {

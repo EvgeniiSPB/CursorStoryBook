@@ -1,0 +1,64 @@
+.text-headline-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+  /*
+   * Figma 38:423 — fontFamilies/headline = Oceanic Text (mode: oceanic-text)
+   */
+  --font-families-headline: Oceanic Text;
+}
+
+.text-headline-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `text - headline` (38:423): 321px wide, 64px vertical inset */
+.text-headline-showcase-section--board {
+  width: 321px;
+  max-width: 100%;
+  padding: calc(var(--x-base-1600, 64) * 1px) 0;
+}
+
+/* Playground — fixed size = largest bound + 128px padding */
+.text-headline-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--text-headline-playground-padding, 128px);
+  width: calc(
+    var(--text-headline-playground-bound-w, 193px) +
+      2 * var(--text-headline-playground-padding, 128px)
+  );
+  height: calc(
+    var(--text-headline-playground-bound-h, 48px) +
+      2 * var(--text-headline-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.text-headline-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.text-headline-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: calc(var(--x-base-800, 32) * 1px);
+  box-sizing: border-box;
+}

@@ -1,9 +1,6 @@
 import type { HTMLAttributes } from 'react';
-import {
-  textCoreTypographyToClassSuffix,
-  type TextCoreFontWeight,
-  type TextCoreTypography,
-} from './types';
+import { atomTypographyToTextStyleClass } from '../../../tokens/text-styles';
+import { type TextCoreFontWeight, type TextCoreTypography } from './types';
 import './text-core.css';
 
 export interface TextCoreProps extends HTMLAttributes<HTMLParagraphElement> {
@@ -20,12 +17,12 @@ export function TextCore({
   ...props
 }: TextCoreProps) {
   const resolvedWeight = typography === 'special' ? 'medium' : fontWeight;
-  const typographySuffix = textCoreTypographyToClassSuffix(typography);
+  const role = typography === 'special' ? 'special' : 'body';
 
   const classes = [
     'text-core',
-    `text-core--${typographySuffix}`,
-    `text-core--${resolvedWeight}`,
+    atomTypographyToTextStyleClass(role, typography, resolvedWeight),
+    typography === 'special' ? '' : 'text-core--body',
     className,
   ]
     .filter(Boolean)

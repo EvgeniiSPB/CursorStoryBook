@@ -15,55 +15,11 @@
   word-break: break-word;
 }
 
-.text-core--special {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: calc(var(--font-sizes-special-one-size, 11) * 1px);
-  line-height: calc(var(--line-heights-special-one-size, 12) * 1px);
-  letter-spacing: 0.88px;
-  text-transform: uppercase;
-}
-
-.text-core--body-xs {
+/* Figma 24:330 — body → Grotesk, special → JetBrains Mono */
+.text-core--body {
   font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-xs, 12) * 1px);
-  line-height: calc(var(--line-heights-body-xs, 16) * 1px);
 }
 
-.text-core--body-s {
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-s, 14) * 1px);
-  line-height: calc(var(--line-heights-body-s, 16) * 1px);
-}
-
-.text-core--body-m {
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-m, 16) * 1px);
-  line-height: calc(var(--line-heights-body-m, 20) * 1px);
-}
-
-.text-core--body-l {
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-l, 18) * 1px);
-  line-height: calc(var(--line-heights-body-l, 20) * 1px);
-}
-
-.text-core--body-xl {
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-xl, 24) * 1px);
-  line-height: calc(var(--line-heights-body-xl, 28) * 1px);
-  letter-spacing: 0;
-}
-
-.text-core--body-xl.text-core--medium {
-  letter-spacing: -0.24px;
-}
-
-.text-core--regular {
-  font-weight: 400;
-  font-style: normal;
-}
-
-.text-core--medium {
-  font-weight: 500;
-  font-style: normal;
+.text-core.text-style--special-one-size-medium {
+  font-family: var(--font-families-special, 'JetBrains Mono'), ui-monospace, monospace;
 }

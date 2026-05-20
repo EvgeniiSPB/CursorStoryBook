@@ -1,0 +1,35 @@
+.text-paragraph__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.text-paragraph__frame--t-padding {
+  padding-top: calc(var(--text-paragraph-frame-padding) * 1px);
+}
+
+.text-paragraph__frame--b-padding {
+  padding-bottom: calc(var(--text-paragraph-frame-padding) * 1px);
+}
+
+.text-paragraph {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-primary, var(--primary-primary, #34373c));
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+/* Figma 171:839 — fontFamilies/body по weight; не --font-families-body (Font toolbar) */
+.text-paragraph--regular {
+  font-family: var(--text-paragraph-font-family-regular, 'Oceanic Text'), system-ui,
+    sans-serif;
+}
+
+.text-paragraph--medium {
+  font-family: var(--text-paragraph-font-family-medium, 'Oceanic Grotesk'), system-ui,
+    sans-serif;
+}

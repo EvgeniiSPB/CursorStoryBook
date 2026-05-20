@@ -23,7 +23,7 @@
 .tag__label {
   margin: 0;
   padding: 0;
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-family: var(--font-families-body, 'Oceanic Text'), system-ui, sans-serif;
   font-size: calc(var(--font-sizes-body-m, 16) * 1px);
   line-height: calc(var(--line-heights-body-m, 20) * 1px);
   white-space: nowrap;

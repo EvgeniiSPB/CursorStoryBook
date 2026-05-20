@@ -8,6 +8,16 @@ export type TextCoreTypography =
 
 export type TextCoreFontWeight = 'regular' | 'medium';
 
+/**
+ * Figma `text - core` (24:330) — composite font bindings (not a single typography mode).
+ * - bodyXS…bodyXL → fontFamilies/body = Oceanic Grotesk
+ * - special → fontFamilies/special = JetBrains Mono
+ */
+export const TEXT_CORE_FIGMA_FONT_FAMILIES = {
+  body: 'Oceanic Grotesk',
+  special: 'JetBrains Mono',
+} as const;
+
 export type TextCoreVariant = {
   typography: TextCoreTypography;
   fontWeight: TextCoreFontWeight;

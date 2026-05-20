@@ -7,6 +7,12 @@
   min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
   box-sizing: border-box;
   background-color: #1e1e1e;
+  /*
+   * Figma 24:330 — overrides global Font toolbar to match component bindings:
+   * body → Oceanic Grotesk, special → JetBrains Mono
+   */
+  --font-families-body: Oceanic Grotesk;
+  --font-families-special: JetBrains Mono;
 }
 
 /* Figma frame `text - core` (24:330): fill background0/primary, radii/static/200 */

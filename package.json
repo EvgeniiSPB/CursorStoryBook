@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Design tokens and React component library from Figma",
   "scripts": {
-    "tokens:build": "style-dictionary build --config style-dictionary.config.mjs && node scripts/build-segments.mjs",
+    "tokens:build": "style-dictionary build --config style-dictionary.config.mjs && node scripts/build-typography-modes.mjs && node scripts/build-line-height-modes.mjs && node scripts/build-text-styles.mjs && node scripts/build-segments.mjs",
     "icons:import": "node scripts/import-figma-icons.mjs",
     "dev": "vite",
     "build": "npm run tokens:build && vite build",

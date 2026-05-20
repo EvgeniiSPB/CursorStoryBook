@@ -1,8 +1,23 @@
 import type { Preview } from '@storybook/react-vite';
+import { DEFAULT_FONT_MODE_SLUG, FONT_MODE_OPTIONS } from '../src/tokens/font-mode-options';
+import {
+  DEFAULT_LINE_HEIGHT_MODE_SLUG,
+  LINE_HEIGHT_MODE_OPTIONS,
+} from '../src/tokens/line-height-mode-options';
 import { SEGMENT_OPTIONS } from '../src/tokens/segment-options';
 import '../src/styles/global.css';
 
 const segmentToolbarItems = SEGMENT_OPTIONS.map(({ slug, title }) => ({
+  value: slug,
+  title: title.charAt(0).toUpperCase() + title.slice(1),
+}));
+
+const fontModeToolbarItems = FONT_MODE_OPTIONS.map(({ slug, title }) => ({
+  value: slug,
+  title,
+}));
+
+const lineHeightModeToolbarItems = LINE_HEIGHT_MODE_OPTIONS.map(({ slug, title }) => ({
   value: slug,
   title: title.charAt(0).toUpperCase() + title.slice(1),
 }));
@@ -30,16 +45,38 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    fontMode: {
+      description: `Семейство шрифтов (${FONT_MODE_OPTIONS.length} modes из 03 - typography)`,
+      toolbar: {
+        title: 'Font',
+        icon: 'paragraph',
+        items: fontModeToolbarItems,
+        dynamicTitle: true,
+      },
+    },
+    lineHeightMode: {
+      description: `Межстрочный интервал (${LINE_HEIGHT_MODE_OPTIONS.length} modes из 02 - lineHeights)`,
+      toolbar: {
+        title: 'Line height',
+        icon: 'grow',
+        items: lineHeightModeToolbarItems,
+        dynamicTitle: true,
+      },
+    },
   },
   initialGlobals: {
     theme: 'light',
     segment: 'crimson',
+    fontMode: DEFAULT_FONT_MODE_SLUG,
+    lineHeightMode: DEFAULT_LINE_HEIGHT_MODE_SLUG,
   },
   decorators: [
     (Story, { globals }) => (
       <div
         data-theme={globals.theme}
         data-segment={globals.segment}
+        data-font-mode={globals.fontMode}
+        data-line-height-mode={globals.lineHeightMode}
         style={{
           minHeight: '100vh',
           padding: 'var(--spaces-static-400, 16px)',
