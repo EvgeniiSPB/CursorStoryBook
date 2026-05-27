@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap');
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--avatar-size) * 1px);
+  height: calc(var(--avatar-size) * 1px);
+  border-radius: calc(var(--radii-static-x20, var(--x-base-2000, 80)) * 1px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Figma image variant (213:658): circular clip, fill + crop */
+.avatar--image {
+  display: block;
+}
+
+.avatar--initials {
+  align-items: center;
+  justify-content: center;
+  background-color: var(--brand-constant-primary, #a30f33);
+}
+
+.avatar__bound {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Figma Bound: flex-col, items-center, justify-center */
+.avatar__bound--initials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Figma fill + crop (213:658): cover, anchored to top edge */
+.avatar__image {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Figma `text - core` inside initials — white constantPrimary */
+.avatar--initials .text-core__frame {
+  display: flex;
+  align-items: center;
+  height: calc(var(--line-heights-special-one-size, 12) * 1px);
+}
+
+.avatar--initials .avatar__initials.text-core {
+  color: var(--text-constant-primary, #ffffff);
+  font-family: var(--font-families-special, 'JetBrains Mono'), ui-monospace, monospace;
+  /* Tight metrics: line box = 12px, vertically centered in bound (Figma leading 12) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--line-heights-special-one-size, 12) * 1px);
+  line-height: calc(var(--line-heights-special-one-size, 12) * 1px);
+}

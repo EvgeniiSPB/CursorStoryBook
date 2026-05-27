@@ -1,0 +1,65 @@
+.avatar-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.avatar-showcase-canvas[data-font-mode='jetbrains-mono'] {
+  --font-families-special: JetBrains Mono;
+}
+
+.avatar-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `avatar` (213:659): 480px wide */
+.avatar-showcase-section--board {
+  width: 480px;
+  max-width: 100%;
+  padding: calc(var(--x-base-1600, 64) * 1px) calc(var(--x-base-1600, 64) * 1px);
+}
+
+.avatar-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--avatar-playground-padding, 128px);
+  width: calc(
+    var(--avatar-playground-bound-size, 36px) + 2 * var(--avatar-playground-padding, 128px)
+  );
+  height: calc(
+    var(--avatar-playground-bound-size, 36px) + 2 * var(--avatar-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.avatar-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.avatar-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--x-base-800, 32) * 1px) calc(var(--x-base-1400, 56) * 1px);
+  box-sizing: border-box;
+}
+
+.avatar-showcase-row {
+  display: contents;
+}

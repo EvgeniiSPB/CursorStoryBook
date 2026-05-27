@@ -1,0 +1,20 @@
+export { Avatar, type AvatarProps } from './Avatar';
+export {
+  AVATAR_BOARD_WIDTH_PX,
+  AVATAR_DEFAULT_INITIALS,
+  AVATAR_FIGMA_FONT_MODE_SLUG,
+  AVATAR_FIGMA_NODE_ID,
+  AVATAR_FIGMA_SAMPLE_IMAGE_HASH,
+  AVATAR_FIGMA_SAMPLE_IMAGE_URL,
+  AVATAR_FIGMA_SPECIAL_FONT_FAMILY,
+  AVATAR_LARGEST_BOUND_SIZE_PX,
+  AVATAR_PLAYGROUND_PADDING_PX,
+  AVATAR_PLAYGROUND_SECTION_SIZE_PX,
+  AVATAR_VARIANTS,
+  avatarImageSizeToCssVar,
+  avatarImageSizeToPx,
+  avatarVariantKey,
+  type AvatarImageSize,
+  type AvatarType,
+  type AvatarVariant,
+} from './types';
