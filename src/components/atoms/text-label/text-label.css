@@ -1,0 +1,25 @@
+.text-label__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.text-label__frame--t-padding {
+  padding-top: calc(var(--text-label-frame-padding) * 1px);
+}
+
+.text-label__frame--b-padding {
+  padding-bottom: calc(var(--text-label-frame-padding) * 1px);
+}
+
+.text-label {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-label-color, var(--primary-50, rgba(52, 55, 60, 0.5)));
+  white-space: nowrap;
+  word-break: break-word;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+}

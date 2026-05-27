@@ -1,0 +1,64 @@
+.text-description-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+/* Figma 158:732 — body → Oceanic Grotesk; line-height mode tight (default) */
+.text-description-showcase-canvas[data-font-mode='oceanic-grotesk'] {
+  --font-families-body: Oceanic Grotesk;
+}
+
+.text-description-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `text - description` (158:732): 257px wide, 64px vertical inset */
+.text-description-showcase-section--board {
+  width: 257px;
+  max-width: 100%;
+  padding: calc(var(--x-base-1600, 64) * 1px) 0;
+}
+
+.text-description-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--text-description-playground-padding, 128px);
+  width: calc(
+    var(--text-description-playground-bound-w, 129px) +
+      2 * var(--text-description-playground-padding, 128px)
+  );
+  height: calc(
+    var(--text-description-playground-bound-h, 28px) +
+      2 * var(--text-description-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.text-description-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.text-description-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: calc(var(--x-base-800, 32) * 1px);
+  box-sizing: border-box;
+}

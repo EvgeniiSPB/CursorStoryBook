@@ -1,0 +1,25 @@
+.text-warning__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.text-warning__frame--t-padding {
+  padding-top: calc(var(--text-warning-frame-padding) * 1px);
+}
+
+.text-warning__frame--b-padding {
+  padding-bottom: calc(var(--text-warning-frame-padding) * 1px);
+}
+
+.text-warning {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-warning-color, var(--error-primary, #a70025));
+  white-space: nowrap;
+  word-break: break-word;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+}

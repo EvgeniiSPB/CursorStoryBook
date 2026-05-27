@@ -35,7 +35,8 @@ const TEXT_STYLE_CONFIG = [
     fontSizeFallback: { xs: 12, s: 14, m: 16, l: 18, xl: 24 },
     lineHeightFallback: { xs: 16, s: 16, m: 20, l: 20, xl: 28 },
     exceptions: {
-      'xl-medium': { letterSpacing: { kind: 'px', value: -0.24 } },
+      'xl-regular': { kind: 'percent', value: -1 },
+      'xl-medium': { kind: 'percent', value: -1 },
     },
   },
   {

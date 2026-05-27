@@ -1,0 +1,25 @@
+.text-description__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.text-description__frame--t-padding {
+  padding-top: calc(var(--text-description-frame-padding) * 1px);
+}
+
+.text-description__frame--b-padding {
+  padding-bottom: calc(var(--text-description-frame-padding) * 1px);
+}
+
+.text-description {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-primary, var(--primary-primary, #34373c));
+  white-space: nowrap;
+  word-break: break-word;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+}
