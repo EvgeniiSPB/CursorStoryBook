@@ -1,0 +1,107 @@
+.image-container-fixed-aspect-ratio {
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  width: calc(var(--image-container-fixed-aspect-ratio-width, 64) * 1px);
+  aspect-ratio: var(--image-container-fixed-aspect-ratio-ratio, 1 / 1);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.image-container-fixed-aspect-ratio__layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.image-container-fixed-aspect-ratio__spacer-stack-item {
+  width: 100%;
+}
+
+.image-container-fixed-aspect-ratio__spacer-row {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.image-container-fixed-aspect-ratio__spacer-cell {
+  flex: 1 1 0;
+  min-width: 1px;
+  width: auto;
+}
+
+.image-container-fixed-aspect-ratio__spacer-columns {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.image-container-fixed-aspect-ratio__spacer-column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 1px;
+}
+
+.image-container-fixed-aspect-ratio__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.image-container-fixed-aspect-ratio__guide {
+  position: absolute;
+  flex-shrink: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.image-container-fixed-aspect-ratio--landscape .image-container-fixed-aspect-ratio__guide--left,
+.image-container-fixed-aspect-ratio--landscape .image-container-fixed-aspect-ratio__guide--right {
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed var(--meta-border, var(--brand-constant-40, rgba(163, 15, 51, 0.4)));
+  z-index: 2;
+}
+
+.image-container-fixed-aspect-ratio--landscape
+  .image-container-fixed-aspect-ratio__guide--left {
+  left: 0;
+}
+
+.image-container-fixed-aspect-ratio--landscape
+  .image-container-fixed-aspect-ratio__guide--right {
+  right: 0;
+  z-index: 1;
+}
+
+.image-container-fixed-aspect-ratio--portrait .image-container-fixed-aspect-ratio__guide--top,
+.image-container-fixed-aspect-ratio--portrait
+  .image-container-fixed-aspect-ratio__guide--bottom {
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed var(--meta-border, var(--brand-constant-40, rgba(163, 15, 51, 0.4)));
+}
+
+.image-container-fixed-aspect-ratio--portrait .image-container-fixed-aspect-ratio__guide--top {
+  top: 0;
+  z-index: 2;
+}
+
+.image-container-fixed-aspect-ratio--portrait
+  .image-container-fixed-aspect-ratio__guide--bottom {
+  bottom: 0;
+  z-index: 1;
+}

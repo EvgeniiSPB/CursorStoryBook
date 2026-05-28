@@ -1,0 +1,19 @@
+.divider-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--divider-horizontal-width, 156) * 1px);
+  box-sizing: border-box;
+}
+
+/* Figma divider (225:36): 1px stroke divider/base, full width of bound */
+.divider-horizontal__line {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 0;
+  border-top: 1px solid var(--divider-base, rgba(52, 55, 60, 0.12));
+  box-sizing: border-box;
+}

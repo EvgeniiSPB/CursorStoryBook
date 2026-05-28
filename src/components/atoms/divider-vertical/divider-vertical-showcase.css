@@ -1,0 +1,57 @@
+.divider-vertical-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.divider-vertical-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `divider - vertical` (225:35): 256×324, 128px inset */
+.divider-vertical-showcase-section--board {
+  width: 256px;
+  max-width: 100%;
+  padding: calc(var(--x-base-3200, 128) * 1px) calc(var(--x-base-3200, 128) * 1px);
+}
+
+.divider-vertical-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--divider-vertical-playground-padding, 128px);
+  width: calc(
+    var(--divider-vertical-playground-bound-width, 1px) +
+      2 * var(--divider-vertical-playground-padding, 128px)
+  );
+  height: calc(
+    var(--divider-vertical-playground-bound-height, 68px) +
+      2 * var(--divider-vertical-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.divider-vertical-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.divider-vertical-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}

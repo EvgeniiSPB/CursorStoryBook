@@ -1,0 +1,63 @@
+.image-container {
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  width: calc(var(--image-container-size, 160) * 1px);
+  height: calc(var(--image-container-size, 160) * 1px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.image-container__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Crop guides — meta / brand constant dashed stroke */
+.image-container__guide {
+  position: absolute;
+  flex-shrink: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.image-container--landscape .image-container__guide--left,
+.image-container--landscape .image-container__guide--right {
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed var(--meta-border, var(--brand-constant-40, rgba(163, 15, 51, 0.4)));
+  z-index: 2;
+}
+
+.image-container--landscape .image-container__guide--left {
+  left: 0;
+}
+
+.image-container--landscape .image-container__guide--right {
+  right: 0;
+  z-index: 1;
+}
+
+.image-container--portrait .image-container__guide--top,
+.image-container--portrait .image-container__guide--bottom {
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed var(--meta-border, var(--brand-constant-40, rgba(163, 15, 51, 0.4)));
+}
+
+.image-container--portrait .image-container__guide--top {
+  top: 0;
+  z-index: 2;
+}
+
+.image-container--portrait .image-container__guide--bottom {
+  bottom: 0;
+  z-index: 1;
+}

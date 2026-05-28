@@ -1,0 +1,71 @@
+.image-fixed-aspect-ratio-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.image-fixed-aspect-ratio-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+.image-fixed-aspect-ratio-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.image-fixed-aspect-ratio-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.image-fixed-aspect-ratio-showcase-section--board {
+  max-width: 100%;
+  padding: calc(var(--x-base-3200, 128) * 1px);
+}
+
+.image-fixed-aspect-ratio-showcase-section--board-container {
+  width: 704px;
+}
+
+.image-fixed-aspect-ratio-showcase-block {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--x-base-800, 32) * 1px);
+}
+
+.image-fixed-aspect-ratio-showcase-block__title {
+  margin: 0;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-size: calc(var(--font-sizes-body-s, 14) * 1px);
+  line-height: 1.4;
+  color: var(--text-secondary, #5c6166);
+}
+
+/* Figma 246:4103 — 4×2 grid, 64px column gap */
+.image-container-fixed-aspect-ratio-showcase {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--x-base-1600, 64) * 1px);
+  box-sizing: border-box;
+}
+
+.image-container-fixed-aspect-ratio-showcase__row {
+  display: contents;
+}

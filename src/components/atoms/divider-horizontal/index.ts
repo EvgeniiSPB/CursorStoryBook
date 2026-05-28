@@ -1,0 +1,15 @@
+export { DividerHorizontal, type DividerHorizontalProps } from './DividerHorizontal';
+export {
+  DIVIDER_HORIZONTAL_BOARD_WIDTH_PX,
+  DIVIDER_HORIZONTAL_FIGMA_NODE_ID,
+  DIVIDER_HORIZONTAL_LARGEST_BOUND_WIDTH_PX,
+  DIVIDER_HORIZONTAL_PLAYGROUND_PADDING_PX,
+  DIVIDER_HORIZONTAL_PLAYGROUND_SECTION_HEIGHT_PX,
+  DIVIDER_HORIZONTAL_PLAYGROUND_SECTION_WIDTH_PX,
+  DIVIDER_HORIZONTAL_THIN_WIDTH_PX,
+  DIVIDER_HORIZONTAL_VARIANTS,
+  dividerHorizontalTypeToWidthPx,
+  dividerHorizontalVariantKey,
+  type DividerHorizontalType,
+  type DividerHorizontalVariant,
+} from './types';

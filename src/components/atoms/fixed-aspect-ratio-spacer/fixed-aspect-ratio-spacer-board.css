@@ -1,0 +1,37 @@
+@import '../image-container/image-container-showcase.css';
+
+/* Figma board — same shell as `image - container` (243:57) */
+.fixed-aspect-ratio-spacer-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Preview bound = spacer symbol 64×32 (245:62) */
+.fixed-aspect-ratio-spacer-board__preview {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--fixed-aspect-ratio-spacer-width, 64) * 1px);
+  height: calc(var(--fixed-aspect-ratio-spacer-height, 32) * 1px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Same placeholder fill as ImageContainer (243:57) */
+.fixed-aspect-ratio-spacer-board__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: top;
+  pointer-events: none;
+}
+
+.fixed-aspect-ratio-spacer-board__spacer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}

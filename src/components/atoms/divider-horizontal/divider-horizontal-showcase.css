@@ -1,0 +1,57 @@
+.divider-horizontal-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.divider-horizontal-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `divider - horizontal` (225:44): 412×256, 128px inset */
+.divider-horizontal-showcase-section--board {
+  width: 412px;
+  max-width: 100%;
+  padding: calc(var(--x-base-3200, 128) * 1px) calc(var(--x-base-3200, 128) * 1px);
+}
+
+.divider-horizontal-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--divider-horizontal-playground-padding, 128px);
+  width: calc(
+    var(--divider-horizontal-playground-bound-width, 156px) +
+      2 * var(--divider-horizontal-playground-padding, 128px)
+  );
+  height: calc(
+    var(--divider-horizontal-playground-bound-height, 1px) +
+      2 * var(--divider-horizontal-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.divider-horizontal-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.divider-horizontal-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
