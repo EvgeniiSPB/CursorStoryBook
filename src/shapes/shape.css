@@ -1,0 +1,57 @@
+.shape {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: calc(var(--shape-size, 64) * 1px);
+  height: calc(var(--shape-size, 64) * 1px);
+  border-radius: 0;
+  background-color: var(--shape-fill, transparent);
+  box-shadow: var(--shape-shadow, none);
+  overflow: clip;
+}
+
+/* Static Figma boards */
+.shape--state-normal {
+  /* tokens applied via inline --shape-fill / --shape-shadow */
+}
+
+/* Interactive mode: re-apply surfaces on pseudo-states via custom properties set in modifiers */
+.shape--interactive.shape--type-filled.shape--color-primary:hover {
+  --shape-fill: var(--primary-secondary, #2a2d32);
+}
+
+.shape--interactive.shape--type-filled.shape--color-primary:active {
+  --shape-fill: var(--primary-tertiary, #0f1216);
+}
+
+.shape--interactive.shape--type-outlined.shape--color-primary:hover {
+  --shape-shadow: inset 0 0 0 1px var(--primary-24, rgba(52, 55, 60, 0.24));
+}
+
+.shape--interactive.shape--type-outlined.shape--color-primary:active {
+  --shape-shadow: inset 0 0 0 1px var(--primary-28, rgba(52, 55, 60, 0.28));
+}
+
+.shape--interactive.shape--type-tonned[data-figma-theme='light']:hover {
+  --shape-fill: var(--segment-12, rgba(47, 94, 116, 0.12));
+}
+
+.shape--interactive.shape--type-tonned[data-figma-theme='light']:active {
+  --shape-fill: var(--segment-16, rgba(47, 94, 116, 0.16));
+}
+
+.shape--interactive.shape--type-tonned[data-figma-theme='dark']:hover {
+  --shape-fill: var(--segment-40, rgba(47, 94, 116, 0.4));
+}
+
+.shape--interactive.shape--type-tonned[data-figma-theme='dark']:active {
+  --shape-fill: var(--segment-36, rgba(47, 94, 116, 0.36));
+}
+
+.shape--interactive {
+  cursor: default;
+}
+
+.shape--state-hover,
+.shape--state-click {
+  pointer-events: none;
+}

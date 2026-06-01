@@ -1,4 +1,5 @@
 @import './generated/tokens.css';
+@import './generated/semantic-themes/index.css';
 @import './generated/typography-modes/index.css';
 @import './generated/line-height-modes/index.css';
 @import './generated/text-styles/index.css';
