@@ -1,15 +1,11 @@
-/* Figma tabFeatureDigit (4090:7876) — showcase on #000 */
-.tabs-canvas {
-  background-color: #000000;
-  padding: calc(var(--spaces-static-600, 24) * 1px);
-  box-sizing: border-box;
-}
+@import '../../storybook/showcase-layout.css';
 
 .tabs-showcase {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: calc(var(--spaces-static-800, 32) * 1px);
+  box-sizing: border-box;
 }
 
 .tabs-showcase__row--static .tab-feature-digit {

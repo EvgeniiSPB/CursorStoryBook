@@ -1,11 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { CSSProperties } from 'react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { showcaseCanvas } from '../../storybook/showcase-decorators';
+import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../storybook/showcase-constants';
 import { Tag, type TagProps, type TagState, type TagTopic, type TagType } from './Tag';
+import './tag-showcase.css';
 
 const types: TagType[] = ['brand', 'brandConstantInverted'];
 const topics: TagTopic[] = ['1stLvl', '2ndLvl'];
 const states: TagState[] = ['normal', 'hover', 'click'];
 
-/** Порядок колонок как в Figma 4119:488 (слева направо) */
 const figmaColumns: { variant: TagType; topic: TagTopic }[] = [
   { variant: 'brand', topic: '1stLvl' },
   { variant: 'brand', topic: '2ndLvl' },
@@ -13,12 +16,33 @@ const figmaColumns: { variant: TagType; topic: TagTopic }[] = [
   { variant: 'brandConstantInverted', topic: '2ndLvl' },
 ];
 
+const TAG_PLAYGROUND_BOUND_W_PX = 56;
+const TAG_PLAYGROUND_BOUND_H_PX = 20;
+
+const playgroundSectionStyle = {
+  '--showcase-playground-bound-w': `${TAG_PLAYGROUND_BOUND_W_PX}px`,
+  '--showcase-playground-bound-h': `${TAG_PLAYGROUND_BOUND_H_PX}px`,
+  '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
+} as CSSProperties;
+
+const playgroundSection: Decorator = (Story) => (
+  <div
+    className="showcase-layout-section showcase-layout-section--playground"
+    style={playgroundSectionStyle}
+  >
+    <div className="showcase-layout-playground">
+      <Story />
+    </div>
+  </div>
+);
+
 const meta = {
-  title: 'Tags/Tag',
+  title: 'Components/Tags/Tag',
   component: Tag,
   tags: ['autodocs'],
+  decorators: [showcaseCanvas],
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   argTypes: {
     variant: { control: 'select', options: types },
@@ -37,7 +61,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  decorators: [playgroundSection],
+};
 
 export const BrandFirstLevel: Story = {
   name: 'brand / 1stLvl',
@@ -61,25 +87,22 @@ export const BrandConstantInvertedSecondLevel: Story = {
 
 export const AllVariants: Story = {
   name: 'All variants',
-  parameters: {
-    layout: 'centered',
-  },
   render: () => (
-    <div className="tag-showcase-wrap">
-      <div className="tag-showcase tag-showcase--figma">
-      {figmaColumns.map(({ variant, topic }) => (
-        <div key={`${variant}-${topic}`} className="tag-showcase__column">
-          {states.map((state) => (
-            <Tag
-              key={state}
-              variant={variant}
-              topic={topic}
-              state={state === 'normal' ? undefined : state}
-              className={state === 'normal' ? undefined : 'tag-showcase__row--static'}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="tag-showcase">
+        {figmaColumns.map(({ variant, topic }) => (
+          <div key={`${variant}-${topic}`} className="tag-showcase__column">
+            {states.map((state) => (
+              <Tag
+                key={state}
+                variant={variant}
+                topic={topic}
+                state={state === 'normal' ? undefined : state}
+                className={state === 'normal' ? undefined : 'tag-showcase__row--static'}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   ),
@@ -87,6 +110,7 @@ export const AllVariants: Story = {
 
 export const Interactive: Story = {
   name: 'Interactive (hover / click)',
+  decorators: [playgroundSection],
   args: { state: undefined },
   argTypes: {
     state: { control: false },

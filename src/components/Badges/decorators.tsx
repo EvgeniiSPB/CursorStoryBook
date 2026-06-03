@@ -18,12 +18,6 @@ export function TonnedSegmentScope({
   return <>{children}</>;
 }
 
-export const badgeCanvasDecorator: Decorator = (Story) => (
-  <div className="badge-canvas">
-    <Story />
-  </div>
-);
-
 export const tonnedSegmentDecorator: Decorator = (Story) => (
   <div data-segment={TONNED_SEGMENT}>
     <Story />

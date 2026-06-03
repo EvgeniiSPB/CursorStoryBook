@@ -1,0 +1,133 @@
+.checkbox-toggle {
+  display: block;
+  flex-shrink: 0;
+  position: relative;
+  overflow: clip;
+  padding: 0;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  border-radius: calc(var(--radii-static-50, var(--x-base-50, 2)) * 1px);
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background: transparent;
+}
+
+.checkbox-toggle:disabled {
+  cursor: not-allowed;
+}
+
+.checkbox-toggle:focus-visible {
+  outline: 2px solid var(--primary-primary, #34373c);
+  outline-offset: 2px;
+}
+
+/* Off — userChoice/off */
+.checkbox-toggle--off {
+  border: 1px solid var(--user-choice-off-border-normal, #34373c);
+  background-color: var(--user-choice-off-body-normal, #ffffff);
+}
+
+.checkbox-toggle--off:hover:not(:disabled):not(.checkbox-toggle--state-hover):not(
+    .checkbox-toggle--state-click
+  ) {
+  border: none;
+  background-color: var(--user-choice-off-body-hover, rgba(52, 55, 60, 0.2));
+}
+
+.checkbox-toggle--off:active:not(:disabled):not(.checkbox-toggle--state-hover):not(
+    .checkbox-toggle--state-click
+  ) {
+  border: none;
+  background-color: var(--user-choice-off-body-click, rgba(52, 55, 60, 0.24));
+}
+
+.checkbox-toggle--off.checkbox-toggle--state-hover {
+  border: none;
+  background-color: var(--user-choice-off-body-hover, rgba(52, 55, 60, 0.2));
+}
+
+.checkbox-toggle--off.checkbox-toggle--state-click {
+  border: none;
+  background-color: var(--user-choice-off-body-click, rgba(52, 55, 60, 0.24));
+}
+
+.checkbox-toggle--off.checkbox-toggle--disabled {
+  border: 1px solid var(--user-choice-off-border-disabled, rgba(52, 55, 60, 0.4));
+  background-color: var(--user-choice-off-body-disabled, rgba(52, 55, 60, 0.16));
+}
+
+/* On — userChoice/on */
+.checkbox-toggle--active {
+  border: none;
+  background-color: var(--user-choice-on-body-normal, #34373c);
+}
+
+.checkbox-toggle--active:hover:not(:disabled):not(.checkbox-toggle--state-hover):not(
+    .checkbox-toggle--state-click
+  ) {
+  background-color: var(--user-choice-on-body-hover, #2a2d32);
+}
+
+.checkbox-toggle--active:active:not(:disabled):not(.checkbox-toggle--state-hover):not(
+    .checkbox-toggle--state-click
+  ) {
+  background-color: var(--user-choice-on-body-click, #0f1216);
+}
+
+.checkbox-toggle--active.checkbox-toggle--state-hover {
+  background-color: var(--user-choice-on-body-hover, #2a2d32);
+}
+
+.checkbox-toggle--active.checkbox-toggle--state-click {
+  background-color: var(--user-choice-on-body-click, #0f1216);
+}
+
+.checkbox-toggle--active.checkbox-toggle--disabled {
+  background-color: var(--user-choice-on-body-disabled, #34373c);
+}
+
+/**
+ * Figma `toggle` layer (4106:8681): absolute inset-[27.65%_14.99%] inside 20×20.
+ */
+.checkbox-toggle__check-wrap {
+  position: absolute;
+  inset: 27.65% 14.99%;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.checkbox-toggle__check {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Explicit Storybook / forced states */
+.checkbox-toggle--check-visible .checkbox-toggle__check-wrap {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Off + interactive hover/click preview */
+.checkbox-toggle--off:not(:disabled):not(.checkbox-toggle--check-visible):hover
+  .checkbox-toggle__check-wrap,
+.checkbox-toggle--off:not(:disabled):not(.checkbox-toggle--check-visible):active
+  .checkbox-toggle__check-wrap {
+  opacity: 1;
+  visibility: visible;
+}
+
+.checkbox-toggle--state-hover,
+.checkbox-toggle--state-click {
+  pointer-events: none;
+}

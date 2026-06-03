@@ -1,0 +1,55 @@
+/**
+ * Storybook layout for Atoms and Components (dark canvas + white board/playground).
+ */
+.showcase-layout-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+  /*
+   * Figma Components (tags, checkboxItem, …): fontFamilies/body = Oceanic Grotesk.
+   * Pins body text even if Font toolbar is switched to Oceanic Text.
+   */
+  --font-families-body: Oceanic Grotesk;
+}
+
+.showcase-layout-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+.showcase-layout-section--board {
+  width: var(--showcase-board-width, auto);
+  max-width: 100%;
+  padding: calc(var(--showcase-board-padding, var(--x-base-1600, 64)) * 1px);
+}
+
+.showcase-layout-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--showcase-playground-padding, 128px);
+  width: calc(
+    var(--showcase-playground-bound-w, 40px) + 2 * var(--showcase-playground-padding, 128px)
+  );
+  height: calc(
+    var(--showcase-playground-bound-h, 40px) + 2 * var(--showcase-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.showcase-layout-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}

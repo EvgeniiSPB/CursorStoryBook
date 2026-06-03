@@ -1,17 +1,38 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { CSSProperties } from 'react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { showcaseCanvas } from '../../storybook/showcase-decorators';
+import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../storybook/showcase-constants';
 import { TabFeatureDigit, type TabFeatureDigitState } from './TabFeatureDigit';
-import { tabsCanvasDecorator } from './decorators';
+import './tabs-showcase.css';
 
 const states: TabFeatureDigitState[] = ['default', 'hover', 'click', 'active'];
 
+const TAB_FEATURE_DIGIT_PLAYGROUND_BOUND_PX = 36;
+
+const playgroundSectionStyle = {
+  '--showcase-playground-bound-w': `${TAB_FEATURE_DIGIT_PLAYGROUND_BOUND_PX}px`,
+  '--showcase-playground-bound-h': `${TAB_FEATURE_DIGIT_PLAYGROUND_BOUND_PX}px`,
+  '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
+} as CSSProperties;
+
+const playgroundSection: Decorator = (Story) => (
+  <div
+    className="showcase-layout-section showcase-layout-section--playground"
+    style={playgroundSectionStyle}
+  >
+    <div className="showcase-layout-playground">
+      <Story />
+    </div>
+  </div>
+);
+
 const meta = {
-  title: 'Tabs/Tab Feature Digit',
+  title: 'Components/Tabs/Tab Feature Digit',
   component: TabFeatureDigit,
   tags: ['autodocs'],
-  decorators: [tabsCanvasDecorator],
+  decorators: [showcaseCanvas],
   parameters: {
-    layout: 'centered',
-    backgrounds: { disable: true },
+    layout: 'fullscreen',
   },
   argTypes: {
     state: { control: 'select', options: states },
@@ -26,7 +47,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  decorators: [playgroundSection],
+};
 
 export const Default: Story = {
   args: { state: 'default' },
@@ -46,18 +69,17 @@ export const Active: Story = {
 
 export const AllStates: Story = {
   name: 'All states',
-  parameters: {
-    layout: 'centered',
-  },
   render: () => (
-    <div className="tabs-showcase">
-      {states.map((state) => (
-        <TabFeatureDigit
-          key={state}
-          state={state}
-          className="tabs-showcase__row--static"
-        />
-      ))}
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="tabs-showcase">
+        {states.map((state) => (
+          <TabFeatureDigit
+            key={state}
+            state={state}
+            className="tabs-showcase__row--static"
+          />
+        ))}
+      </div>
     </div>
   ),
 };

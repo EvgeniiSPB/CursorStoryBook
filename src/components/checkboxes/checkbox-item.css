@@ -1,0 +1,24 @@
+.checkbox-item {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  position: relative;
+  flex-shrink: 0;
+  width: fit-content;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.checkbox-item--disabled {
+  cursor: not-allowed;
+}
+
+.checkbox-item__label.text-core {
+  color: var(--text-primary, var(--primary-primary, #34373c));
+}
+
+.checkbox-item--state-hover,
+.checkbox-item--state-click {
+  pointer-events: none;
+  cursor: default;
+}

@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { FIGMA_BODY_FONT_MODE_SLUG } from '../../../tokens/font-mode-options';
 import { TextCore } from './TextCore';
 import {
   TEXT_CORE_FIGMA_FONT_FAMILIES,
@@ -14,7 +15,7 @@ import {
 import './text-core-showcase.css';
 
 const showcaseCanvas: Decorator = (Story) => (
-  <div className="text-core-showcase-canvas">
+  <div className="text-core-showcase-canvas" data-font-mode={FIGMA_BODY_FONT_MODE_SLUG}>
     <Story />
   </div>
 );

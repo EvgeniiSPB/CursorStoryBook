@@ -1,0 +1,36 @@
+/**
+ * Local Oceanic .otf (see src/assets/fonts/README.md).
+ * If a file is missing, the browser falls back to system-ui until you add it.
+ */
+
+@font-face {
+  font-family: 'Oceanic Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/OceanicGrotesk-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Oceanic Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/OceanicGrotesk-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Oceanic Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/OceanicText-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Oceanic Text';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/OceanicText-Medium.otf') format('opentype');
+}

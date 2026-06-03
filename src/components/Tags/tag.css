@@ -23,7 +23,7 @@
 .tag__label {
   margin: 0;
   padding: 0;
-  font-family: var(--font-families-body, 'Oceanic Text'), system-ui, sans-serif;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
   font-size: calc(var(--font-sizes-body-m, 16) * 1px);
   line-height: calc(var(--line-heights-body-m, 20) * 1px);
   white-space: nowrap;
@@ -95,32 +95,3 @@
   color: var(--tag-brand-constant-inverted-text-click, #b29b00);
 }
 
-/* All variants: строки hover/click — без живого hover на соседних тегах */
-.tag-showcase__row--static .tag {
-  pointer-events: none;
-  cursor: default;
-}
-
-.tag-showcase-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 50vh;
-  box-sizing: border-box;
-}
-
-/* Figma 4119:488 — 4 колонки, gap 32px (static/800) по X и Y */
-.tag-showcase--figma {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: calc(var(--spaces-static-800, 32) * 1px);
-}
-
-.tag-showcase--figma .tag-showcase__column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: calc(var(--spaces-static-800, 32) * 1px);
-}

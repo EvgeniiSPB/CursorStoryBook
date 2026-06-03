@@ -4,6 +4,7 @@
 @import './generated/line-height-modes/index.css';
 @import './generated/text-styles/index.css';
 @import './generated/segments/index.css';
+@import './oceanic-fonts.css';
 
 @font-face {
   font-family: 'JetBrains Mono';

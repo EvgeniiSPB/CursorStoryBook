@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { CSSProperties } from 'react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { showcaseCanvas } from '../../../storybook/showcase-decorators';
+import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../../storybook/showcase-constants';
 import {
   BadgeDigits,
   type BadgeDigitsProps,
   type BadgeDigitsType,
   type BadgeDigitsCharacters,
 } from './BadgeDigits';
-import {
-  badgeCanvasDecorator,
-  tonnedSegmentDecorator,
-  TONNED_SEGMENT,
-} from '../decorators';
+import { tonnedSegmentDecorator, TONNED_SEGMENT } from '../decorators';
+import '../badge-showcase.css';
 
 const types: BadgeDigitsType[] = [
   'outlined',
@@ -19,14 +19,33 @@ const types: BadgeDigitsType[] = [
 
 const charactersOptions: BadgeDigitsCharacters[] = ['1-2', '3'];
 
+const BADGE_DIGITS_PLAYGROUND_BOUND_W_PX = 36;
+const BADGE_DIGITS_PLAYGROUND_BOUND_H_PX = 20;
+
+const playgroundSectionStyle = {
+  '--showcase-playground-bound-w': `${BADGE_DIGITS_PLAYGROUND_BOUND_W_PX}px`,
+  '--showcase-playground-bound-h': `${BADGE_DIGITS_PLAYGROUND_BOUND_H_PX}px`,
+  '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
+} as CSSProperties;
+
+const playgroundSection: Decorator = (Story) => (
+  <div
+    className="showcase-layout-section showcase-layout-section--playground"
+    style={playgroundSectionStyle}
+  >
+    <div className="showcase-layout-playground">
+      <Story />
+    </div>
+  </div>
+);
+
 const meta = {
-  title: 'Badges/Digits',
+  title: 'Components/Badges/Digits',
   component: BadgeDigits,
   tags: ['autodocs'],
-  decorators: [badgeCanvasDecorator],
+  decorators: [showcaseCanvas],
   parameters: {
-    layout: 'centered',
-    backgrounds: { disable: true },
+    layout: 'fullscreen',
   },
   argTypes: {
     type: {
@@ -53,7 +72,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  decorators: [playgroundSection],
+};
 
 export const OutlinedOneTwo: Story = {
   name: 'Outlined / 1–2 chars',
@@ -90,18 +111,20 @@ export const TonnedThree: Story = {
 export const AllVariants: Story = {
   name: 'All variants',
   render: () => (
-    <div className="badge-showcase">
-      {types.map((type) => (
-        <div
-          key={type}
-          className="badge-showcase__column"
-          {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
-        >
-          {charactersOptions.map((characters) => (
-            <BadgeDigits key={characters} type={type} characters={characters} />
-          ))}
-        </div>
-      ))}
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="badge-showcase">
+        {types.map((type) => (
+          <div
+            key={type}
+            className="badge-showcase__column"
+            {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
+          >
+            {charactersOptions.map((characters) => (
+              <BadgeDigits key={characters} type={type} characters={characters} />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   ),
 };

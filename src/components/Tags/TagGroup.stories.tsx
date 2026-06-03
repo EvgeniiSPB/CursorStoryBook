@@ -1,16 +1,41 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { CSSProperties } from 'react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { showcaseCanvas } from '../../storybook/showcase-decorators';
+import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../storybook/showcase-constants';
 import { TagGroup } from './TagGroup';
 import type { TagState, TagType } from './Tag';
+import './tag-showcase.css';
 
 const variants: TagType[] = ['brand', 'brandConstantInverted'];
 const states: TagState[] = ['normal', 'hover', 'click'];
 
+const TAG_GROUP_PLAYGROUND_BOUND_W_PX = 72;
+const TAG_GROUP_PLAYGROUND_BOUND_H_PX = 20;
+
+const playgroundSectionStyle = {
+  '--showcase-playground-bound-w': `${TAG_GROUP_PLAYGROUND_BOUND_W_PX}px`,
+  '--showcase-playground-bound-h': `${TAG_GROUP_PLAYGROUND_BOUND_H_PX}px`,
+  '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
+} as CSSProperties;
+
+const playgroundSection: Decorator = (Story) => (
+  <div
+    className="showcase-layout-section showcase-layout-section--playground"
+    style={playgroundSectionStyle}
+  >
+    <div className="showcase-layout-playground">
+      <Story />
+    </div>
+  </div>
+);
+
 const meta = {
-  title: 'Tags/TagGroup',
+  title: 'Components/Tags/TagGroup',
   component: TagGroup,
   tags: ['autodocs'],
+  decorators: [showcaseCanvas],
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   argTypes: {
     variant: { control: 'select', options: variants },
@@ -30,7 +55,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  decorators: [playgroundSection],
+};
 
 export const Brand: Story = {
   args: { variant: 'brand' },
@@ -43,12 +70,9 @@ export const BrandConstantInverted: Story = {
 
 export const AllVariants: Story = {
   name: 'All variants',
-  parameters: {
-    layout: 'centered',
-  },
   render: () => (
-    <div className="tag-showcase-wrap">
-      <div className="tag-showcase tag-showcase--figma-group">
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="tag-showcase tag-showcase--group">
         {variants.map((variant) => (
           <div key={variant} className="tag-showcase__column">
             {states.map((state) => (

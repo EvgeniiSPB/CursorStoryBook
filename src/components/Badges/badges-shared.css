@@ -1,34 +1,6 @@
 /* JetBrains Mono Medium — fontWeights/special/medium */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap');
 
-.badge-canvas {
-  background-color: #e4e4e4;
-  padding: calc(var(--spaces-static-600, 24) * 1px);
-  min-width: min(100%, 480px);
-  box-sizing: border-box;
-}
-
-.badge-showcase {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spaces-static-400, 16) * 1px);
-  align-items: flex-start;
-}
-
-.badge-showcase__column {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spaces-static-200, 8) * 1px);
-  align-items: flex-start;
-}
-
-.badge-showcase__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spaces-static-300, 12) * 1px);
-  align-items: center;
-}
-
 .badge-label-base {
   margin: 0;
   padding: 0;

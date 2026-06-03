@@ -1,5 +1,9 @@
 import type { Preview } from '@storybook/react-vite';
-import { DEFAULT_FONT_MODE_SLUG, FONT_MODE_OPTIONS } from '../src/tokens/font-mode-options';
+import {
+  DEFAULT_FONT_MODE_SLUG,
+  FIGMA_BODY_FONT_MODE_SLUG,
+  FONT_MODE_OPTIONS,
+} from '../src/tokens/font-mode-options';
 import {
   DEFAULT_LINE_HEIGHT_MODE_SLUG,
   LINE_HEIGHT_MODE_OPTIONS,
@@ -46,7 +50,7 @@ const preview: Preview = {
       },
     },
     fontMode: {
-      description: `Семейство шрифтов (${FONT_MODE_OPTIONS.length} modes из 03 - typography)`,
+      description: `Семейство шрифтов (${FONT_MODE_OPTIONS.length} modes из 03 - typography). По умолчанию ${FIGMA_BODY_FONT_MODE_SLUG} — body в Components и text - core.`,
       toolbar: {
         title: 'Font',
         icon: 'paragraph',

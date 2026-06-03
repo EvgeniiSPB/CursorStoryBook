@@ -6,4 +6,8 @@ debug-storybook.log
 .DS_Store
 src/styles/generated
 
+# Licensed Oceanic .otf — keep locally (see src/assets/fonts/README.md)
+src/assets/fonts/*.otf
+src/assets/fonts/*.OTF
+
 *storybook.log

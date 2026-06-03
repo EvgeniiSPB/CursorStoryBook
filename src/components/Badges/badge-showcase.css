@@ -1,0 +1,23 @@
+@import '../../storybook/showcase-layout.css';
+
+.badge-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.badge-showcase__column {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  align-items: flex-start;
+}
+
+.badge-showcase__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: center;
+}
