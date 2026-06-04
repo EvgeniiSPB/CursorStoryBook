@@ -1,0 +1,90 @@
+.input-outlined {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(var(--input-outlined-min-height, 56) * 1px);
+  padding-bottom: calc(var(--spaces-static-300, 12) * 1px);
+  border: none;
+  border-bottom: 1px solid var(--input-border-normal, rgba(52, 55, 60, 0.2));
+  background: transparent;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.input-outlined--floated {
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+.input-outlined--disabled {
+  background-color: var(--input-body-disabled, rgba(52, 55, 60, 0.08));
+  border-bottom-color: var(--input-border-disabled, rgba(52, 55, 60, 0.16));
+}
+
+.input-outlined--state-hover:not(.input-outlined--disabled) {
+  border-bottom-color: var(--input-border-hover, rgba(52, 55, 60, 0.24));
+}
+
+.input-outlined--state-click:not(.input-outlined--disabled) {
+  border-bottom-color: var(--input-border-click, rgba(52, 55, 60, 0.28));
+}
+
+.input-outlined:not(.input-outlined--disabled):not(.input-outlined--state-hover):not(
+    .input-outlined--state-click
+  ):hover {
+  border-bottom-color: var(--input-border-hover, rgba(52, 55, 60, 0.24));
+}
+
+.input-outlined:not(.input-outlined--disabled):not(.input-outlined--state-hover):not(
+    .input-outlined--state-click
+  ):focus-within {
+  border-bottom-color: var(--input-border-click, rgba(52, 55, 60, 0.28));
+}
+
+.input-outlined__label.text-core {
+  color: var(--input-text-label, rgba(52, 55, 60, 0.5));
+}
+
+.input-outlined--disabled .input-outlined__label.text-core {
+  color: var(--input-text-label-disabled, rgba(52, 55, 60, 0.5));
+}
+
+.input-outlined__value.text-core {
+  color: var(--input-text-value, var(--primary-primary, #34373c));
+}
+
+.input-outlined--disabled .input-outlined__value.text-core {
+  color: var(--input-text-value-disabled, rgba(52, 55, 60, 0.5));
+}
+
+.input-outlined__field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.input-outlined__input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--input-text-value, var(--primary-primary, #34373c));
+  outline: none;
+}
+
+.input-outlined__input:disabled {
+  color: var(--input-text-value-disabled, rgba(52, 55, 60, 0.5));
+  cursor: not-allowed;
+}
+
+.input-outlined--state-hover,
+.input-outlined--state-click,
+.input-outlined--static {
+  pointer-events: none;
+}

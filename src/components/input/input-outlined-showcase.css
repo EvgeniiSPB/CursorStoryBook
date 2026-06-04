@@ -1,0 +1,71 @@
+.input-outlined-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.input-outlined-showcase-canvas[data-font-mode='oceanic-grotesk'] {
+  --font-families-body: Oceanic Grotesk;
+}
+
+.input-outlined-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Figma board `input - outlined` (4136:3424): 756px wide, 128px inset */
+.input-outlined-showcase-section--board {
+  width: 756px;
+  max-width: 100%;
+  padding: calc(var(--x-base-3200, 128) * 1px);
+}
+
+.input-outlined-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--input-outlined-playground-padding, 128px);
+  width: calc(
+    var(--input-outlined-playground-bound-w, 500px) + 2 *
+      var(--input-outlined-playground-padding, 128px)
+  );
+  height: calc(
+    var(--input-outlined-playground-bound-h, 56px) + 2 *
+      var(--input-outlined-playground-padding, 128px)
+  );
+  overflow: hidden;
+}
+
+.input-outlined-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+}
+
+.input-outlined-showcase-playground .input-outlined {
+  max-width: calc(var(--input-outlined-playground-bound-w, 500px));
+}
+
+/* Figma board: single column, 32px gap between variants */
+.input-outlined-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+  align-items: center;
+  gap: calc(var(--x-base-800, 32) * 1px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--input-outlined-width, 500) * 1px);
+}
