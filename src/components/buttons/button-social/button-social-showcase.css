@@ -1,0 +1,51 @@
+.button-social-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+}
+
+.button-social-showcase-canvas[data-font-mode='oceanic-grotesk'] {
+  --font-families-body: Oceanic Grotesk;
+}
+
+.button-social-showcase-section {
+  box-sizing: border-box;
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+  background-color: var(--background0-primary, #ffffff);
+}
+
+.button-social-showcase-section--playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: var(--button-social-playground-padding, 0px);
+  width: calc(
+    var(--button-social-playground-bound-size, 500px) + 2 *
+      var(--button-social-playground-padding, 0px)
+  );
+  height: calc(
+    var(--button-social-playground-bound-size, 500px) + 2 *
+      var(--button-social-playground-padding, 0px)
+  );
+  overflow: hidden;
+}
+
+.button-social-showcase-playground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.button-social-showcase-playground .button-social {
+  flex: 0 0 auto;
+}

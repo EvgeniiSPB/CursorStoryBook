@@ -17,6 +17,7 @@ import {
 } from './types';
 import './button-text-icon-showcase.css';
 import './button-text-icon-board.css';
+import { buttonBoardScrollDecorator } from '../shared/button-board-decorators';
 
 const showcaseCanvas: Decorator = (Story) => (
   <div
@@ -51,12 +52,6 @@ const playgroundSection: Decorator = (Story, { args }) => {
     </div>
   );
 };
-
-const boardScroll: Decorator = (Story) => (
-  <div className="button-text-icon-board-scroll" data-font-mode={FIGMA_BODY_FONT_MODE_SLUG}>
-    <Story />
-  </div>
-);
 
 const types: ButtonTextIconType[] = [
   'primary',
@@ -117,7 +112,7 @@ export const Playground: Story = {
 
 export const AllVariants: Story = {
   name: 'All variants',
-  decorators: [boardScroll],
+  decorators: [buttonBoardScrollDecorator],
   parameters: {
     layout: 'fullscreen',
     docs: {

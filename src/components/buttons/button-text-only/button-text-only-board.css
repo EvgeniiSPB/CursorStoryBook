@@ -1,18 +1,4 @@
-.button-text-only-board-scroll {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
-  box-sizing: border-box;
-  overflow-x: auto;
-  overflow-y: hidden;
-  background-color: #1e1e1e;
-}
-
-.button-text-only-board-scroll[data-font-mode='oceanic-grotesk'] {
-  --font-families-body: Oceanic Grotesk;
-}
+@import '../shared/button-board-showcase.css';
 
 .button-text-only-board {
   position: relative;

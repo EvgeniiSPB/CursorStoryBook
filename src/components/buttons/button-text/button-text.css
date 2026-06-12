@@ -1,0 +1,73 @@
+.button-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  width: fit-content;
+}
+
+.button-text--disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.button-text--state-hover,
+.button-text--state-click,
+.button-text--static {
+  pointer-events: none;
+  cursor: default;
+}
+
+.button-text__label.text-core {
+  color: var(--button-transparent-base-text-normal, #34373c);
+}
+
+.button-text--type-primary:not(.button-text--state-hover):not(.button-text--state-click):hover
+  .button-text__label.text-core {
+  color: var(--button-transparent-base-text-hover, #2a2d32);
+}
+
+.button-text--type-primary:not(.button-text--state-hover):not(.button-text--state-click):active
+  .button-text__label.text-core {
+  color: var(--button-transparent-base-text-click, #0f1216);
+}
+
+.button-text--type-primary.button-text--state-hover .button-text__label.text-core {
+  color: var(--button-transparent-base-text-hover, #2a2d32);
+}
+
+.button-text--type-primary.button-text--state-click .button-text__label.text-core {
+  color: var(--button-transparent-base-text-click, #0f1216);
+}
+
+.button-text--type-warning .button-text__label.text-core {
+  color: var(--button-transparent-warning-text-normal, #a70025);
+}
+
+.button-text--type-warning:not(.button-text--state-hover):not(.button-text--state-click):hover
+  .button-text__label.text-core {
+  color: var(--button-transparent-warning-text-hover, #940120);
+}
+
+.button-text--type-warning:not(.button-text--state-hover):not(.button-text--state-click):active
+  .button-text__label.text-core {
+  color: var(--button-transparent-warning-text-click, #7d0d1e);
+}
+
+.button-text--type-warning.button-text--state-hover .button-text__label.text-core {
+  color: var(--button-transparent-warning-text-hover, #940120);
+}
+
+.button-text--type-warning.button-text--state-click .button-text__label.text-core {
+  color: var(--button-transparent-warning-text-click, #7d0d1e);
+}

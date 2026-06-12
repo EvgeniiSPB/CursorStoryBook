@@ -1,0 +1,37 @@
+/**
+ * All variants: one dark scroll surface; board centered like Playground when it fits.
+ */
+
+[class*='-showcase-canvas']:has(.button-board-scroll) {
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  padding: 0;
+}
+
+.button-board-scroll {
+  box-sizing: border-box;
+  width: calc(100% + 2 * var(--spaces-static-400, 16) * 1px);
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  margin: calc(-1 * var(--spaces-static-400, 16) * 1px);
+  overflow: auto;
+  background-color: #1e1e1e;
+}
+
+.button-board-scroll[data-font-mode='oceanic-grotesk'] {
+  --font-families-body: Oceanic Grotesk;
+}
+
+.button-board-scroll__align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 100%;
+  width: max-content;
+  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+}
+
+.button-board-scroll__align > * {
+  flex-shrink: 0;
+}

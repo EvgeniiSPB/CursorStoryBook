@@ -1,0 +1,21 @@
+@import '../shared/button-board-showcase.css';
+
+.button-social-board {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--button-social-board-width, 236) * 1px);
+  height: calc(var(--button-social-board-height, 348) * 1px);
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.button-social-board__variants {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.button-social-board__variant {
+  position: absolute;
+  margin: 0;
+}
