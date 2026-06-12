@@ -19,6 +19,8 @@ export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
   tone?: IconTone;
   /** Figma icon20 inset layout (TagGroup) */
   inset?: boolean;
+  /** Skip inline color; use parent/CSS (button icon slots) */
+  inheritColor?: boolean;
   label?: string;
 }
 
@@ -28,6 +30,7 @@ export function Icon({
   color = 'primary',
   tone,
   inset = false,
+  inheritColor = false,
   label,
   className,
   style,
@@ -42,9 +45,11 @@ export function Icon({
     return null;
   }
 
-  const colorStyle = tone
-    ? { color: ICON_TONE_VARS[tone], ...style }
-    : { color: ICON_COLOR_VARS[color], ...style };
+  const colorStyle = inheritColor
+    ? style
+    : tone
+      ? { color: ICON_TONE_VARS[tone], ...style }
+      : { color: ICON_COLOR_VARS[color], ...style };
 
   const classes = [
     'icon',

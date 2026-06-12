@@ -67,6 +67,7 @@ export const ICON_NAMES_20 = [
   'menu',
   'minus',
   'plus',
+  'placeholder',
   'profile',
   'search',
   'shield',

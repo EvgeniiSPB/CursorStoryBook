@@ -15,6 +15,7 @@ import Kebab20 from '../../assets/icons/20/kebab.svg?react';
 import Lock20 from '../../assets/icons/20/lock.svg?react';
 import Menu20 from '../../assets/icons/20/menu.svg?react';
 import Minus20 from '../../assets/icons/20/minus.svg?react';
+import Placeholder20 from '../../assets/icons/20/placeholder.svg?react';
 import Plus20 from '../../assets/icons/20/plus.svg?react';
 import Profile20 from '../../assets/icons/20/profile.svg?react';
 import Search20 from '../../assets/icons/20/search.svg?react';
@@ -44,6 +45,7 @@ const icons20 = {
   menu: Menu20,
   minus: Minus20,
   plus: Plus20,
+  placeholder: Placeholder20,
   profile: Profile20,
   search: Search20,
   shield: Shield20,

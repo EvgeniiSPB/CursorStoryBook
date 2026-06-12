@@ -1,6 +1,6 @@
-.button-text-only {
+.button-text-icon {
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -12,276 +12,283 @@
   cursor: pointer;
   flex-shrink: 0;
   position: relative;
-  gap: calc(var(--spaces-static-0, 0) * 1px);
+  gap: calc(var(--spaces-static-100, 4) * 1px);
 }
 
-.button-text-only--fill-fixed {
-  width: var(--button-text-only-width, 368px);
+.button-text-icon--fill-fixed {
+  width: var(--button-text-icon-width, 368px);
 }
 
-.button-text-only--fill-hug {
+.button-text-icon--fill-hug {
   width: fit-content;
 }
 
-.button-text-only--size-medium {
+.button-text-icon--size-medium {
   padding: calc(var(--spaces-semantic-m, 16) * 1px);
 }
 
-.button-text-only--size-small {
+.button-text-icon--size-small {
   padding: calc(var(--spaces-semantic-s, 12) * 1px);
 }
 
-.button-text-only--size-tiny {
+.button-text-icon--size-tiny {
   padding: calc(var(--spaces-semantic-xs, 8) * 1px);
 }
 
-.button-text-only--extra-paddings.button-text-only--size-medium {
+.button-text-icon--extra-paddings.button-text-icon--size-medium {
   padding-block: calc(var(--spaces-semantic-m, 16) * 1px);
   padding-inline: calc(var(--spaces-semantic-l, 24) * 1px);
 }
 
-.button-text-only--extra-paddings.button-text-only--size-small {
+.button-text-icon--extra-paddings.button-text-icon--size-small {
   padding-block: calc(var(--spaces-semantic-s, 12) * 1px);
   padding-inline: calc(var(--spaces-semantic-l, 24) * 1px);
 }
 
-.button-text-only--extra-paddings.button-text-only--size-tiny {
+.button-text-icon--extra-paddings.button-text-icon--size-tiny {
   padding-block: calc(var(--spaces-semantic-xs, 8) * 1px);
   padding-inline: calc(var(--spaces-semantic-l, 24) * 1px);
 }
 
-.button-text-only--fill-fixed .button-text-only__label {
-  width: 100%;
-  text-align: center;
+.button-text-icon__icon {
+  flex-shrink: 0;
+  color: inherit;
 }
 
-.button-text-only__label--hug-extra {
-  text-align: left;
+.button-text-icon--fill-hug.button-text-icon--extra-paddings {
+  justify-content: flex-start;
 }
 
-.button-text-only--disabled {
+.button-text-icon--disabled {
   cursor: not-allowed;
   opacity: 0.48;
 }
 
-.button-text-only--state-hover,
-.button-text-only--state-click,
-.button-text-only--static {
+.button-text-icon--state-hover,
+.button-text-icon--state-click,
+.button-text-icon--static {
   pointer-events: none;
   cursor: default;
 }
 
 /* --- outlined-base --- */
-.button-text-only--visual-outlined-base {
+.button-text-icon--visual-outlined-base {
   border: 1px solid var(--button-outlined-base-border-normal, rgba(52, 55, 60, 0.2));
 }
 
-.button-text-only--visual-outlined-base:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-base:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--button-outlined-base-body-hover, rgba(52, 55, 60, 0.08));
   border-color: var(--button-outlined-base-border-hover, rgba(52, 55, 60, 0.24));
 }
 
-.button-text-only--visual-outlined-base:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-base:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--button-outlined-base-body-click, rgba(52, 55, 60, 0.12));
   border-color: var(--button-outlined-base-border-click, rgba(52, 55, 60, 0.28));
 }
 
-.button-text-only--visual-outlined-base.button-text-only--state-hover {
+.button-text-icon--visual-outlined-base.button-text-icon--state-hover {
   background-color: var(--button-outlined-base-body-hover, rgba(52, 55, 60, 0.08));
   border-color: var(--button-outlined-base-border-hover, rgba(52, 55, 60, 0.24));
 }
 
-.button-text-only--visual-outlined-base.button-text-only--state-click {
+.button-text-icon--visual-outlined-base.button-text-icon--state-click {
   background-color: var(--button-outlined-base-body-click, rgba(52, 55, 60, 0.12));
   border-color: var(--button-outlined-base-border-click, rgba(52, 55, 60, 0.28));
 }
 
-.button-text-only--visual-outlined-base .button-text-only__label.text-core {
+.button-text-icon--visual-outlined-base .button-text-icon__label.text-core,
+.button-text-icon--visual-outlined-base .button-text-icon__icon {
   color: var(--button-outlined-base-text, #34373c);
 }
 
 /* --- outlined-constantinverted --- */
-.button-text-only--visual-outlined-constantinverted {
+.button-text-icon--visual-outlined-constantinverted {
   border: 1px solid var(--button-outlined-constant-inverted-border-normal, rgba(255, 255, 255, 0.2));
 }
 
-.button-text-only--visual-outlined-constantinverted:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-constantinverted:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--button-outlined-constant-inverted-body-hover, rgba(255, 255, 255, 0.08));
   border-color: var(--button-outlined-constant-inverted-border-hover, rgba(255, 255, 255, 0.24));
 }
 
-.button-text-only--visual-outlined-constantinverted:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-constantinverted:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--button-outlined-constant-inverted-body-click, rgba(255, 255, 255, 0.12));
   border-color: var(--button-outlined-constant-inverted-border-click, rgba(255, 255, 255, 0.28));
 }
 
-.button-text-only--visual-outlined-constantinverted.button-text-only--state-hover {
+.button-text-icon--visual-outlined-constantinverted.button-text-icon--state-hover {
   background-color: var(--button-outlined-constant-inverted-body-hover, rgba(255, 255, 255, 0.08));
   border-color: var(--button-outlined-constant-inverted-border-hover, rgba(255, 255, 255, 0.24));
 }
 
-.button-text-only--visual-outlined-constantinverted.button-text-only--state-click {
+.button-text-icon--visual-outlined-constantinverted.button-text-icon--state-click {
   background-color: var(--button-outlined-constant-inverted-body-click, rgba(255, 255, 255, 0.12));
   border-color: var(--button-outlined-constant-inverted-border-click, rgba(255, 255, 255, 0.28));
 }
 
-.button-text-only--visual-outlined-constantinverted .button-text-only__label.text-core {
+.button-text-icon--visual-outlined-constantinverted .button-text-icon__label.text-core,
+.button-text-icon--visual-outlined-constantinverted .button-text-icon__icon {
   color: var(--button-outlined-constant-inverted-text, #ffffff);
 }
 
 /* --- outlined-brand (brandConstant → segment; Figma vivid violet #783987) --- */
-.button-text-only--visual-outlined-brand {
+.button-text-icon--visual-outlined-brand {
   border: 1px solid var(--segment-20, rgba(120, 57, 135, 0.2));
 }
 
-.button-text-only--visual-outlined-brand:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-brand:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--segment-8, rgba(120, 57, 135, 0.08));
   border-color: var(--segment-24, rgba(120, 57, 135, 0.24));
 }
 
-.button-text-only--visual-outlined-brand:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-outlined-brand:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--segment-12, rgba(120, 57, 135, 0.12));
   border-color: var(--segment-28, rgba(120, 57, 135, 0.28));
 }
 
-.button-text-only--visual-outlined-brand.button-text-only--state-hover {
+.button-text-icon--visual-outlined-brand.button-text-icon--state-hover {
   background-color: var(--segment-8, rgba(120, 57, 135, 0.08));
   border-color: var(--segment-24, rgba(120, 57, 135, 0.24));
 }
 
-.button-text-only--visual-outlined-brand.button-text-only--state-click {
+.button-text-icon--visual-outlined-brand.button-text-icon--state-click {
   background-color: var(--segment-12, rgba(120, 57, 135, 0.12));
   border-color: var(--segment-28, rgba(120, 57, 135, 0.28));
 }
 
-.button-text-only--visual-outlined-brand .button-text-only__label.text-core {
+.button-text-icon--visual-outlined-brand .button-text-icon__label.text-core,
+.button-text-icon--visual-outlined-brand .button-text-icon__icon {
   color: var(--segment-primary, #783987);
 }
 
 /* --- filled-base --- */
-.button-text-only--visual-filled-base {
+.button-text-icon--visual-filled-base {
   background-color: var(--button-filled-base-body-normal, #34373c);
 }
 
-.button-text-only--visual-filled-base:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-base:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--button-filled-base-body-hover, #2a2d32);
 }
 
-.button-text-only--visual-filled-base:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-base:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--button-filled-base-body-click, #0f1216);
 }
 
-.button-text-only--visual-filled-base.button-text-only--state-hover {
+.button-text-icon--visual-filled-base.button-text-icon--state-hover {
   background-color: var(--button-filled-base-body-hover, #2a2d32);
 }
 
-.button-text-only--visual-filled-base.button-text-only--state-click {
+.button-text-icon--visual-filled-base.button-text-icon--state-click {
   background-color: var(--button-filled-base-body-click, #0f1216);
 }
 
-.button-text-only--visual-filled-base .button-text-only__label.text-core {
+.button-text-icon--visual-filled-base .button-text-icon__label.text-core,
+.button-text-icon--visual-filled-base .button-text-icon__icon {
   color: var(--button-filled-base-text, #ffffff);
 }
 
 /* --- filled-constantinverted --- */
-.button-text-only--visual-filled-constantinverted {
+.button-text-icon--visual-filled-constantinverted {
   background-color: var(--button-filled-constant-inverted-body-normal, #ffffff);
 }
 
-.button-text-only--visual-filled-constantinverted:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-constantinverted:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--button-filled-constant-inverted-body-hover, rgba(255, 255, 255, 0.9));
 }
 
-.button-text-only--visual-filled-constantinverted:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-constantinverted:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--button-filled-constant-inverted-body-click, rgba(255, 255, 255, 0.8));
 }
 
-.button-text-only--visual-filled-constantinverted.button-text-only--state-hover {
+.button-text-icon--visual-filled-constantinverted.button-text-icon--state-hover {
   background-color: var(--button-filled-constant-inverted-body-hover, rgba(255, 255, 255, 0.9));
 }
 
-.button-text-only--visual-filled-constantinverted.button-text-only--state-click {
+.button-text-icon--visual-filled-constantinverted.button-text-icon--state-click {
   background-color: var(--button-filled-constant-inverted-body-click, rgba(255, 255, 255, 0.8));
 }
 
-.button-text-only--visual-filled-constantinverted .button-text-only__label.text-core {
+.button-text-icon--visual-filled-constantinverted .button-text-icon__label.text-core,
+.button-text-icon--visual-filled-constantinverted .button-text-icon__icon {
   color: var(--button-filled-constant-inverted-text, #34373c);
 }
 
 /* --- filled-warning --- */
-.button-text-only--visual-filled-warning {
+.button-text-icon--visual-filled-warning {
   background-color: var(--button-filled-warning-body-normal, #a70025);
 }
 
-.button-text-only--visual-filled-warning:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
-  ):not(:disabled):hover {
-  background-color: var(--button-filled-warning-body-hover, #940120);
-}
-
-.button-text-only--visual-filled-warning:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-warning:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--button-filled-warning-body-click, #7d0d1e);
 }
 
-.button-text-only--visual-filled-warning.button-text-only--state-hover {
+.button-text-icon--visual-filled-warning:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
+  ):not(:disabled):hover {
   background-color: var(--button-filled-warning-body-hover, #940120);
 }
 
-.button-text-only--visual-filled-warning.button-text-only--state-click {
+.button-text-icon--visual-filled-warning.button-text-icon--state-hover {
+  background-color: var(--button-filled-warning-body-hover, #940120);
+}
+
+.button-text-icon--visual-filled-warning.button-text-icon--state-click {
   background-color: var(--button-filled-warning-body-click, #7d0d1e);
 }
 
-.button-text-only--visual-filled-warning .button-text-only__label.text-core {
+.button-text-icon--visual-filled-warning .button-text-icon__label.text-core,
+.button-text-icon--visual-filled-warning .button-text-icon__icon {
   color: var(--button-filled-warning-text, #ffffff);
 }
 
 /* --- filled-brand (brandConstant → segment; Figma vivid violet) --- */
-.button-text-only--visual-filled-brand {
+.button-text-icon--visual-filled-brand {
   background-color: var(--segment-primary, #783987);
 }
 
-.button-text-only--visual-filled-brand:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-brand:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):hover {
   background-color: var(--segment-secondary, #6d2e7b);
 }
 
-.button-text-only--visual-filled-brand:not(.button-text-only--state-hover):not(
-    .button-text-only--state-click
+.button-text-icon--visual-filled-brand:not(.button-text-icon--state-hover):not(
+    .button-text-icon--state-click
   ):not(:disabled):active {
   background-color: var(--segment-tertiary, #61216e);
 }
 
-.button-text-only--visual-filled-brand.button-text-only--state-hover {
+.button-text-icon--visual-filled-brand.button-text-icon--state-hover {
   background-color: var(--segment-secondary, #6d2e7b);
 }
 
-.button-text-only--visual-filled-brand.button-text-only--state-click {
+.button-text-icon--visual-filled-brand.button-text-icon--state-click {
   background-color: var(--segment-tertiary, #61216e);
 }
 
-.button-text-only--visual-filled-brand .button-text-only__label.text-core {
+.button-text-icon--visual-filled-brand .button-text-icon__label.text-core,
+.button-text-icon--visual-filled-brand .button-text-icon__icon {
   color: var(--constant-primary, #ffffff);
 }

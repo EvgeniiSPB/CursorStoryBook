@@ -29,6 +29,7 @@ const ICONS_20_ROW_1: IconName20[] = [
 const ICONS_20_ROW_2: IconName20[] = [
   'kebab',
   'lock',
+  'placeholder',
   'video',
   'audio',
   'check',
