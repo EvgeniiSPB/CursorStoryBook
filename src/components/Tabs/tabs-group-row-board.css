@@ -1,0 +1,19 @@
+.tabs-group-row-board {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--tabs-group-row-board-width, 786) * 1px);
+  height: calc(var(--tabs-group-row-board-height, 588) * 1px);
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+}
+
+.tabs-group-row-board__variants {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tabs-group-row-board__variant {
+  position: absolute;
+  margin: 0;
+}

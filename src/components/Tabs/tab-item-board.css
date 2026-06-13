@@ -1,0 +1,19 @@
+.tab-item-board {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--tab-item-board-width, 1056) * 1px);
+  height: calc(var(--tab-item-board-height, 752) * 1px);
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+}
+
+.tab-item-board__variants {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tab-item-board__variant {
+  position: absolute;
+  margin: 0;
+}

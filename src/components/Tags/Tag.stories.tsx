@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import { showcaseCanvas } from '../../storybook/showcase-decorators';
 import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../storybook/showcase-constants';
-import { Tag, type TagProps, type TagState, type TagTopic, type TagType } from './Tag';
+import { Tag, type TagState, type TagTopic, type TagType } from './Tag';
 import './tag-showcase.css';
 
 const types: TagType[] = ['brand', 'brandConstantInverted'];
@@ -65,26 +65,6 @@ export const Playground: Story = {
   decorators: [playgroundSection],
 };
 
-export const BrandFirstLevel: Story = {
-  name: 'brand / 1stLvl',
-  args: { variant: 'brand', topic: '1stLvl', state: 'normal' },
-};
-
-export const BrandSecondLevel: Story = {
-  name: 'brand / 2ndLvl',
-  args: { variant: 'brand', topic: '2ndLvl', state: 'normal' },
-};
-
-export const BrandConstantInvertedFirstLevel: Story = {
-  name: 'brandConstantInverted / 1stLvl',
-  args: { variant: 'brandConstantInverted', topic: '1stLvl', state: 'normal' },
-};
-
-export const BrandConstantInvertedSecondLevel: Story = {
-  name: 'brandConstantInverted / 2ndLvl',
-  args: { variant: 'brandConstantInverted', topic: '2ndLvl', state: 'normal' },
-};
-
 export const AllVariants: Story = {
   name: 'All variants',
   render: () => (
@@ -106,14 +86,4 @@ export const AllVariants: Story = {
       </div>
     </div>
   ),
-};
-
-export const Interactive: Story = {
-  name: 'Interactive (hover / click)',
-  decorators: [playgroundSection],
-  args: { state: undefined },
-  argTypes: {
-    state: { control: false },
-  },
-  render: (args: TagProps) => <Tag {...args} />,
 };

@@ -1,0 +1,108 @@
+.tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  padding: calc(var(--spaces-semantic-xs, 8) * 1px) 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--tab-off-text, var(--text-primary, #34373c));
+  white-space: nowrap;
+}
+
+.tab-item--padding-small {
+  padding-block: calc(var(--spaces-semantic-m, 16) * 1px);
+}
+
+/* Figma column tabItem (4322:4190): label flex fill, gap static/200 unchanged on root */
+.tab-item--label-fill {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.tab-item--label-fill .tab-item__label {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.tab-item__label {
+  color: inherit;
+}
+
+.tab-item__label .text-core,
+.tab-item__label .text-core p {
+  color: inherit;
+}
+
+.tab-item__label .text-core__frame {
+  display: flex;
+  align-items: center;
+}
+
+.tab-item__label p {
+  margin: 0;
+}
+
+.tab-item__icon {
+  flex-shrink: 0;
+}
+
+.tab-item__counter.badge-digits {
+  flex-shrink: 0;
+}
+
+.tab-item--active {
+  color: var(--tab-on-text, var(--text-primary, #34373c));
+  border-bottom-color: var(--tab-on-border-normal, #a30f33);
+}
+
+.tab-item:hover:not(.tab-item--state-hover):not(.tab-item--state-click) {
+  border-bottom-color: var(--tab-off-border-hover, rgba(163, 15, 51, 0.24));
+}
+
+.tab-item--active:hover:not(.tab-item--state-hover):not(.tab-item--state-click) {
+  border-bottom-color: var(--tab-on-border-hover, #93002b);
+}
+
+.tab-item:active:not(.tab-item--state-hover):not(.tab-item--state-click) {
+  border-bottom-color: var(--tab-off-border-click, rgba(163, 15, 51, 0.28));
+}
+
+.tab-item--active:active:not(.tab-item--state-hover):not(.tab-item--state-click) {
+  border-bottom-color: var(--tab-on-border-click, #800024);
+}
+
+.tab-item--active.tab-item--state-hover,
+.tab-item--active.tab-item--state-hover:hover,
+.tab-item--active.tab-item--state-hover:active {
+  border-bottom-color: var(--tab-on-border-hover, #93002b);
+}
+
+.tab-item--active.tab-item--state-click,
+.tab-item--active.tab-item--state-click:hover,
+.tab-item--active.tab-item--state-click:active {
+  border-bottom-color: var(--tab-on-border-click, #800024);
+}
+
+.tab-item:not(.tab-item--active).tab-item--state-hover,
+.tab-item:not(.tab-item--active).tab-item--state-hover:hover,
+.tab-item:not(.tab-item--active).tab-item--state-hover:active {
+  border-bottom-color: var(--tab-off-border-hover, rgba(163, 15, 51, 0.24));
+}
+
+.tab-item:not(.tab-item--active).tab-item--state-click,
+.tab-item:not(.tab-item--active).tab-item--state-click:hover,
+.tab-item:not(.tab-item--active).tab-item--state-click:active {
+  border-bottom-color: var(--tab-off-border-click, rgba(163, 15, 51, 0.28));
+}
+
+.tab-item--state-hover,
+.tab-item--state-click {
+  pointer-events: none;
+  cursor: default;
+}

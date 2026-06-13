@@ -17,7 +17,7 @@ const playgroundSectionStyle = {
 
 const playgroundSection: Decorator = (Story) => (
   <div
-    className="showcase-layout-section showcase-layout-section--playground"
+    className="showcase-layout-section showcase-layout-section--playground tab-feature-digit-showcase-section"
     style={playgroundSectionStyle}
   >
     <div className="showcase-layout-playground">
@@ -51,32 +51,16 @@ export const Playground: Story = {
   decorators: [playgroundSection],
 };
 
-export const Default: Story = {
-  args: { state: 'default' },
-};
-
-export const Hover: Story = {
-  args: { state: 'hover' },
-};
-
-export const Click: Story = {
-  args: { state: 'click' },
-};
-
-export const Active: Story = {
-  args: { state: 'active' },
-};
-
-export const AllStates: Story = {
-  name: 'All states',
+export const AllVariants: Story = {
+  name: 'All variants',
   render: () => (
-    <div className="showcase-layout-section showcase-layout-section--board">
+    <div className="showcase-layout-section showcase-layout-section--board tab-feature-digit-showcase-section">
       <div className="tabs-showcase">
         {states.map((state) => (
           <TabFeatureDigit
             key={state}
-            state={state}
-            className="tabs-showcase__row--static"
+            state={state === 'default' ? undefined : state}
+            className={state === 'default' ? undefined : 'tabs-showcase__row--static'}
           />
         ))}
       </div>

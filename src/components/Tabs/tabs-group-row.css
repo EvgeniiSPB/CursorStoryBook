@@ -1,0 +1,6 @@
+.tabs-group-row {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spaces-static-500, 20) * 1px);
+  box-sizing: border-box;
+}

@@ -1,5 +1,11 @@
 @import '../../storybook/showcase-layout.css';
 
+/* TabFeatureDigit — светлый текст на тёмном UI; доска #000000 на canvas #1e1e1e */
+.showcase-layout-section.tab-feature-digit-showcase-section {
+  --background0-primary: #000000;
+  background-color: #000000;
+}
+
 .tabs-showcase {
   display: flex;
   flex-direction: column;
@@ -8,7 +14,18 @@
   box-sizing: border-box;
 }
 
-.tabs-showcase__row--static .tab-feature-digit {
+.tabs-showcase__row--static .tab-feature-digit,
+.tabs-showcase__row--static .tab-item {
   pointer-events: none;
   cursor: default;
+}
+
+/* Wide tabItem board — horizontal scroll on dark canvas, white section like Tag Group */
+.showcase-layout-canvas:has(.tab-item-board) {
+  overflow: auto;
+}
+
+/* Tall tabsGroupColumn board — vertical scroll on dark canvas */
+.showcase-layout-canvas:has(.tabs-group-column-board) {
+  overflow: auto;
 }

@@ -59,15 +59,6 @@ export const Playground: Story = {
   decorators: [playgroundSection],
 };
 
-export const Brand: Story = {
-  args: { variant: 'brand' },
-};
-
-export const BrandConstantInverted: Story = {
-  name: 'brandConstantInverted',
-  args: { variant: 'brandConstantInverted' },
-};
-
 export const AllVariants: Story = {
   name: 'All variants',
   render: () => (
