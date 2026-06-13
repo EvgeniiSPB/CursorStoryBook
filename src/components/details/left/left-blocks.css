@@ -1,0 +1,36 @@
+/* details / left (4286:5311) content blocks — left column, fixed 344px. */
+
+.details-left-block {
+  width: var(--details-left-width, 344px);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* cell - responfFor (4298:3228) → rounded portrait avatar + role/name text */
+.cell-respond-for {
+  display: flex;
+  gap: calc(var(--spaces-semantic-m, 16) * 1px);
+  align-items: flex-start;
+}
+
+.cell-respond-for .image-container-fixed-aspect-ratio {
+  width: 64px;
+  border-radius: calc(var(--radii-static-infinite, 10000) * 1px);
+}
+
+.cell-respond-for__text {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+.cell-respond-for__text .text-core,
+.cell-respond-for__text .text-core__frame {
+  width: 100%;
+}
+
+.cell-respond-for__role {
+  color: var(--text-secondary, rgba(52, 55, 60, 0.5));
+}

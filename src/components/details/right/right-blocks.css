@@ -1,0 +1,116 @@
+/* details / right (4286:5401) incut blocks — right column, fixed 344px.
+   Inner content is 240px wide, right-aligned within the column. */
+
+.incut {
+  display: flex;
+  width: var(--details-right-width, 344px);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.incut__inner {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  max-width: 100%;
+}
+
+/* Reused atoms wrap + fill inside incuts */
+.incut .text-core__frame {
+  width: 100%;
+}
+
+.incut .text-core {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.incut .text-headline__frame,
+.incut .text-display__frame {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.incut .text-headline,
+.incut .text-display {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.incut .image-container-fixed-aspect-ratio {
+  width: 100%;
+}
+
+.incut .divider-horizontal {
+  width: 100%;
+}
+
+/* incut - related (4286:5402) */
+.incut--related {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.incut--related .incut__inner {
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+}
+
+.incut-related__title,
+.incut-related__content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  width: 100%;
+}
+
+/* incut - numbers (4288:5578) */
+.incut--numbers {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.incut--numbers .incut__inner {
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+}
+
+/* incut - opinion (4288:5725) */
+.incut--opinion {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.incut--opinion .incut__inner {
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+.incut--opinion .image-container-fixed-aspect-ratio {
+  width: 112px;
+  border-radius: calc(var(--radii-static-infinite, 10000) * 1px);
+}
+
+/* incut - socials (4288:7590) */
+.incut--socials {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.incut--socials .incut__inner {
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-end;
+}
+
+.incut-socials__label {
+  color: var(--text-secondary, rgba(52, 55, 60, 0.5));
+  white-space: nowrap;
+}
+
+.incut-socials__buttons {
+  display: flex;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}

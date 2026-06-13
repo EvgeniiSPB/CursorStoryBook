@@ -1,0 +1,201 @@
+/* details / fullWidth (4289:7765) blocks — span the constructor full width
+   (1600px design bound), horizontally padded by semantic/xl (40px). */
+
+.details-full-block {
+  width: var(--details-full-width, 1600px);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Shared image figure: image + caption + copyright */
+.image-figure {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-xs, 8) * 1px);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.image-figure .image-container-fixed-aspect-ratio {
+  width: 100%;
+}
+
+.image-figure__caption-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.image-figure__caption-copy .text-core,
+.image-figure__caption-copy .text-core__frame {
+  width: 100%;
+}
+
+.image-figure__caption-copy .text-core {
+  white-space: normal;
+}
+
+/* text - headline (4288:7649) — headlineXL, inner 1136px, padded 40px */
+.text-headline-full {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: calc(var(--spaces-semantic-xl, 40) * 1px);
+  padding-right: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
+.text-headline-full__inner {
+  width: 1136px;
+  max-width: 100%;
+}
+
+.text-headline-full .text-headline__frame {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.text-headline-full__headline {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* text - quote (4289:7755) — displayM brand quote + author */
+.text-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: calc(var(--spaces-semantic-xl, 40) * 1px);
+  padding-right: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
+.text-quote__inner {
+  display: flex;
+  flex-direction: column;
+  width: 1136px;
+  max-width: 100%;
+}
+
+.text-quote__display {
+  width: 100%;
+  padding-bottom: calc(var(--spaces-static-700, 28) * 1px);
+}
+
+.text-quote__display .text-display__frame {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.text-quote__display-text {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 0;
+  color: var(--text-brand, #a30f33);
+}
+
+.text-quote__author {
+  display: flex;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+  align-items: center;
+  width: 100%;
+}
+
+.text-quote__dash {
+  display: flex;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.text-quote__author-text {
+  color: var(--text-brand, #a30f33);
+  white-space: normal;
+}
+
+/* image - double (4299:3405) / image - triple (4299:3548) — equal columns */
+.image-double,
+.image-triple {
+  display: flex;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: calc(var(--spaces-semantic-xl, 40) * 1px);
+  padding-right: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
+.image-double .image-figure,
+.image-triple .image-figure {
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+/* image - gallery (4301:4017) — three 752px columns, centered + clipped */
+.image-gallery {
+  display: flex;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  align-items: flex-start;
+  justify-content: center;
+  overflow: clip;
+  padding-left: calc(var(--spaces-semantic-xl, 40) * 1px);
+  padding-right: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
+.image-gallery__side {
+  width: 752px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.image-gallery__side.image-container-fixed-aspect-ratio {
+  width: 752px;
+  aspect-ratio: auto;
+  height: auto;
+}
+
+.image-gallery__center {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-xs, 8) * 1px);
+  width: 752px;
+  flex-shrink: 0;
+}
+
+.image-gallery__center .image-container-fixed-aspect-ratio {
+  width: 100%;
+}
+
+.image-gallery__cap-row {
+  display: flex;
+  gap: calc(var(--spaces-static-600, 24) * 1px);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.image-gallery__counter {
+  display: flex;
+  flex-direction: column;
+  width: 52px;
+  flex-shrink: 0;
+  padding-top: calc(var(--spaces-static-50, 2) * 1px);
+}
+
+.image-gallery__counter .text-core {
+  color: var(--text-secondary, rgba(52, 55, 60, 0.5));
+}
+
+.image-gallery__cap {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.image-gallery__cap .text-core,
+.image-gallery__cap .text-core__frame,
+.image-gallery__counter .text-core__frame {
+  width: 100%;
+}
+
+.image-gallery__cap .text-core {
+  white-space: normal;
+}

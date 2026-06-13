@@ -1,0 +1,173 @@
+/* details / center (4266:3245) content blocks — middle column, fixed 752px.
+   Layout-only styles; typography/fonts come from the reused atoms
+   (TextParagraph, TextCore, TextHeadline). Tokens fallback-driven. */
+
+.details-center-block {
+  width: var(--details-center-width, 752px);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Reused TextParagraph is single-line (nowrap) by default; details blocks
+   wrap and fill the available width. */
+.details-paragraph-fill {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  align-items: flex-start;
+}
+
+.details-paragraph-fill > .text-paragraph__frame {
+  flex: 1 0 0;
+  min-width: 1px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.details-paragraph-fill .text-paragraph {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+/* Standalone wide paragraph (Figma `text - paragraph` mode=wide): fills width,
+   wraps, used directly in the constructor middle slot. */
+.details-paragraph-wide {
+  width: 100%;
+}
+
+.details-paragraph-wide .text-paragraph__frame {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.details-paragraph-wide .text-paragraph {
+  white-space: normal;
+  width: 100%;
+}
+
+/* text - title (4267:3328) → text-headline headlineS/medium, wrapping */
+.text-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text-title .text-headline__frame {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.text-title__headline {
+  white-space: normal;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* text - question / answer / initials — paragraph + leading tonned badge */
+.details-badged {
+  position: relative;
+  display: flex;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+}
+
+.details-badged__badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  padding-top: calc(var(--spaces-static-50, 2) * 1px);
+}
+
+/* First line clears the absolute badge (min-width 32 + gap 12); wrapped lines
+   stay full width — matches Figma text-question / answer / initials. */
+.details-badged .details-paragraph-fill .text-paragraph {
+  text-indent: calc(32px + var(--spaces-static-300, 12) * 1px);
+}
+
+/* text - listNumbered / listBulleted — fixed 44px marker + filling text */
+.text-list {
+  display: flex;
+  align-items: flex-start;
+}
+
+.text-list__marker {
+  display: flex;
+  flex-shrink: 0;
+  width: 44px;
+}
+
+.text-list__content {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  align-items: flex-start;
+}
+
+/* text - authors (4280:4643) */
+.text-authors {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-m, 16) * 1px);
+  align-items: flex-start;
+}
+
+.text-authors__header,
+.text-authors__ul {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-m, 16) * 1px);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.text-authors__heading .text-core,
+.text-authors__heading .text-core__frame {
+  width: 100%;
+}
+
+.text-authors .divider-horizontal {
+  width: 100%;
+}
+
+.text-authors__line {
+  margin: 0;
+  width: 100%;
+  color: var(--text-primary, var(--primary-primary, #34373c));
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  word-break: break-word;
+}
+
+.text-authors__name {
+  font-family: 'Oceanic Text', var(--font-families-body, 'Oceanic Grotesk'), system-ui,
+    sans-serif;
+  font-weight: 500;
+}
+
+/* image - single (4298:3227) — fixed-aspect image + caption + copyright */
+.image-single {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-xs, 8) * 1px);
+  align-items: flex-start;
+}
+
+.image-single .image-container-fixed-aspect-ratio {
+  width: 100%;
+}
+
+.image-single__caption-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.image-single__caption-copy .text-core,
+.image-single__caption-copy .text-core__frame {
+  width: 100%;
+}
