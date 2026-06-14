@@ -292,3 +292,26 @@
 .button-text-icon--visual-filled-brand .button-text-icon__icon {
   color: var(--constant-primary, #ffffff);
 }
+
+.button-text-icon .text-core__frame {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Figma text - core body/M/regular inside button - text + icon */
+.button-text-icon__label.text-core.text-style--body-m-regular {
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-size: calc(var(--font-sizes-body-m, 16) * 1px);
+  line-height: calc(var(--line-heights-body-m, 20) * 1px);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  white-space: nowrap;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.button-text-icon--visual-filled-constantinverted .button-text-icon__label.text-core {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

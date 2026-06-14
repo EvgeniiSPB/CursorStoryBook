@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react';
-import { ButtonPlaceholderIcon } from '../shared/ButtonPlaceholderIcon';
+import { ButtonIconOnlyGlyph, type ButtonIconOnlyGlyphName } from '../shared/ButtonIconOnlyGlyph';
 import {
   BUTTON_ICON_ONLY_BRAND_SEGMENT,
   buttonIconOnlyNeedsBrandSegment,
@@ -19,6 +19,10 @@ export interface ButtonIconOnlyProps
   disabled?: boolean;
   /** Storybook static rows; omit for live :hover/:active */
   state?: ButtonIconOnlyState;
+  /** Figma icon28 glyph; atom board uses `placeholder`. */
+  icon?: ButtonIconOnlyGlyphName;
+  /** Figma `4063:7653` board binds `secondaryBrand` to vivid violet; card contexts use default `icon/brand`. */
+  brandSegment?: boolean;
   className?: string;
   /** Accessible name (required for icon-only buttons). */
   'aria-label'?: string;
@@ -30,6 +34,8 @@ export function ButtonIconOnly({
   extraPaddings = false,
   disabled = false,
   state,
+  icon = 'placeholder',
+  brandSegment = true,
   className,
   'aria-label': ariaLabel = 'Action',
   ...buttonProps
@@ -50,9 +56,10 @@ export function ButtonIconOnly({
     .filter(Boolean)
     .join(' ');
 
-  const brandSegment = buttonIconOnlyNeedsBrandSegment(type)
-    ? BUTTON_ICON_ONLY_BRAND_SEGMENT
-    : undefined;
+  const segment =
+    brandSegment && buttonIconOnlyNeedsBrandSegment(type)
+      ? BUTTON_ICON_ONLY_BRAND_SEGMENT
+      : undefined;
 
   return (
     <button
@@ -61,10 +68,10 @@ export function ButtonIconOnly({
       disabled={disabled}
       aria-label={ariaLabel}
       data-name="button - icon only"
-      {...(brandSegment ? { 'data-segment': brandSegment } : {})}
+      {...(segment ? { 'data-segment': segment } : {})}
       {...buttonProps}
     >
-      <ButtonPlaceholderIcon className="button-icon-only__icon" />
+      <ButtonIconOnlyGlyph name={icon} className="button-icon-only__icon" />
     </button>
   );
 }

@@ -6,6 +6,10 @@
   color: var(--icon-primary);
 }
 
+.icon--inherit-color {
+  color: inherit;
+}
+
 .icon--20 {
   width: calc(var(--x-base-500, 20) * 1px);
   height: calc(var(--x-base-500, 20) * 1px);

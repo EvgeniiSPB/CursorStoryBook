@@ -55,6 +55,7 @@ export function Icon({
     'icon',
     `icon--${size}`,
     inset ? 'icon--inset' : '',
+    inheritColor ? 'icon--inherit-color' : '',
     className,
   ]
     .filter(Boolean)

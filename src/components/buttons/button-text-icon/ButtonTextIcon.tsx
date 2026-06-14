@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, CSSProperties } from 'react';
 import { TextCore } from '../../atoms/text-core/TextCore';
-import { ButtonPlaceholderIcon } from '../shared/ButtonPlaceholderIcon';
+import { ButtonTextIconArrowIcon } from '../shared/ButtonTextIconArrowIcon';
+import '../shared/button-text-icon-arrow-icon.css';
 import {
   BUTTON_TEXT_ICON_BRAND_SEGMENT,
   BUTTON_TEXT_ICON_FILL_WIDTH_PX,
@@ -83,7 +84,7 @@ export function ButtonTextIcon({
       {...(brandSegment ? { 'data-segment': brandSegment } : {})}
       {...buttonProps}
     >
-      <ButtonPlaceholderIcon className="button-text-icon__icon" />
+      <ButtonTextIconArrowIcon className="button-text-icon__icon" />
       <TextCore typography="bodyM" fontWeight="regular" text={children} className={labelClass} />
     </button>
   );

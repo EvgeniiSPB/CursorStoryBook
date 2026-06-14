@@ -20,6 +20,12 @@
   font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
 }
 
+.text-core.text-core--body[class*='text-style--body-'][class*='-regular'] {
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+}
+
 .text-core.text-style--special-one-size-medium {
   font-family: var(--font-families-special, 'JetBrains Mono'), ui-monospace, monospace;
 }

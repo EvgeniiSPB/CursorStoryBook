@@ -1,0 +1,8 @@
+/* cardTop - * — top row of a card. Horizontal cluster of tags/badges. */
+.card-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+  flex-wrap: wrap;
+}

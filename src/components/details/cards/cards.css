@@ -1,0 +1,206 @@
+/* card - * — assembled cards (Figma 03 - components).
+   Built from screenshots: a colored/image surface + swappable slots. */
+
+.card {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: calc(var(--radii-semantic-l, 24) * 1px);
+  color: var(--text-constant-inverted, #ffffff);
+}
+
+/* Radius variants (baseLFilled). */
+.card[data-radius='x0'] {
+  border-radius: 0;
+}
+.card[data-radius='x6'] {
+  border-radius: calc(var(--radii-semantic-l, 24) * 1px);
+}
+.card[data-radius='x8'] {
+  border-radius: calc(var(--radii-semantic-xl, 32) * 1px);
+}
+
+/* Background layers (shape swatch / image) fill the card; content sits above. */
+.card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.card__bg > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card__image-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dim overlay so overlaid text stays legible on photos. */
+.card--has-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.04) 38%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  gap: calc(var(--spaces-static-600, 24) * 1px);
+}
+
+.card__content--between {
+  justify-content: space-between;
+}
+
+.card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+}
+
+.card__bottom-section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  margin-top: auto;
+}
+
+.card__bottom-row {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: center;
+}
+
+/* Inherit light text into reused atoms on colored/dark cards. */
+.card .text-headline,
+.card .text-display,
+.card .text-core,
+.card .text-paragraph {
+  color: inherit;
+}
+
+/* ---- card - baseM (496 × 780, vertical image card) ---- */
+.card--baseM {
+  width: 496px;
+  min-height: 780px;
+}
+.card--baseM .card__content {
+  padding: calc(var(--spaces-static-600, 24) * 1px);
+}
+.card__top {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--spaces-static-200, 8) * 1px);
+}
+
+/* ---- card - baseLFilled (1568 × 668, horizontal filled) ---- */
+.card--baseLFilled {
+  width: 1568px;
+  min-height: 668px;
+  max-width: 100%;
+}
+.card--baseLFilled .card__content {
+  width: 50%;
+  padding: calc(var(--spaces-static-1600, 64) * 1px);
+}
+
+/* ---- card - baseLImage (1568 × 636, horizontal image) ---- */
+.card--baseLImage {
+  width: 1568px;
+  min-height: 636px;
+  max-width: 100%;
+}
+.card--baseLImage .card__content {
+  width: 50%;
+  padding: calc(var(--spaces-static-1600, 64) * 1px);
+}
+
+/* ---- card - firstScreen (1600 × 800, hero) ---- */
+.card--firstScreen {
+  width: 1600px;
+  min-height: 800px;
+  max-width: 100%;
+}
+.card--firstScreen .card__content {
+  width: 50%;
+  padding: calc(var(--spaces-static-1600, 64) * 1px);
+  justify-content: flex-end;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+}
+.card__authors {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+/* ---- card - subscriptionOn (496 × 372) ---- */
+.card--subscriptionOn {
+  width: 496px;
+  min-height: 372px;
+}
+.card--subscriptionOn .card__content {
+  padding: calc(var(--spaces-static-600, 24) * 1px);
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+}
+.card--subscriptionOn[data-theme='dark'] {
+  color: var(--text-constant-inverted, #ffffff);
+}
+.card__subscription-head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+.card__subscription-foot {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+}
+.card__check {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--background0-constant-inverted, #ffffff);
+  color: var(--icon-constant, #34373c);
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ---- card - HBR (304 × 456, light) ---- */
+.card--HBR {
+  width: 304px;
+  min-height: 456px;
+  color: var(--text-primary, #34373c);
+}
+.card--HBR .card__content {
+  padding: calc(var(--spaces-static-400, 16) * 1px) calc(var(--spaces-static-400, 16) * 1px)
+    calc(var(--spaces-static-1600, 64) * 1px);
+  justify-content: space-between;
+}
+.card__hbr-logo {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text-brand, #c8102e);
+}

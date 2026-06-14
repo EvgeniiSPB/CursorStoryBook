@@ -179,6 +179,17 @@
   background-color: var(--button-filled-constant-inverted-body-click, rgba(255, 255, 255, 0.8));
 }
 
-.button-icon-only--visual-filled-constantinverted-brand .button-icon-only__icon {
+.button-icon-only--visual-filled-constantinverted-brand .button-icon-only__icon,
+.button-icon-only--visual-filled-constantinverted-brand .button-icon-only__icon .icon {
+  /* Figma `icon/brand` → `--icon-brand` (crimson #a30f33 in cardBottom subscriptionOn) */
+  color: var(--icon-brand, #a30f33);
+}
+
+[data-segment='vivid-violet'] .button-icon-only--visual-filled-constantinverted-brand .button-icon-only__icon,
+[data-segment='vivid-violet']
+  .button-icon-only--visual-filled-constantinverted-brand
+  .button-icon-only__icon
+  .icon {
+  /* Figma board `4063:7653` secondaryBrand column — segment overrides icon/brand */
   color: var(--segment-primary, #783987);
 }

@@ -1,0 +1,13 @@
+/* cardImage - * (Figma 4208:704) — fixed 496px-wide image blocks. */
+.card-image {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: var(--card-image-width, 496px);
+  max-width: 100%;
+}
+
+.card-image .card-image__media,
+.card-image .image-container-fixed-aspect-ratio {
+  width: 100%;
+}
