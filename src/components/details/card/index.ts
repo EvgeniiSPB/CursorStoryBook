@@ -1,6 +1,11 @@
-export { CardConstructor, type CardConstructorProps } from './CardConstructor';
 export {
-  CARD_CONSTRUCTOR_FIGMA_NODE_IDS,
+  CARD_PLACEHOLDER_FIGMA_NODE_ID,
+  CARD_PLACEHOLDER_BOARD_WIDTH_PX,
+  CARD_PLACEHOLDER_BOARD_PADDING_PX,
+  CARD_SWAP_SYMBOL_FIGMA_NODE_ID,
+  CARD_SWAP_SYMBOL_SIZE_PX,
+  CARD_PLAYGROUND_ITEMS,
+  CARD_FIGMA_NODE_IDS,
   CARD_KINDS,
   CARD_STATES,
   CARD_RADII,
@@ -14,6 +19,7 @@ export {
   CARD_VARIANTS,
   cardVariantKey,
   type CardKind,
+  type CardPlaygroundItem,
   type CardState,
   type CardRadius,
   type CardRows,
@@ -24,3 +30,15 @@ export {
   type CardCapabilities,
   type CardVariant,
 } from './types';
+
+export {
+  CardShell,
+  CardPlaceholder,
+  SWAP,
+  renderBottom,
+  renderShape,
+  renderTop,
+  shapePickerOptions,
+  type CardShellProps,
+  type CardPlaceholderProps,
+} from './constructor';

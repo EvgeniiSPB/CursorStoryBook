@@ -5,7 +5,7 @@ import { CellRespondFor } from './CellRespondFor';
 import { DETAILS_LEFT_FIGMA_NODE_ID, DETAILS_LEFT_WIDTH_PX } from './index';
 
 const meta = {
-  title: 'Constructors/cellConstructor/Left',
+  title: 'Constructors/Article/Left',
   component: CellRespondFor,
   tags: ['autodocs'],
   decorators: [showcaseCanvas],

@@ -22,7 +22,7 @@ const boardStyle: CSSProperties = {
 };
 
 const meta = {
-  title: 'Constructors/cardConstructor/Image',
+  title: 'Constructors/Card/Image',
   component: CardImage,
   decorators: [showcaseCanvas],
   parameters: {

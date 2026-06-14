@@ -1,4 +1,18 @@
-export { CardTop, CARD_TOP_VARIANTS, type CardTopProps, type CardTopVariant } from './CardTop';
+export {
+  CardTop,
+  CARD_TOP_VARIANTS,
+  type CardTopProps,
+  type CardTopVariant,
+} from './CardTop';
 
-/** Figma `cardTop` section. */
-export const CARD_TOP_FIGMA_NODE_ID = '4234:624';
+export {
+  CARD_TOP_BOARD_GAP_PX,
+  CARD_TOP_BOARD_GRADIENT_GAP_OFFSET_PX,
+  CARD_TOP_BOARD_PADDING_PX,
+  CARD_TOP_BOARD_WIDTH_PX,
+  CARD_TOP_FIGMA_NODE_ID,
+  CARD_TOP_FIGMA_NODE_IDS,
+  CARD_TOP_LIGHT_BLOCKS_HEIGHT_PX,
+  CARD_TOP_LIGHT_GAPS_PX,
+  CARD_TOP_WRAPPER_WIDTH_PX,
+} from './constants';

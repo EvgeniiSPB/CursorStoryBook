@@ -97,12 +97,44 @@
 
 /* ---- card - baseM (496 × 780, vertical image card) ---- */
 .card--baseM {
+  flex-direction: column;
   width: 496px;
   min-height: 780px;
+  color: var(--text-primary, #34373c);
+  border-radius: 0;
+  overflow: visible;
 }
-.card--baseM .card__content {
-  padding: calc(var(--spaces-static-600, 24) * 1px);
+
+.card--baseM .card__baseM-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  width: 100%;
+  padding-block: calc(var(--spaces-static-600, 24) * 1px);
+  padding-inline: 0;
+  box-sizing: border-box;
 }
+
+.card--baseM .card__top {
+  width: 100%;
+}
+
+.card--baseM .card__top > .swap-placeholder {
+  width: 100%;
+}
+
+.card--baseM .card__top > .card-top {
+  width: 100%;
+  max-width: 100%;
+}
+
+.card--baseM .card-bottom {
+  width: 100%;
+  max-width: 100%;
+}
+
 .card__top {
   display: flex;
   flex-direction: row;
@@ -185,6 +217,24 @@
   color: var(--icon-constant, #34373c);
   font-size: 16px;
   line-height: 1;
+}
+
+/* ---- card - subscriptionOff (496 × 372) ---- */
+.card--subscriptionOff {
+  width: 496px;
+  min-height: 372px;
+}
+.card--subscriptionOff .card__content--subscription {
+  padding: calc(var(--spaces-static-600, 24) * 1px);
+  gap: calc(var(--spaces-static-1600, 40) * 1px);
+  justify-content: space-between;
+  min-height: 372px;
+  box-sizing: border-box;
+}
+.card__subscription-bottom {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
 }
 
 /* ---- card - HBR (304 × 456, light) ---- */

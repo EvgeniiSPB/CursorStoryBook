@@ -9,7 +9,7 @@ import { ImageGallery } from './ImageGallery';
 import { DETAILS_FULL_WIDTH_FIGMA_NODE_ID, DETAILS_FULL_WIDTH_PX } from './index';
 
 const meta = {
-  title: 'Constructors/cellConstructor/Full Width',
+  title: 'Constructors/Article/Full Width',
   component: TextHeadlineFull,
   tags: ['autodocs'],
   decorators: [showcaseCanvas],

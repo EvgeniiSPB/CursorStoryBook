@@ -23,7 +23,7 @@ const boardSectionStyle = {
 } as CSSProperties;
 
 const meta = {
-  title: 'Constructors/cardConstructor/Bottom',
+  title: 'Constructors/Card/Bottom',
   component: CardBottom,
   decorators: [showcaseCanvas],
   parameters: {

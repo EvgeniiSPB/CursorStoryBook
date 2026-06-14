@@ -1,8 +1,177 @@
-/* cardTop - * — top row of a card. Horizontal cluster of tags/badges. */
+/* cardTop - * (Figma 4172:547) */
+
 .card-top {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: calc(var(--spaces-static-200, 8) * 1px);
-  flex-wrap: wrap;
+  box-sizing: border-box;
+  max-width: 100%;
+  /*
+   * Pin headline family regardless of showcase Font toolbar (Oceanic Grotesk body mode).
+   * Matches atoms text - headline / headline/L/regular.
+   */
+  --font-families-headline: Oceanic Text;
+}
+
+.card-top .text-headline,
+.card-top .text-headline__frame {
+  width: 100%;
+}
+
+.card-top__tone-primary.text-headline {
+  color: var(--text-primary, #34373c);
+}
+
+.card-top__tone-inverted.text-headline {
+  color: var(--text-constant-primary, #ffffff);
+}
+
+.card-top__subscription-headline--secondary.text-headline {
+  color: var(--text-constant-secondary, rgba(255, 255, 255, 0.5));
+}
+
+/* Figma headline/L|XL/regular — Oceanic Text, not showcase Grotesk */
+.card-top__headline-l.text-headline,
+.card-top__headline-xl.text-headline {
+  font-family: var(--font-families-headline, 'Oceanic Text'), system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+/* Figma event → Date: headline/XL on Oceanic Grotesk */
+.card-top__date.text-headline {
+  width: auto;
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  white-space: nowrap;
+}
+
+.card-top__date.text-headline + .badge-digits,
+.card-top__event-row .badge-digits {
+  flex-shrink: 0;
+}
+
+/* Figma subscription headlines: headline/S on Oceanic Grotesk */
+.card-top__subscription-headline.text-headline {
+  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
+}
+
+.card-top__headline-l.text-headline,
+.card-top__headline-xl.text-headline {
+  min-width: 0;
+}
+
+/* Shared baseM layout — 720×72 */
+.card-top--baseM2tags,
+.card-top--baseM1lvlTag,
+.card-top--baseM2lvlTag,
+.card-top--baseMBadge2tags,
+.card-top--baseMBadge1tag {
+  flex-direction: column;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+  width: 720px;
+}
+
+.card-top__meta {
+  display: flex;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Figma 4531:462 — tag/tagGroup fill, badge hug */
+.card-top__meta > .tag.card-top__meta-tags,
+.card-top__meta > .tag-group.card-top__meta-tags {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  align-self: stretch;
+}
+
+.card-top__meta > .tag.card-top__meta-tags {
+  justify-content: flex-start;
+}
+
+.card-top__meta .badge-text {
+  flex-shrink: 0;
+}
+
+/* cardTop - event (4172:545) — 720×96 */
+.card-top--event {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 720px;
+}
+
+.card-top__event-row {
+  display: flex;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.card-top__event-row .text-headline__frame:has(.card-top__date) {
+  width: auto;
+  flex-shrink: 0;
+}
+
+.card-top--event .card-top__headline-xl.text-headline {
+  width: 100%;
+}
+
+/* cardTop - baseL (4172:546) — 720×80 */
+.card-top--baseL {
+  flex-direction: column;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+  width: 720px;
+}
+
+/* cardTop - subscriptionOn / subscriptionOff — 752×88 */
+.card-top--subscriptionOn,
+.card-top--subscriptionOff {
+  flex-direction: column;
+  gap: calc(var(--spaces-static-300, 12) * 1px);
+  align-items: flex-start;
+  width: 752px;
+}
+
+.card-top__subscription-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Storybook board — Figma gradient (4172:547): line before event. */
+.card-top-board-section {
+  --card-top-board-gradient-stop: calc(
+    (var(--showcase-board-padding, 128) * 1px) + (var(--card-top-light-blocks-height, 360) * 1px) +
+      (var(--card-top-light-gaps, 256) * 1px) +
+      (var(--card-top-board-gradient-gap-offset, 64) * 1px)
+  );
+  background: linear-gradient(
+    180.02deg,
+    #ffffff 0%,
+    #ffffff var(--card-top-board-gradient-stop),
+    #000000 var(--card-top-board-gradient-stop),
+    #000000 100%
+  );
+}
+
+.card-top-board-section .card-top__tone-inverted.text-headline {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.card-top-board {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--card-top-board-gap, 64) * 1px);
+  align-items: flex-start;
+  width: var(--card-top-board-width, 752px);
+  max-width: 100%;
 }

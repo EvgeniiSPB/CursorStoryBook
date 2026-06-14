@@ -17,7 +17,7 @@ import {
 } from './constants';
 
 const meta = {
-  title: 'Constructors/cellConstructor/Center',
+  title: 'Constructors/Article/Center',
   component: TextTitle,
   tags: ['autodocs'],
   decorators: [showcaseCanvas],

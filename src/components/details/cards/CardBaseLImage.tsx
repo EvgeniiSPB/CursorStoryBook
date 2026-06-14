@@ -3,7 +3,7 @@ import imageSampleUrl from '../../../assets/image-container/image-container-samp
 import { TagGroup } from '../../Tags';
 import { TextHeadline } from '../../atoms/text-headline/TextHeadline';
 import { SwapPlaceholder } from '../swap-placeholder';
-import type { CardRows } from '../card-constructor/types';
+import type { CardRows } from '../card/types';
 import './cards.css';
 
 export interface CardBaseLImageProps extends HTMLAttributes<HTMLDivElement> {

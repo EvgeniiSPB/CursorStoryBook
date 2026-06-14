@@ -1,15 +1,24 @@
 import type { ShapeColorRole, ShapeType } from '../../../shapes';
 
 /**
- * Figma `cardConstructor` — card layout shells assembled from a colored/image
- * surface plus swappable slots (top tags/badges, bottom cell, background shape).
+ * Figma `card / placeholder` — card layout shells assembled from a colored/image
+ * surface plus swappable slots (top, bottom cell, background shape).
  *
  * Source: Figma `03 - components` sections
  *   4217:1161 · 4234:624 · 4208:704 · 4172:547 · 4206:375
- * Built from screenshots (no file edit access), so sizes/tokens are approximate.
  */
-export const CARD_CONSTRUCTOR_FIGMA_NODE_IDS = [
-  '4217:1161',
+export const CARD_PLACEHOLDER_FIGMA_NODE_ID = '4217:1161';
+
+/** Figma `card / placeholder` frame — 2100×5732, inset 128. */
+export const CARD_PLACEHOLDER_BOARD_WIDTH_PX = 2100;
+export const CARD_PLACEHOLDER_BOARD_PADDING_PX = 128;
+
+/** Figma `!card placeholder` symbol inside `card / placeholder`. */
+export const CARD_SWAP_SYMBOL_FIGMA_NODE_ID = '4258:799';
+export const CARD_SWAP_SYMBOL_SIZE_PX = 496;
+
+export const CARD_FIGMA_NODE_IDS = [
+  CARD_PLACEHOLDER_FIGMA_NODE_ID,
   '4234:624',
   '4208:704',
   '4172:547',
@@ -22,6 +31,7 @@ export type CardKind =
   | 'baseLImage'
   | 'firstScreen'
   | 'subscriptionOn'
+  | 'subscriptionOff'
   | 'HBR';
 
 export type CardState = 'normal' | 'hover' | 'click';
@@ -35,8 +45,14 @@ export const CARD_KINDS: readonly CardKind[] = [
   'baseLImage',
   'firstScreen',
   'subscriptionOn',
+  'subscriptionOff',
   'HBR',
 ];
+
+/** Playground picker: swap stub + 7 card kinds (Figma `card / placeholder`). */
+export type CardPlaygroundItem = 'swap' | CardKind;
+
+export const CARD_PLAYGROUND_ITEMS: readonly CardPlaygroundItem[] = ['swap', ...CARD_KINDS];
 
 export const CARD_STATES: readonly CardState[] = ['normal', 'hover', 'click'];
 export const CARD_RADII: readonly CardRadius[] = ['x0', 'x6', 'x8'];
@@ -50,6 +66,7 @@ export const CARD_SIZE_PX: Record<CardKind, { width: number; minHeight: number }
   baseLImage: { width: 1568, minHeight: 636 },
   firstScreen: { width: 1600, minHeight: 800 },
   subscriptionOn: { width: 496, minHeight: 372 },
+  subscriptionOff: { width: 496, minHeight: 372 },
   HBR: { width: 304, minHeight: 456 },
 };
 
@@ -73,8 +90,7 @@ export type CardBottomBlock = (typeof CARD_BOTTOM_BLOCKS)[number];
 
 /**
  * Background `shape` swatches (preferred instances) for the colored cards.
- * Maps each swatch key to an existing `Shape` (src/shapes). Approximated from
- * the screenshots — adjust once Figma access is available.
+ * Maps each swatch key to an existing `Shape` (src/shapes).
  */
 export interface CardShapeOption {
   key: string;
@@ -101,8 +117,75 @@ export const CARD_SHAPE_OPTIONS: Record<CardKind, readonly CardShapeOption[]> = 
   baseLImage: [],
   firstScreen: COLORED_SHAPE_OPTIONS,
   subscriptionOn: COLORED_SHAPE_OPTIONS,
+  subscriptionOff: [],
   HBR: LIGHT_SHAPE_OPTIONS,
 };
+
+/** Preferred shape keys for colored cards (baseLFilled, firstScreen, subscriptionOn). */
+export const CARD_COLORED_SHAPE_KEYS: readonly string[] = COLORED_SHAPE_OPTIONS.map((o) => o.key);
+
+/** Preferred shape keys for HBR (light swatches). */
+export const CARD_LIGHT_SHAPE_KEYS: readonly string[] = LIGHT_SHAPE_OPTIONS.map((o) => o.key);
+
+/** Figma `card - baseM`. */
+export const CARD_BASE_M_FIGMA_NODE_ID = '4252:3687';
+
+/* ------------------------------------------------------------------ *
+ * Swap-instance slots per card (Figma "Preferred instances").
+ * ------------------------------------------------------------------ */
+
+export type CardSwapSlotName = 'top' | 'bottomCell' | 'shape';
+
+export interface CardSwapSlotDef {
+  name: CardSwapSlotName;
+  preferred: readonly string[];
+}
+
+function cardShapeKeys(card: CardKind): readonly string[] {
+  return CARD_SHAPE_OPTIONS[card].map((option) => option.key);
+}
+
+export const CARD_SWAP_SLOTS: Record<CardKind, readonly CardSwapSlotDef[]> = {
+  baseM: [{ name: 'top', preferred: CARD_TOP_BLOCKS }],
+  baseLFilled: [
+    { name: 'shape', preferred: cardShapeKeys('baseLFilled') },
+    { name: 'bottomCell', preferred: CARD_BOTTOM_BLOCKS },
+  ],
+  baseLImage: [{ name: 'bottomCell', preferred: CARD_BOTTOM_BLOCKS }],
+  firstScreen: [{ name: 'shape', preferred: cardShapeKeys('firstScreen') }],
+  subscriptionOn: [{ name: 'shape', preferred: cardShapeKeys('subscriptionOn') }],
+  subscriptionOff: [],
+  HBR: [{ name: 'shape', preferred: cardShapeKeys('HBR') }],
+};
+
+export function cardSwapSlotOptions(
+  card: CardKind,
+  slot: CardSwapSlotName,
+  swapToken = 'swap',
+): readonly string[] {
+  const def = CARD_SWAP_SLOTS[card].find((entry) => entry.name === slot);
+  if (!def) {
+    return [];
+  }
+  return [...def.preferred, swapToken];
+}
+
+/** If `value` is not in the card's preferred list for `slot`, return `swapToken`. */
+export function resolveCardSwapSlot(
+  card: CardKind,
+  slot: CardSwapSlotName,
+  value: string,
+  swapToken = 'swap',
+): string {
+  if (value === swapToken) {
+    return swapToken;
+  }
+  const def = CARD_SWAP_SLOTS[card].find((entry) => entry.name === slot);
+  if (!def || !def.preferred.includes(value)) {
+    return swapToken;
+  }
+  return value;
+}
 
 /* ------------------------------------------------------------------ *
  * Per-kind capability flags (drive which controls/slots are relevant).
@@ -123,6 +206,7 @@ export const CARD_CAPABILITIES: Record<CardKind, CardCapabilities> = {
   baseLImage: { state: false, radius: false, rows: true, theme: false, top: false, bottomCell: true, shape: false },
   firstScreen: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: true },
   subscriptionOn: { state: true, radius: false, rows: false, theme: true, top: false, bottomCell: false, shape: true },
+  subscriptionOff: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: false },
   HBR: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: true },
 };
 

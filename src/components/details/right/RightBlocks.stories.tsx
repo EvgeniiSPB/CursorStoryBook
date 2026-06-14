@@ -8,7 +8,7 @@ import { IncutSocials } from './IncutSocials';
 import { DETAILS_RIGHT_FIGMA_NODE_ID, DETAILS_RIGHT_WIDTH_PX } from './index';
 
 const meta = {
-  title: 'Constructors/cellConstructor/Right',
+  title: 'Constructors/Article/Right',
   component: IncutRelated,
   tags: ['autodocs'],
   decorators: [showcaseCanvas],

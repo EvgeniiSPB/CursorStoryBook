@@ -4,7 +4,7 @@ import { TextDisplay } from '../../atoms/text-display/TextDisplay';
 import { TextParagraph } from '../../atoms/text-paragraph/TextParagraph';
 import { TextCore } from '../../atoms/text-core/TextCore';
 import { SwapPlaceholder } from '../swap-placeholder';
-import type { CardState } from '../card-constructor/types';
+import type { CardState } from '../card/types';
 import './cards.css';
 
 const FIRST_SCREEN_PARAGRAPH =

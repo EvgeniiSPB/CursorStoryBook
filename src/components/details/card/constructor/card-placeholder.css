@@ -1,0 +1,31 @@
+/* Figma `!card placeholder` (4258:799) with inner `bound` (4258:796). */
+.card-placeholder {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 496px;
+  height: 496px;
+  flex-shrink: 0;
+}
+
+.card-placeholder__bound {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  min-width: 1px;
+  min-height: 1px;
+  height: 100%;
+  padding: calc(var(--spaces-semantic-m, 16) * 1px);
+  border: 1px dashed var(--meta-border, rgba(52, 55, 60, 0.4));
+  border-radius: calc(var(--radii-semantic-m, 16) * 1px);
+  background: var(--meta-body, rgba(52, 55, 60, 0.12));
+  overflow: clip;
+}
+
+.card-placeholder__label {
+  color: var(--primary-primary, var(--text-primary, #34373c));
+}

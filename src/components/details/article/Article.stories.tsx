@@ -22,19 +22,19 @@ import {
   ImageTriple,
   ImageGallery,
 } from '../full-width';
-import { CellConstructor } from './CellConstructor';
+import { Article } from './Article';
 import {
-  CELL_CONSTRUCTOR_FIGMA_NODE_ID,
-  CELL_CONSTRUCTOR_FULL_WIDTH_BLOCKS,
-  CELL_CONSTRUCTOR_LEFT_BLOCKS,
-  CELL_CONSTRUCTOR_MIDDLE_BLOCKS,
-  CELL_CONSTRUCTOR_PADDING_SIZES,
-  CELL_CONSTRUCTOR_RIGHT_BLOCKS,
-  CELL_CONSTRUCTOR_TOP_PADDING_PX,
-  CELL_CONSTRUCTOR_VARIANTS,
-  CELL_CONSTRUCTOR_WIDTH_PX,
-  cellConstructorVariantKey,
-  type CellConstructorPaddingSize,
+  ARTICLE_FIGMA_NODE_ID,
+  ARTICLE_FULL_WIDTH_BLOCKS,
+  ARTICLE_LEFT_BLOCKS,
+  ARTICLE_MIDDLE_BLOCKS,
+  ARTICLE_PADDING_SIZES,
+  ARTICLE_RIGHT_BLOCKS,
+  ARTICLE_TOP_PADDING_PX,
+  ARTICLE_VARIANTS,
+  ARTICLE_WIDTH_PX,
+  articleVariantKey,
+  type ArticlePaddingSize,
 } from './types';
 
 const SWAP = 'swap';
@@ -66,7 +66,7 @@ const BLOCK_RENDERERS: Record<string, () => ReactNode> = {
   ),
 };
 
-const MIDDLE_SLOT_PROP: Record<CellConstructorPaddingSize, string> = {
+const MIDDLE_SLOT_PROP: Record<ArticlePaddingSize, string> = {
   '---': 'middleCell',
   tiny: 'middleTiny',
   small: 'middleSmall',
@@ -82,7 +82,7 @@ type MiddleArgKey =
   | 'middleLargeBlock';
 
 /** Which picker arg drives the middle slot for a given paddingSize. */
-const MIDDLE_ARG: Record<CellConstructorPaddingSize, MiddleArgKey> = {
+const MIDDLE_ARG: Record<ArticlePaddingSize, MiddleArgKey> = {
   '---': 'middleCellBlock',
   tiny: 'middleTinyBlock',
   small: 'middleSmallBlock',
@@ -90,26 +90,19 @@ const MIDDLE_ARG: Record<CellConstructorPaddingSize, MiddleArgKey> = {
   large: 'middleLargeBlock',
 };
 
-// Horizontal scroll lives on the padded board card (its 64px padding absorbs the
-// scrollbar) so it doesn't force overflow-y:auto and a spurious vertical scrollbar.
 const boardScrollStyle: CSSProperties = {
   overflowX: 'auto',
   maxWidth: '100%',
 };
 
 const boardStyle: CSSProperties = {
-  width: CELL_CONSTRUCTOR_WIDTH_PX,
+  width: ARTICLE_WIDTH_PX,
 };
 
 function renderBlock(name: string): ReactNode {
   return name === SWAP ? undefined : BLOCK_RENDERERS[name]?.();
 }
 
-/**
- * Storybook-only padding-top visualization (Figma dev-mode style): a hatched band
- * over the shell's top padding region with a pixel-value pill (e.g. `80px`). Inset
- * 40px left/right to align with the columns (static/1000 side padding).
- */
 function PaddingTopRuler({ px }: { px: number }) {
   return (
     <div
@@ -152,7 +145,7 @@ type PlaygroundArgs = {
   right: boolean;
   fullWidth: boolean;
   tPadding: boolean;
-  paddingSize: CellConstructorPaddingSize;
+  paddingSize: ArticlePaddingSize;
   leftBlock: string;
   rightBlock: string;
   fullWidthBlock: string;
@@ -162,7 +155,6 @@ type PlaygroundArgs = {
   middleMediumBlock: string;
   middleLargeBlock: string;
   showPaddingTop: boolean;
-  // Raw component slot props — hidden from Controls (driven by the pickers above).
   leftCell?: ReactNode;
   rightCell?: ReactNode;
   fullWidthCell?: ReactNode;
@@ -174,19 +166,19 @@ type PlaygroundArgs = {
 };
 
 const meta = {
-  title: 'Constructors/cellConstructor/Cell Constructor',
-  component: CellConstructor,
+  title: 'Constructors/Article/Article',
+  component: Article,
   tags: ['autodocs'],
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: `Figma \`cellConstructor\` (${CELL_CONSTRUCTOR_FIGMA_NODE_ID}) — article layout shell. \`paddingSize\` selects the active middle slot; its Figma whitelist drives the **middleBlock** picker. \`fullWidth\` collapses to a single cell.`,
+        component: `Figma \`cellConstructor\` (${ARTICLE_FIGMA_NODE_ID}) — article layout shell. \`paddingSize\` selects the active middle slot; its Figma whitelist drives the **middleBlock** picker. \`fullWidth\` collapses to a single cell.`,
       },
     },
   },
-} satisfies Meta<typeof CellConstructor>;
+} satisfies Meta<typeof Article>;
 
 export default meta;
 type Story = StoryObj<PlaygroundArgs>;
@@ -209,7 +201,6 @@ export const Playground: Story = {
     showPaddingTop: true,
   },
   argTypes: {
-    // Raw ReactNode slot props are driven by the friendly pickers below.
     leftCell: { table: { disable: true } },
     rightCell: { table: { disable: true } },
     fullWidthCell: { table: { disable: true } },
@@ -219,7 +210,7 @@ export const Playground: Story = {
     middleMedium: { table: { disable: true } },
     middleLarge: { table: { disable: true } },
 
-    paddingSize: { control: 'inline-radio', options: CELL_CONSTRUCTOR_PADDING_SIZES },
+    paddingSize: { control: 'inline-radio', options: ARTICLE_PADDING_SIZES },
 
     showPaddingTop: {
       name: 'show padding-top ruler',
@@ -227,64 +218,63 @@ export const Playground: Story = {
       if: { arg: 'tPadding', truthy: true },
     },
 
-    // Slot pickers — shown only for the relevant variant (mirrors Figma).
     leftBlock: {
       name: 'leftCell',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_LEFT_BLOCKS, SWAP],
+      options: [...ARTICLE_LEFT_BLOCKS, SWAP],
       if: { arg: 'left', truthy: true },
     },
     rightBlock: {
       name: 'rightCell',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_RIGHT_BLOCKS, SWAP],
+      options: [...ARTICLE_RIGHT_BLOCKS, SWAP],
       if: { arg: 'right', truthy: true },
     },
     fullWidthBlock: {
       name: 'fullWidthCell',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_FULL_WIDTH_BLOCKS, SWAP],
+      options: [...ARTICLE_FULL_WIDTH_BLOCKS, SWAP],
       if: { arg: 'fullWidth', truthy: true },
     },
     middleCellBlock: {
       name: 'middleCell',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_MIDDLE_BLOCKS['---'], SWAP],
+      options: [...ARTICLE_MIDDLE_BLOCKS['---'], SWAP],
       if: { arg: 'paddingSize', eq: '---' },
     },
     middleTinyBlock: {
       name: 'middleTiny',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_MIDDLE_BLOCKS.tiny, SWAP],
+      options: [...ARTICLE_MIDDLE_BLOCKS.tiny, SWAP],
       if: { arg: 'paddingSize', eq: 'tiny' },
     },
     middleSmallBlock: {
       name: 'middleSmall',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_MIDDLE_BLOCKS.small, SWAP],
+      options: [...ARTICLE_MIDDLE_BLOCKS.small, SWAP],
       if: { arg: 'paddingSize', eq: 'small' },
     },
     middleMediumBlock: {
       name: 'middleMedium',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_MIDDLE_BLOCKS.medium, SWAP],
+      options: [...ARTICLE_MIDDLE_BLOCKS.medium, SWAP],
       if: { arg: 'paddingSize', eq: 'medium' },
     },
     middleLargeBlock: {
       name: 'middleLarge',
       control: 'select',
-      options: [...CELL_CONSTRUCTOR_MIDDLE_BLOCKS.large, SWAP],
+      options: [...ARTICLE_MIDDLE_BLOCKS.large, SWAP],
       if: { arg: 'paddingSize', eq: 'large' },
     },
   },
   render: (args) => {
     const middleSelected = args[MIDDLE_ARG[args.paddingSize]];
-    const allowedMiddle = CELL_CONSTRUCTOR_MIDDLE_BLOCKS[args.paddingSize];
+    const allowedMiddle = ARTICLE_MIDDLE_BLOCKS[args.paddingSize];
     const middleName =
       middleSelected !== SWAP && allowedMiddle.includes(middleSelected) ? middleSelected : SWAP;
     const middleProps = { [MIDDLE_SLOT_PROP[args.paddingSize]]: renderBlock(middleName) };
 
-    const paddingPx = CELL_CONSTRUCTOR_TOP_PADDING_PX[args.paddingSize];
+    const paddingPx = ARTICLE_TOP_PADDING_PX[args.paddingSize];
     const showRuler = args.showPaddingTop && args.tPadding && args.paddingSize !== '---';
 
     return (
@@ -292,7 +282,7 @@ export const Playground: Story = {
         <div style={boardStyle}>
           <div style={{ position: 'relative' }}>
             {showRuler && <PaddingTopRuler px={paddingPx} />}
-            <CellConstructor
+            <Article
               left={args.left}
               right={args.right}
               fullWidth={args.fullWidth}
@@ -314,7 +304,7 @@ const variantsBoardStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-  width: CELL_CONSTRUCTOR_WIDTH_PX,
+  width: ARTICLE_WIDTH_PX,
 };
 
 export const AllVariants: Story = {
@@ -322,19 +312,19 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: `All ${CELL_CONSTRUCTOR_VARIANTS.length} Figma variants (empty slots shown as the dashed swap placeholder).`,
+        story: `All ${ARTICLE_VARIANTS.length} Figma variants (empty slots shown as the dashed swap placeholder).`,
       },
     },
   },
   render: () => (
     <div className="showcase-layout-section showcase-layout-section--board" style={boardScrollStyle}>
       <div style={variantsBoardStyle}>
-        {CELL_CONSTRUCTOR_VARIANTS.map((variant) => (
-          <div key={cellConstructorVariantKey(variant)} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {ARTICLE_VARIANTS.map((variant) => (
+          <div key={articleVariantKey(variant)} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <code style={{ fontSize: 12, color: '#6b6e73' }}>
-              {cellConstructorVariantKey(variant)}
+              {articleVariantKey(variant)}
             </code>
-            <CellConstructor
+            <Article
               left={variant.left}
               right={variant.right}
               fullWidth={variant.fullWidth}

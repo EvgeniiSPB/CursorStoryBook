@@ -1,5 +1,0 @@
-/* cardConstructor — thin wrapper that renders the selected card. */
-.card-constructor {
-  display: flex;
-  max-width: 100%;
-}

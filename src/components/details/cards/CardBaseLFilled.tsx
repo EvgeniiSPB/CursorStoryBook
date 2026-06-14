@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { TagGroup } from '../../Tags';
 import { TextHeadline } from '../../atoms/text-headline/TextHeadline';
 import { SwapPlaceholder } from '../swap-placeholder';
-import type { CardRadius, CardRows, CardState } from '../card-constructor/types';
+import type { CardRadius, CardRows, CardState } from '../card/types';
 import './cards.css';
 
 export interface CardBaseLFilledProps extends HTMLAttributes<HTMLDivElement> {

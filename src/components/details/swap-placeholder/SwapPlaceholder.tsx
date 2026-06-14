@@ -9,7 +9,7 @@ export interface SwapPlaceholderProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Figma `!change this` (e.g. 4266:3247) — dashed "swap" bound used for empty
- * cellConstructor slots. Real content is plugged in via the constructor's
+ * Article layout slots. Real content is plugged in via the constructor's
  * slot props; this only renders when a slot is left empty.
  */
 export function SwapPlaceholder({ label = 'swap', className, ...props }: SwapPlaceholderProps) {

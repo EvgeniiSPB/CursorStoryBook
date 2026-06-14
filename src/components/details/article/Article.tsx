@@ -1,9 +1,9 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { SwapPlaceholder } from '../swap-placeholder';
-import { type CellConstructorPaddingSize } from './types';
-import './cell-constructor.css';
+import { type ArticlePaddingSize } from './types';
+import './article.css';
 
-export interface CellConstructorProps extends HTMLAttributes<HTMLDivElement> {
+export interface ArticleProps extends HTMLAttributes<HTMLDivElement> {
   /** Show the left column (ignored when `fullWidth`). */
   left?: boolean;
   /** Show the right column (ignored when `fullWidth`). */
@@ -13,7 +13,7 @@ export interface CellConstructorProps extends HTMLAttributes<HTMLDivElement> {
   /** Add top padding sized by `paddingSize`. */
   tPadding?: boolean;
   /** Selects the active middle slot. */
-  paddingSize?: CellConstructorPaddingSize;
+  paddingSize?: ArticlePaddingSize;
   leftCell?: ReactNode;
   rightCell?: ReactNode;
   fullWidthCell?: ReactNode;
@@ -33,7 +33,7 @@ export interface CellConstructorProps extends HTMLAttributes<HTMLDivElement> {
  * `fullWidth` collapses everything into one 1600px cell. Empty slots render a
  * dashed `SwapPlaceholder` (Figma `!change this`).
  */
-export function CellConstructor({
+export function Article({
   left = true,
   right = true,
   fullWidth = false,
@@ -49,8 +49,8 @@ export function CellConstructor({
   middleLarge,
   className,
   ...props
-}: CellConstructorProps) {
-  const middleByPadding: Record<CellConstructorPaddingSize, ReactNode> = {
+}: ArticleProps) {
+  const middleByPadding: Record<ArticlePaddingSize, ReactNode> = {
     '---': middleCell,
     tiny: middleTiny,
     small: middleSmall,
@@ -62,9 +62,9 @@ export function CellConstructor({
   const hasTopPadding = tPadding && paddingSize !== '---';
 
   const classes = [
-    'cell-constructor',
-    fullWidth ? 'cell-constructor--full-width' : 'cell-constructor--columns',
-    hasTopPadding ? `cell-constructor--pt-${paddingSize}` : '',
+    'article',
+    fullWidth ? 'article--full-width' : 'article--columns',
+    hasTopPadding ? `article--pt-${paddingSize}` : '',
     className,
   ]
     .filter(Boolean)
@@ -73,27 +73,27 @@ export function CellConstructor({
   return (
     <div className={classes} data-name="cellConstructor" data-padding-size={paddingSize} {...props}>
       {fullWidth ? (
-        <div className="cell-constructor__slot--full" data-name="fullWidth">
+        <div className="article__slot--full" data-name="fullWidth">
           {fullWidthCell ?? <SwapPlaceholder />}
         </div>
       ) : (
         <>
           {left ? (
-            <div className="cell-constructor__slot--left" data-name="left">
+            <div className="article__slot--left" data-name="left">
               {leftCell ?? <SwapPlaceholder />}
             </div>
           ) : (
-            <div className="cell-constructor__spacer" aria-hidden />
+            <div className="article__spacer" aria-hidden />
           )}
-          <div className="cell-constructor__slot--middle" data-name="middle">
+          <div className="article__slot--middle" data-name="middle">
             {middleContent ?? <SwapPlaceholder />}
           </div>
           {right ? (
-            <div className="cell-constructor__slot--right" data-name="right">
+            <div className="article__slot--right" data-name="right">
               {rightCell ?? <SwapPlaceholder />}
             </div>
           ) : (
-            <div className="cell-constructor__spacer" aria-hidden />
+            <div className="article__spacer" aria-hidden />
           )}
         </>
       )}

@@ -1,49 +1,49 @@
 /* Figma `cellConstructor` (4301:4032) — article layout shell.
    3-column (left flex / middle 752 / right flex) or single fullWidth cell. */
 
-.cell-constructor {
+.article {
   display: flex;
   align-items: flex-start;
-  width: var(--cell-constructor-width, 1600px);
+  width: var(--article-width, 1600px);
   max-width: 100%;
   box-sizing: border-box;
 }
 
 /* 3-column mode: semantic/xl gap + static/1000 horizontal padding */
-.cell-constructor--columns {
+.article--columns {
   gap: calc(var(--spaces-semantic-xl, 40) * 1px);
   padding-left: calc(var(--spaces-static-1000, 40) * 1px);
   padding-right: calc(var(--spaces-static-1000, 40) * 1px);
 }
 
 /* fullWidth mode: single cell, no shell padding (the block carries its own) */
-.cell-constructor--full-width {
+.article--full-width {
   gap: 0;
 }
 
-.cell-constructor__slot--left {
+.article__slot--left {
   display: flex;
   flex: 1 0 0;
   min-width: 1px;
   align-items: flex-start;
 }
 
-.cell-constructor__slot--middle {
+.article__slot--middle {
   display: flex;
   align-items: flex-start;
-  width: var(--cell-constructor-middle-width, 752px);
+  width: var(--article-middle-width, 752px);
   max-width: 100%;
   flex-shrink: 0;
 }
 
-.cell-constructor__slot--right {
+.article__slot--right {
   display: flex;
   flex: 1 0 0;
   min-width: 1px;
   align-items: flex-end;
 }
 
-.cell-constructor__slot--full {
+.article__slot--full {
   display: flex;
   flex: 1 0 0;
   min-width: 1px;
@@ -51,25 +51,25 @@
 }
 
 /* Empty column when left/right is disabled (keeps the grid balanced) */
-.cell-constructor__spacer {
+.article__spacer {
   flex: 1 0 0;
   min-width: 1px;
   height: 52px;
 }
 
 /* tPadding top offset, sized by paddingSize */
-.cell-constructor--pt-tiny {
+.article--pt-tiny {
   padding-top: calc(var(--spaces-semantic-s, 12) * 1px);
 }
 
-.cell-constructor--pt-small {
+.article--pt-small {
   padding-top: calc(var(--spaces-semantic-l, 24) * 1px);
 }
 
-.cell-constructor--pt-medium {
+.article--pt-medium {
   padding-top: calc(var(--spaces-semantic-xl, 40) * 1px);
 }
 
-.cell-constructor--pt-large {
+.article--pt-large {
   padding-top: calc(var(--spaces-semantic-xxl, 80) * 1px);
 }

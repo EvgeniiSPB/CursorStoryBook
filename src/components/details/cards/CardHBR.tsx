@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { TextHeadline } from '../../atoms/text-headline/TextHeadline';
 import { TextCore } from '../../atoms/text-core/TextCore';
 import { SwapPlaceholder } from '../swap-placeholder';
-import type { CardState } from '../card-constructor/types';
+import type { CardState } from '../card/types';
 import './cards.css';
 
 export interface CardHBRProps extends HTMLAttributes<HTMLDivElement> {

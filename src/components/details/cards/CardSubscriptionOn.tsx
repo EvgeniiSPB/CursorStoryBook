@@ -3,7 +3,7 @@ import { BadgeText } from '../../Badges';
 import { TextHeadline } from '../../atoms/text-headline/TextHeadline';
 import { TextCore } from '../../atoms/text-core/TextCore';
 import { SwapPlaceholder } from '../swap-placeholder';
-import type { CardState, CardTheme } from '../card-constructor/types';
+import type { CardState, CardTheme } from '../card/types';
 import './cards.css';
 
 const SUBSCRIPTION_PARAGRAPH =
