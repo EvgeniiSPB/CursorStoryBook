@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { showcaseCanvas } from '../../../../storybook/showcase-decorators';
 import {
   CARD_CAPABILITIES,
+  CARD_DEFAULT_SEGMENT,
+  CARD_DEFAULT_SHAPE_KEY,
   CARD_KINDS,
   CARD_PLACEHOLDER_BOARD_PADDING_PX,
   CARD_PLACEHOLDER_BOARD_WIDTH_PX,
@@ -10,23 +12,26 @@ import {
   CARD_PLAYGROUND_ITEMS,
   CARD_RADII,
   CARD_ROWS,
+  CARD_SEGMENT_SLUGS,
   CARD_SIZE_PX,
   CARD_STATES,
   CARD_SWAP_SLOTS,
   CARD_THEMES,
   CARD_VARIANTS,
+  cardShapeRadius,
   cardVariantKey,
   resolveCardSwapSlot,
   type CardKind,
   type CardPlaygroundItem,
   type CardRadius,
   type CardRows,
+  type CardSegment,
   type CardState,
   type CardTheme,
 } from '../types';
 import { CardPlaceholder } from './CardPlaceholder';
 import { CardShell } from './CardShell';
-import { SWAP, renderBottom, renderShape, renderTop } from './slot-renderers';
+import { SWAP, renderBottom, resolveShapeSlot, renderTop } from './slot-renderers';
 
 const boardScrollStyle: CSSProperties = {
   overflowX: 'auto',
@@ -59,7 +64,9 @@ function variantArgKey(card: CardKind, prop: string): string {
   return `${prop}_${card}`;
 }
 
-function slotArgKey(card: CardKind, slot: 'bottomCell' | 'shape'): string {
+type CardSlotArg = 'bottomCell1' | 'bottomCell2' | 'shape';
+
+function slotArgKey(card: CardKind, slot: CardSlotArg): string {
   return `${slot}_${card}`;
 }
 
@@ -72,9 +79,37 @@ function readTopArg(args: PlaygroundArgs): string {
   return typeof args.top === 'string' ? args.top : SWAP;
 }
 
-function readSlotArg(args: PlaygroundArgs, card: CardKind, slot: 'bottomCell' | 'shape'): string {
+function readSlotArg(args: PlaygroundArgs, card: CardKind, slot: CardSlotArg): string {
   const value = args[slotArgKey(card, slot)];
   return typeof value === 'string' ? value : SWAP;
+}
+
+function readShapeState(args: PlaygroundArgs, card: CardKind): CardState {
+  const caps = CARD_CAPABILITIES[card];
+  if (!caps.state) {
+    return 'normal';
+  }
+  const value = readVariantArg(args, card, 'state');
+  return CARD_STATES.includes(value as CardState) ? (value as CardState) : 'normal';
+}
+
+function readShapeRadius(args: PlaygroundArgs, card: CardKind): CardRadius {
+  const caps = CARD_CAPABILITIES[card];
+  if (!caps.radius) {
+    return cardShapeRadius(card);
+  }
+  const value = readVariantArg(args, card, 'radius');
+  return CARD_RADII.includes(value as CardRadius) ? (value as CardRadius) : 'x6';
+}
+
+function readSegmentArg(args: PlaygroundArgs, card: CardKind): CardSegment {
+  const caps = CARD_CAPABILITIES[card];
+  const fallback = CARD_DEFAULT_SEGMENT[card] ?? 'crimson';
+  if (!caps.segment) {
+    return fallback;
+  }
+  const value = readVariantArg(args, card, 'segment');
+  return CARD_SEGMENT_SLUGS.includes(value as CardSegment) ? (value as CardSegment) : fallback;
 }
 
 function buildPlaygroundArgTypes(): Meta<PlaygroundArgs>['argTypes'] {
@@ -99,21 +134,43 @@ function buildPlaygroundArgTypes(): Meta<PlaygroundArgs>['argTypes'] {
       };
     }
 
+    if (caps.segment) {
+      argTypes[variantArgKey(card, 'segment')] = {
+        name: 'segment',
+        control: 'select',
+        options: [...CARD_SEGMENT_SLUGS],
+        if: { arg: 'card', eq: card },
+        table: { category: 'Variant' },
+      };
+    }
+
     for (const slot of CARD_SWAP_SLOTS[card]) {
       if (slot.name === 'top') {
         argTypes.top = {
           control: 'select',
           options: [...slot.preferred, SWAP],
           if: { arg: 'card', eq: 'baseM' },
+          table: { category: 'Swap' },
         };
       }
 
-      if (slot.name === 'bottomCell') {
-        argTypes[slotArgKey(card, 'bottomCell')] = {
-          name: 'bottomCell',
-          control: 'inline-radio',
+      if (slot.name === 'bottomCell1') {
+        argTypes[slotArgKey(card, 'bottomCell1')] = {
+          name: 'bottomCell1',
+          control: 'select',
           options: [...slot.preferred, SWAP],
           if: { arg: 'card', eq: card },
+          table: { category: 'Swap' },
+        };
+      }
+
+      if (slot.name === 'bottomCell2') {
+        argTypes[slotArgKey(card, 'bottomCell2')] = {
+          name: 'bottomCell2',
+          control: 'select',
+          options: [...slot.preferred, SWAP],
+          if: { arg: variantArgKey(card, 'rows'), eq: 2 },
+          table: { category: 'Swap' },
         };
       }
 
@@ -123,6 +180,7 @@ function buildPlaygroundArgTypes(): Meta<PlaygroundArgs>['argTypes'] {
           control: 'inline-radio',
           options: [...slot.preferred, SWAP],
           if: { arg: 'card', eq: card },
+          table: { category: 'Swap' },
         };
       }
     }
@@ -143,12 +201,16 @@ function buildPlaygroundDefaultArgs(): PlaygroundArgs {
       }
     }
 
+    if (caps.segment) {
+      args[variantArgKey(card, 'segment')] = CARD_DEFAULT_SEGMENT[card] ?? 'crimson';
+    }
+
     for (const slot of CARD_SWAP_SLOTS[card]) {
-      if (slot.name === 'bottomCell') {
-        args[slotArgKey(card, 'bottomCell')] = SWAP;
+      if (slot.name === 'bottomCell1' || slot.name === 'bottomCell2') {
+        args[slotArgKey(card, slot.name)] = SWAP;
       }
       if (slot.name === 'shape') {
-        args[slotArgKey(card, 'shape')] = SWAP;
+        args[slotArgKey(card, 'shape')] = CARD_DEFAULT_SHAPE_KEY[card] ?? SWAP;
       }
     }
   }
@@ -170,6 +232,25 @@ type Story = StoryObj<PlaygroundArgs>;
 export const Playground: Story = {
   args: buildPlaygroundDefaultArgs(),
   argTypes: buildPlaygroundArgTypes(),
+  parameters: {
+    controls: {
+      exclude: [
+        'shape_baseLFilled',
+        'shape_firstScreen',
+        'shape_subscriptionOn',
+        'shape_subscriptionOff',
+        'shape_HBR',
+        'bottomCell1_firstScreen',
+        'bottomCell2_firstScreen',
+        'bottomCell1_subscriptionOn',
+        'bottomCell2_subscriptionOn',
+        'bottomCell1_subscriptionOff',
+        'bottomCell2_subscriptionOff',
+        'bottomCell_baseLFilled',
+        'bottomCell_baseLImage',
+      ],
+    },
+  },
   render: (args) => {
     if (!isCardKind(args.card)) {
       return (
@@ -185,9 +266,13 @@ export const Playground: Story = {
     const card = args.card;
     const caps = CARD_CAPABILITIES[card];
     const topKey = caps.top ? resolveCardSwapSlot(card, 'top', readTopArg(args), SWAP) : SWAP;
-    const bottomKey = caps.bottomCell
-      ? resolveCardSwapSlot(card, 'bottomCell', readSlotArg(args, card, 'bottomCell'), SWAP)
+    const bottomCell1Key = caps.bottomCell1
+      ? resolveCardSwapSlot(card, 'bottomCell1', readSlotArg(args, card, 'bottomCell1'), SWAP)
       : SWAP;
+    const bottomCell2Key = caps.bottomCell2
+      ? resolveCardSwapSlot(card, 'bottomCell2', readSlotArg(args, card, 'bottomCell2'), SWAP)
+      : SWAP;
+    const rows = caps.rows ? (Number(readVariantArg(args, card, 'rows')) as CardRows) : 1;
     const shapeKey = caps.shape
       ? resolveCardSwapSlot(card, 'shape', readSlotArg(args, card, 'shape'), SWAP)
       : SWAP;
@@ -203,22 +288,24 @@ export const Playground: Story = {
           radius={
             caps.radius ? (readVariantArg(args, card, 'radius') as CardRadius) : undefined
           }
-          rows={
-            caps.rows ? (Number(readVariantArg(args, card, 'rows')) as CardRows) : undefined
-          }
+          rows={caps.rows ? rows : undefined}
           theme={caps.theme ? (readVariantArg(args, card, 'theme') as CardTheme) : undefined}
           top={caps.top ? renderTop(topKey) : undefined}
-          bottomCell={caps.bottomCell ? renderBottom(bottomKey) : undefined}
+          bottomCell1={caps.bottomCell1 ? renderBottom(bottomCell1Key) : undefined}
+          bottomCell2={
+            caps.bottomCell2 && rows === 2 ? renderBottom(bottomCell2Key) : undefined
+          }
           shape={
             caps.shape
-              ? renderShape(
+              ? resolveShapeSlot(
                   card,
                   shapeKey,
-                  (readVariantArg(args, card, 'state') as CardState) || 'normal',
-                  (readVariantArg(args, card, 'radius') as CardRadius) || 'x6',
+                  readShapeState(args, card),
+                  readShapeRadius(args, card),
                 )
               : undefined
           }
+          segment={caps.segment ? readSegmentArg(args, card) : undefined}
         />
       </div>
     );
@@ -261,6 +348,11 @@ export const AllVariants: Story = {
                     radius={variant.radius}
                     rows={variant.rows}
                     theme={variant.theme}
+                    segment={
+                      CARD_CAPABILITIES[variant.card].segment
+                        ? (CARD_DEFAULT_SEGMENT[variant.card] ?? 'crimson')
+                        : undefined
+                    }
                   />
                 </div>
               </div>

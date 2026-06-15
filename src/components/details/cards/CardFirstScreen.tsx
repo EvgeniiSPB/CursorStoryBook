@@ -1,51 +1,69 @@
-import type { HTMLAttributes, ReactNode } from 'react';
-import { TagGroup } from '../../Tags';
-import { TextDisplay } from '../../atoms/text-display/TextDisplay';
-import { TextParagraph } from '../../atoms/text-paragraph/TextParagraph';
-import { TextCore } from '../../atoms/text-core/TextCore';
-import { SwapPlaceholder } from '../swap-placeholder';
+import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import imageSampleUrl from '../../../assets/image-container/image-container-sample.png';
+import { Shape } from '../../../shapes';
+import { CardBottom } from '../card-bottom/CardBottom';
+import { CardTop } from '../card-top/CardTop';
+import { CardImage } from '../card-image/CardImage';
+import { CARD_FIRST_SCREEN_FIGMA_NODE_ID } from '../card/types';
 import type { CardState } from '../card/types';
 import './cards.css';
 
-const FIRST_SCREEN_PARAGRAPH =
-  'Это руководство по работе с дизайн-системой и выстраиванию рабочих процессов команды.';
+const shapeFillStyle: CSSProperties = {
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+};
+
+function DefaultShapeBackground({ state }: { state: CardState }) {
+  return (
+    <Shape type="filled" color="brand" state={state} radius="x0" style={shapeFillStyle} />
+  );
+}
 
 export interface CardFirstScreenProps extends HTMLAttributes<HTMLDivElement> {
   state?: CardState;
-  /** Background `shape` swatch. Empty → swap. */
+  /** Background `shape` swatch. Empty → filled/brand with `state`. */
   shape?: ReactNode;
   headline?: string;
-  paragraph?: string;
+  text?: string;
   author?: string;
   date?: string;
+  src?: string;
 }
 
-/** Figma `card - firstScreen` (4172:547) — hero card with a swappable shape background. */
+/** Figma `card - firstScreen` (4252:769) — shape + CardTop baseL + CardBottom mainFeature + CardImage 1:1. */
 export function CardFirstScreen({
   state = 'normal',
   shape,
   headline = 'Headline',
-  paragraph = FIRST_SCREEN_PARAGRAPH,
-  author = 'Author',
-  date = 'Date',
+  text,
+  author,
+  date,
+  src = imageSampleUrl,
   className,
   ...props
 }: CardFirstScreenProps) {
   const classes = ['card', 'card--firstScreen', className].filter(Boolean).join(' ');
 
   return (
-    <div className={classes} data-name="card - firstScreen" data-state={state} {...props}>
-      <div className="card__bg" data-name="shape">
-        {shape ?? <SwapPlaceholder />}
-      </div>
-      <div className="card__content">
-        <TagGroup firstLabel="Value" secondLabel="Value" />
-        <TextDisplay typography="displayM" fontWeight="medium" text={headline} />
-        <TextParagraph typography="bodyL" fontWeight="regular" text={paragraph} />
-        <div className="card__authors">
-          <TextCore typography="bodyM" fontWeight="medium" text={author} />
-          <TextCore typography="bodyS" fontWeight="regular" text={date} />
+    <div
+      className={classes}
+      data-name="card - firstScreen"
+      data-node-id={CARD_FIRST_SCREEN_FIGMA_NODE_ID}
+      data-state={state}
+      {...props}
+    >
+      <div className="card__firstScreen-text" data-name="text">
+        <div className="card__bg" data-name="shape">
+          {shape ?? <DefaultShapeBackground state={state} />}
         </div>
+        <div className="card__firstScreen-spacer" data-name="div" aria-hidden />
+        <CardTop variant="baseL" headline={headline} />
+        <CardBottom variant="mainFeature" text={text} author={author} date={date} />
+      </div>
+      <div className="card__firstScreen-image" data-name="image">
+        <CardImage variant="1:1" src={src} />
       </div>
     </div>
   );

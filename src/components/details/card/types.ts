@@ -1,4 +1,5 @@
 import type { ShapeColorRole, ShapeType } from '../../../shapes';
+import { SEGMENT_OPTIONS } from '../../../tokens/segment-options';
 
 /**
  * Figma `card / placeholder` — card layout shells assembled from a colored/image
@@ -36,6 +37,7 @@ export type CardKind =
 
 export type CardState = 'normal' | 'hover' | 'click';
 export type CardRadius = 'x0' | 'x6' | 'x8';
+/** baseLFilled / baseLImage: `1` = one swap cell in bottomSection; `2` = two stacked cells in bottomSection. */
 export type CardRows = 1 | 2;
 export type CardTheme = 'light' | 'dark';
 
@@ -58,6 +60,13 @@ export const CARD_STATES: readonly CardState[] = ['normal', 'hover', 'click'];
 export const CARD_RADII: readonly CardRadius[] = ['x0', 'x6', 'x8'];
 export const CARD_ROWS: readonly CardRows[] = [1, 2];
 export const CARD_THEMES: readonly CardTheme[] = ['light', 'dark'];
+
+export const CARD_SEGMENT_SLUGS = SEGMENT_OPTIONS.map(({ slug }) => slug) as readonly string[];
+export type CardSegment = (typeof CARD_SEGMENT_SLUGS)[number];
+
+export const CARD_DEFAULT_SEGMENT: Partial<Record<CardKind, CardSegment>> = {
+  HBR: 'crimson',
+};
 
 /** Card frame size (px) per kind — from the Figma "Hug" boards in the screenshots. */
 export const CARD_SIZE_PX: Record<CardKind, { width: number; minHeight: number }> = {
@@ -84,7 +93,7 @@ export const CARD_TOP_BLOCKS = [
 ] as const;
 export type CardTopBlock = (typeof CARD_TOP_BLOCKS)[number];
 
-/** `cell 1` of the `bottomSection` (baseLFilled, baseLImage). */
+/** Preferred swap instances for cells inside `card / bottomSection`. */
 export const CARD_BOTTOM_BLOCKS = ['cardBottom-baseConstantInverted', 'cardBottom-button'] as const;
 export type CardBottomBlock = (typeof CARD_BOTTOM_BLOCKS)[number];
 
@@ -113,28 +122,57 @@ const LIGHT_SHAPE_OPTIONS: readonly CardShapeOption[] = [
 /** Which cards have a swappable background shape, and the 3 swatch options each. */
 export const CARD_SHAPE_OPTIONS: Record<CardKind, readonly CardShapeOption[]> = {
   baseM: [],
-  baseLFilled: COLORED_SHAPE_OPTIONS,
+  baseLFilled: [],
   baseLImage: [],
-  firstScreen: COLORED_SHAPE_OPTIONS,
-  subscriptionOn: COLORED_SHAPE_OPTIONS,
+  firstScreen: [],
+  subscriptionOn: [],
   subscriptionOff: [],
-  HBR: LIGHT_SHAPE_OPTIONS,
+  HBR: [],
 };
-
-/** Preferred shape keys for colored cards (baseLFilled, firstScreen, subscriptionOn). */
-export const CARD_COLORED_SHAPE_KEYS: readonly string[] = COLORED_SHAPE_OPTIONS.map((o) => o.key);
 
 /** Preferred shape keys for HBR (light swatches). */
 export const CARD_LIGHT_SHAPE_KEYS: readonly string[] = LIGHT_SHAPE_OPTIONS.map((o) => o.key);
 
+/** Default shape swatch per card with a swappable shape slot. */
+export const CARD_DEFAULT_SHAPE_KEY: Partial<Record<CardKind, string>> = {};
+
+/** Shape radius per card when the card has no `radius` control (Figma preferred instances). */
+export const CARD_SHAPE_RADIUS: Partial<Record<CardKind, CardRadius>> = {
+  firstScreen: 'x0',
+  subscriptionOn: 'x6',
+  subscriptionOff: 'x6',
+};
+
+export function cardShapeRadius(card: CardKind): CardRadius {
+  return CARD_SHAPE_RADIUS[card] ?? 'x6';
+}
+
 /** Figma `card - baseM`. */
 export const CARD_BASE_M_FIGMA_NODE_ID = '4252:3687';
+
+/** Figma `card - baseLFilled`. */
+export const CARD_BASE_L_FILLED_FIGMA_NODE_ID = '4217:1563';
+
+/** Figma `card - baseLImage`. */
+export const CARD_BASE_L_IMAGE_FIGMA_NODE_ID = '4239:592';
+
+/** Figma `card - firstScreen`. */
+export const CARD_FIRST_SCREEN_FIGMA_NODE_ID = '4252:769';
+
+/** Figma `card - subscriptionOn`. */
+export const CARD_SUBSCRIPTION_ON_FIGMA_NODE_ID = '4252:1023';
+
+/** Figma `card - subscriptionOff`. */
+export const CARD_SUBSCRIPTION_OFF_FIGMA_NODE_ID = '4252:1024';
+
+/** Figma `card - HBR`. */
+export const CARD_HBR_FIGMA_NODE_ID = '4217:1017';
 
 /* ------------------------------------------------------------------ *
  * Swap-instance slots per card (Figma "Preferred instances").
  * ------------------------------------------------------------------ */
 
-export type CardSwapSlotName = 'top' | 'bottomCell' | 'shape';
+export type CardSwapSlotName = 'top' | 'bottomCell1' | 'bottomCell2' | 'shape';
 
 export interface CardSwapSlotDef {
   name: CardSwapSlotName;
@@ -148,14 +186,17 @@ function cardShapeKeys(card: CardKind): readonly string[] {
 export const CARD_SWAP_SLOTS: Record<CardKind, readonly CardSwapSlotDef[]> = {
   baseM: [{ name: 'top', preferred: CARD_TOP_BLOCKS }],
   baseLFilled: [
-    { name: 'shape', preferred: cardShapeKeys('baseLFilled') },
-    { name: 'bottomCell', preferred: CARD_BOTTOM_BLOCKS },
+    { name: 'bottomCell1', preferred: CARD_BOTTOM_BLOCKS },
+    { name: 'bottomCell2', preferred: CARD_BOTTOM_BLOCKS },
   ],
-  baseLImage: [{ name: 'bottomCell', preferred: CARD_BOTTOM_BLOCKS }],
-  firstScreen: [{ name: 'shape', preferred: cardShapeKeys('firstScreen') }],
-  subscriptionOn: [{ name: 'shape', preferred: cardShapeKeys('subscriptionOn') }],
+  baseLImage: [
+    { name: 'bottomCell1', preferred: CARD_BOTTOM_BLOCKS },
+    { name: 'bottomCell2', preferred: CARD_BOTTOM_BLOCKS },
+  ],
+  firstScreen: [],
+  subscriptionOn: [],
   subscriptionOff: [],
-  HBR: [{ name: 'shape', preferred: cardShapeKeys('HBR') }],
+  HBR: [],
 };
 
 export function cardSwapSlotOptions(
@@ -196,18 +237,20 @@ export interface CardCapabilities {
   rows: boolean;
   theme: boolean;
   top: boolean;
-  bottomCell: boolean;
+  bottomCell1: boolean;
+  bottomCell2: boolean;
   shape: boolean;
+  segment: boolean;
 }
 
 export const CARD_CAPABILITIES: Record<CardKind, CardCapabilities> = {
-  baseM: { state: false, radius: false, rows: false, theme: false, top: true, bottomCell: false, shape: false },
-  baseLFilled: { state: true, radius: true, rows: true, theme: false, top: false, bottomCell: true, shape: true },
-  baseLImage: { state: false, radius: false, rows: true, theme: false, top: false, bottomCell: true, shape: false },
-  firstScreen: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: true },
-  subscriptionOn: { state: true, radius: false, rows: false, theme: true, top: false, bottomCell: false, shape: true },
-  subscriptionOff: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: false },
-  HBR: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell: false, shape: true },
+  baseM: { state: false, radius: false, rows: false, theme: false, top: true, bottomCell1: false, bottomCell2: false, shape: false, segment: false },
+  baseLFilled: { state: true, radius: true, rows: true, theme: false, top: false, bottomCell1: true, bottomCell2: true, shape: false, segment: false },
+  baseLImage: { state: false, radius: false, rows: true, theme: false, top: false, bottomCell1: true, bottomCell2: true, shape: false, segment: false },
+  firstScreen: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell1: false, bottomCell2: false, shape: false, segment: false },
+  subscriptionOn: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell1: false, bottomCell2: false, shape: false, segment: false },
+  subscriptionOff: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell1: false, bottomCell2: false, shape: false, segment: false },
+  HBR: { state: true, radius: false, rows: false, theme: false, top: false, bottomCell1: false, bottomCell2: false, shape: false, segment: true },
 };
 
 /* ------------------------------------------------------------------ *

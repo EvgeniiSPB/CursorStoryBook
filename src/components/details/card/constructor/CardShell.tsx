@@ -8,7 +8,15 @@ import {
   CardSubscriptionOff,
   CardSubscriptionOn,
 } from '../../cards';
-import type { CardKind, CardRadius, CardRows, CardState, CardTheme } from '../types';
+import {
+  CARD_DEFAULT_SEGMENT,
+  type CardKind,
+  type CardRadius,
+  type CardRows,
+  type CardSegment,
+  type CardState,
+  type CardTheme,
+} from '../types';
 
 export interface CardShellProps extends HTMLAttributes<HTMLDivElement> {
   card: CardKind;
@@ -17,8 +25,10 @@ export interface CardShellProps extends HTMLAttributes<HTMLDivElement> {
   rows?: CardRows;
   theme?: CardTheme;
   top?: ReactNode;
-  bottomCell?: ReactNode;
+  bottomCell1?: ReactNode;
+  bottomCell2?: ReactNode;
   shape?: ReactNode;
+  segment?: CardSegment;
 }
 
 /** Dispatches to the card component for the given Figma `card - *` kind. */
@@ -29,8 +39,10 @@ export function CardShell({
   rows = 1,
   theme = 'light',
   top,
-  bottomCell,
+  bottomCell1,
+  bottomCell2,
   shape,
+  segment,
   ...props
 }: CardShellProps) {
   switch (card) {
@@ -43,22 +55,34 @@ export function CardShell({
           radius={radius}
           rows={rows}
           shape={shape}
-          bottomCell={bottomCell}
+          bottomCell1={bottomCell1}
+          bottomCell2={bottomCell2}
           {...props}
         />
       );
     case 'baseLImage':
-      return <CardBaseLImage rows={rows} bottomCell={bottomCell} {...props} />;
-    case 'firstScreen':
-      return <CardFirstScreen state={state} shape={shape} {...props} />;
-    case 'subscriptionOn':
       return (
-        <CardSubscriptionOn state={state} theme={theme} shape={shape} {...props} />
+        <CardBaseLImage
+          rows={rows}
+          bottomCell1={bottomCell1}
+          bottomCell2={bottomCell2}
+          {...props}
+        />
       );
+    case 'firstScreen':
+      return <CardFirstScreen state={state} {...props} />;
+    case 'subscriptionOn':
+      return <CardSubscriptionOn state={state} {...props} />;
     case 'subscriptionOff':
-      return <CardSubscriptionOff state={state} shape={shape} {...props} />;
+      return <CardSubscriptionOff state={state} {...props} />;
     case 'HBR':
-      return <CardHBR state={state} shape={shape} {...props} />;
+      return (
+        <CardHBR
+          state={state}
+          segment={segment ?? CARD_DEFAULT_SEGMENT.HBR ?? 'crimson'}
+          {...props}
+        />
+      );
     default: {
       const _exhaustive: never = card;
       return _exhaustive;

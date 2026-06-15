@@ -143,114 +143,411 @@
 
 /* ---- card - baseLFilled (1568 × 668, horizontal filled) ---- */
 .card--baseLFilled {
+  flex-direction: column;
+  align-items: stretch;
   width: 1568px;
   min-height: 668px;
   max-width: 100%;
+  padding: calc(var(--spaces-semantic-l, 24) * 1px);
+  box-sizing: border-box;
+  color: var(--text-constant-inverted, #ffffff);
 }
-.card--baseLFilled .card__content {
-  width: 50%;
-  padding: calc(var(--spaces-static-1600, 64) * 1px);
+
+.card--baseLFilled .card__baseLFilled-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: stretch;
+  width: 100%;
+  min-height: min-content;
+}
+
+.card--baseLFilled .card__baseLFilled-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  align-self: stretch;
+  min-width: 0;
+  min-height: min-content;
+}
+
+.card--baseLFilled .card__baseLFilled-text > .card-top,
+.card--baseLFilled .card__bottom-row {
+  flex-shrink: 0;
+}
+
+.card--baseLFilled .card__baseLFilled-image {
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.card--baseLFilled .card__baseLFilled-image .card-image {
+  width: 496px;
+  max-width: 100%;
+  height: auto;
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+.card--baseLFilled .card-top--baseL,
+.card--baseLImage .card-top--baseL,
+.card--firstScreen .card-top--baseL {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Figma bottom row (4217:1449) — 50/50: bottomSection (swap) + bottom (empty spacer). */
+.card--baseLFilled .card__bottom-row,
+.card--baseLImage .card__bottom-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+}
+
+.card--baseLFilled .card__bottom-section,
+.card--baseLImage .card__bottom-section {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: row;
+  align-items: stretch;
+  min-width: 0;
+  margin-top: 0;
+  gap: 0;
+}
+
+.card--baseLFilled .card__bottom-section[data-rows='2'],
+.card--baseLImage .card__bottom-section[data-rows='2'] {
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-s, 12) * 1px);
+}
+
+.card--baseLFilled .card__bottom-section-cell,
+.card--baseLImage .card__bottom-section-cell {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.card--baseLFilled .card__bottom,
+.card--baseLImage .card__bottom {
+  flex: 1 1 0;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.card--baseLFilled .card__bottom-section > .swap-placeholder,
+.card--baseLFilled .card__bottom-section-cell > .swap-placeholder,
+.card--baseLFilled .card__bottom-section > .card-bottom,
+.card--baseLFilled .card__bottom-section-cell > .card-bottom,
+.card--baseLImage .card__bottom-section > .swap-placeholder,
+.card--baseLImage .card__bottom-section-cell > .swap-placeholder,
+.card--baseLImage .card__bottom-section > .card-bottom,
+.card--baseLImage .card__bottom-section-cell > .card-bottom {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  flex: 0 0 auto;
+  align-self: stretch;
+}
+
+.card--baseLFilled .card__bottom-section > .swap-placeholder,
+.card--baseLFilled .card__bottom-section-cell > .swap-placeholder,
+.card--baseLImage .card__bottom-section > .swap-placeholder,
+.card--baseLImage .card__bottom-section-cell > .swap-placeholder {
+  min-height: 52px;
+}
+
+.card--baseLFilled .card-bottom--baseConstantInverted,
+.card--baseLFilled .card-bottom--button,
+.card--baseLImage .card-bottom--baseConstantInverted,
+.card--baseLImage .card-bottom--button {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.card--baseLFilled .card-bottom--button,
+.card--baseLImage .card-bottom--button {
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.card--baseLFilled .card__bg > .swap-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
 }
 
 /* ---- card - baseLImage (1568 × 636, horizontal image) ---- */
 .card--baseLImage {
+  flex-direction: column;
+  align-items: stretch;
   width: 1568px;
   min-height: 636px;
   max-width: 100%;
-}
-.card--baseLImage .card__content {
-  width: 50%;
-  padding: calc(var(--spaces-static-1600, 64) * 1px);
-}
-
-/* ---- card - firstScreen (1600 × 800, hero) ---- */
-.card--firstScreen {
-  width: 1600px;
-  min-height: 800px;
-  max-width: 100%;
-}
-.card--firstScreen .card__content {
-  width: 50%;
-  padding: calc(var(--spaces-static-1600, 64) * 1px);
-  justify-content: flex-end;
-  gap: calc(var(--spaces-static-400, 16) * 1px);
-}
-.card__authors {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spaces-static-100, 4) * 1px);
-}
-
-/* ---- card - subscriptionOn (496 × 372) ---- */
-.card--subscriptionOn {
-  width: 496px;
-  min-height: 372px;
-}
-.card--subscriptionOn .card__content {
-  padding: calc(var(--spaces-static-600, 24) * 1px);
-  gap: calc(var(--spaces-static-400, 16) * 1px);
-}
-.card--subscriptionOn[data-theme='dark'] {
-  color: var(--text-constant-inverted, #ffffff);
-}
-.card__subscription-head {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spaces-static-100, 4) * 1px);
-}
-.card__subscription-foot {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-top: auto;
-  gap: calc(var(--spaces-static-300, 12) * 1px);
-}
-.card__check {
-  flex: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--background0-constant-inverted, #ffffff);
-  color: var(--icon-constant, #34373c);
-  font-size: 16px;
-  line-height: 1;
-}
-
-/* ---- card - subscriptionOff (496 × 372) ---- */
-.card--subscriptionOff {
-  width: 496px;
-  min-height: 372px;
-}
-.card--subscriptionOff .card__content--subscription {
-  padding: calc(var(--spaces-static-600, 24) * 1px);
-  gap: calc(var(--spaces-static-1600, 40) * 1px);
-  justify-content: space-between;
-  min-height: 372px;
+  padding: calc(var(--spaces-semantic-xs, 8) * 1px);
   box-sizing: border-box;
 }
-.card__subscription-bottom {
-  flex: 1;
+
+.card--baseLImage .card__image-fill {
+  border-radius: inherit;
+}
+
+.card--baseLImage .card__baseLImage-body {
+  position: relative;
+  z-index: 1;
   display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: stretch;
+  width: 100%;
+  min-height: min-content;
+}
+
+.card--baseLImage .card__baseLImage-text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: min-content;
+  padding: calc(var(--spaces-semantic-m, 16) * 1px);
+  border-radius: calc(var(--radii-semantic-m, 16) * 1px);
+  background: var(--elevation-tonned-base-body-normal, rgba(52, 55, 60, 0.04));
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-sizing: border-box;
+}
+
+.card--baseLImage .card__baseLImage-text > .card-top,
+.card--baseLImage .card__bottom-row {
+  flex-shrink: 0;
+}
+
+.card--baseLImage .card__baseLImage-spacer {
+  flex: 1 1 0;
+  align-self: stretch;
+  min-width: 0;
+}
+
+/* ---- card - firstScreen (1600 × 800, horizontal) ---- */
+.card--firstScreen {
+  flex-direction: row;
+  align-items: stretch;
+  width: 1600px;
+  height: 800px;
+  min-height: 800px;
+  max-width: 100%;
+  border-radius: 0;
+  color: var(--text-constant-inverted, #ffffff);
+}
+
+.card--firstScreen .card__firstScreen-text {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  align-self: stretch;
+  min-width: 0;
+  height: 100%;
+  padding: calc(var(--spaces-semantic-xl, 40) * 1px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.card--firstScreen .card__firstScreen-text > .card__bg {
+  z-index: 0;
+}
+
+.card--firstScreen .card__firstScreen-text > .card__bg .shape {
+  border-radius: 0;
+}
+
+.card--firstScreen .card__firstScreen-spacer {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.card--firstScreen .card__firstScreen-text > .card-top {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 720px;
+}
+
+.card--firstScreen .card__firstScreen-text > .card-bottom--mainFeature {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  align-self: stretch;
+  width: 100%;
+  max-width: 720px;
+  min-height: 168px;
   align-items: flex-end;
 }
 
-/* ---- card - HBR (304 × 456, light) ---- */
+.card--firstScreen .card__firstScreen-image {
+  display: flex;
+  flex: 1 1 0;
+  align-items: stretch;
+  align-self: stretch;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.card--firstScreen .card__firstScreen-image .card-image {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.card--firstScreen .card__firstScreen-image .image-container-fixed-aspect-ratio {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  aspect-ratio: auto;
+}
+
+.card--firstScreen .card__firstScreen-image .image-container-fixed-aspect-ratio__layout {
+  height: 100%;
+}
+
+/* ---- card - subscriptionOn / subscriptionOff (496 × 372) ---- */
+.card--subscriptionOn,
+.card--subscriptionOff {
+  flex-direction: column;
+  align-items: stretch;
+  width: 496px;
+  height: 372px;
+  min-height: 372px;
+  max-width: 100%;
+  padding: calc(var(--spaces-semantic-l, 24) * 1px);
+  box-sizing: border-box;
+  overflow: hidden;
+  color: var(--text-constant-inverted, #ffffff);
+}
+
+.card--subscriptionOn .card__subscription-body,
+.card--subscriptionOff .card__subscription-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: calc(var(--spaces-semantic-xl, 40) * 1px);
+  align-items: stretch;
+  align-self: stretch;
+  min-height: 0;
+}
+
+.card--subscriptionOn .card__subscription-body > .card-top,
+.card--subscriptionOff .card__subscription-body > .card-top {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.card--subscriptionOn .card__subscription-body > .card-bottom,
+.card--subscriptionOff .card__subscription-body > .card-bottom {
+  flex: 1 1 0;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-height: 0;
+}
+
+.card--subscriptionOn .card-top--subscriptionOn,
+.card--subscriptionOff .card-top--subscriptionOff,
+.card--subscriptionOn .card-bottom--subscriptionOn,
+.card--subscriptionOff .card-bottom--subscriptionNonActiveoff {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ---- card - HBR (4217:1017 — 304 × 456, light) ---- */
 .card--HBR {
+  flex-direction: column;
+  align-items: center;
   width: 304px;
+  height: 456px;
   min-height: 456px;
+  max-width: 100%;
+  padding: calc(var(--spaces-static-1600, 64) * 1px) calc(var(--spaces-static-400, 16) * 1px)
+    calc(var(--spaces-static-600, 24) * 1px);
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 0;
   color: var(--text-primary, #34373c);
 }
-.card--HBR .card__content {
-  padding: calc(var(--spaces-static-400, 16) * 1px) calc(var(--spaces-static-400, 16) * 1px)
-    calc(var(--spaces-static-1600, 64) * 1px);
-  justify-content: space-between;
+
+.card--HBR .card__bg .shape {
+  border-radius: 0;
 }
-.card__hbr-logo {
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--text-brand, #c8102e);
+
+/* Figma: icon + cardBottom — column with justify-between inside padded area (368px). */
+.card--HBR .card__hbr-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 0;
+}
+
+/* Figma `icon20 - container` 4252:3445 — 48×48, asset from Figma viewbox. */
+.card--HBR .card__hbr-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.card--HBR .card__hbr-shield {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.card--HBR .card__hbr-body[data-segment] .card__hbr-shield {
+  color: var(--segment-primary);
+}
+
+.card--HBR .card__hbr-body > .card-bottom--HBR {
+  flex-shrink: 0;
+  height: calc(var(--card-bottom-hbr-height, 284) * 1px);
+}
+
+.card--HBR .card__hbr-body[data-segment] .card-bottom--HBR .card-bottom__hbr-label,
+.card--HBR .card__hbr-body[data-segment] .card-bottom--HBR .card-bottom__hbr-headline,
+.card--HBR .card__hbr-body[data-segment] .card-bottom__hbr-description .text-core {
+  color: var(--segment-primary);
 }

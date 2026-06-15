@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
+import { SwapPlaceholder } from '../../swap-placeholder';
 import type { CardTopVariant } from '../../card-top/CardTop';
 import type { CardBottomVariant } from '../../card-bottom/CardBottom';
 import { CardTop } from '../../card-top/CardTop';
@@ -7,8 +8,10 @@ import { Shape } from '../../../../shapes';
 import type { CardRadius, CardShapeOption, CardState } from '../types';
 import {
   CARD_BOTTOM_BLOCKS,
+  CARD_DEFAULT_SHAPE_KEY,
   CARD_SHAPE_OPTIONS,
   CARD_TOP_BLOCKS,
+  cardShapeRadius,
   type CardBottomBlock,
   type CardKind,
   type CardTopBlock,
@@ -58,7 +61,7 @@ export function renderShape(
   card: CardKind,
   shapeKey: string,
   state: CardState,
-  radius: CardRadius = 'x6',
+  radius: CardRadius = cardShapeRadius(card),
 ): ReactNode | undefined {
   if (shapeKey === SWAP) {
     return undefined;
@@ -78,6 +81,32 @@ export function renderShape(
       style={shapeFillStyle}
     />
   );
+}
+
+/** Figma default swatch for a card (e.g. baseLFilled → filled/brand normal). */
+export function renderDefaultShape(
+  card: CardKind,
+  state: CardState = 'normal',
+  radius: CardRadius = cardShapeRadius(card),
+): ReactNode | undefined {
+  const defaultKey = CARD_DEFAULT_SHAPE_KEY[card];
+  if (!defaultKey) {
+    return undefined;
+  }
+  return renderShape(card, defaultKey, state, radius);
+}
+
+/** Playground shape slot: swap placeholder or preferred/default Shape. */
+export function resolveShapeSlot(
+  card: CardKind,
+  shapeKey: string,
+  state: CardState,
+  radius: CardRadius = cardShapeRadius(card),
+): ReactNode {
+  if (shapeKey === SWAP) {
+    return <SwapPlaceholder />;
+  }
+  return renderShape(card, shapeKey, state, radius) ?? renderDefaultShape(card, state, radius);
 }
 
 export function shapePickerOptions(card: CardKind): readonly string[] {
