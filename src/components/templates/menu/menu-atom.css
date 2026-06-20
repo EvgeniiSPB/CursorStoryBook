@@ -1,0 +1,89 @@
+.menu-atom {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+  box-sizing: border-box;
+  margin: 0;
+  height: calc(var(--sizes-semantic-xxxl, 60) * 1px);
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--menu-text-normal, var(--text-primary, var(--primary-primary, #34373c)));
+  white-space: nowrap;
+}
+
+.menu-atom .text-core {
+  color: inherit;
+}
+
+.menu-atom__label .text-core__frame {
+  display: flex;
+  align-items: center;
+}
+
+.menu-atom__label p {
+  margin: 0;
+}
+
+/* Figma `icon20 - container`: fixed 20×20 alignment slot, glyph centered inside. */
+.menu-atom__icon-slot {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  width: calc(var(--x-base-500, 20) * 1px);
+  height: calc(var(--x-base-500, 20) * 1px);
+  color: inherit;
+}
+
+.menu-atom__icon.menu-atom__icon--glyph.icon--20 {
+  width: calc(var(--x-base-500, 20) * 1px);
+  height: calc(var(--x-base-500, 20) * 1px);
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.menu-atom__icon.menu-atom__icon--glyph .icon__svg {
+  display: block;
+  width: var(--menu-atom-icon-glyph-w, 15.6px);
+  height: var(--menu-atom-icon-glyph-h, 15.6px);
+  overflow: visible;
+}
+
+/* Figma hover/active: border-b on the 60px row; line flush with menu bar bottom edge. */
+.menu-atom--active,
+.menu-atom--state-active {
+  color: var(--menu-text-active, var(--text-brand, var(--brand-primary, #a30f33)));
+  box-shadow: inset 0 -1px 0 0 var(--menu-border-active, var(--brand-primary, #a30f33));
+}
+
+.menu-atom:hover:not(.menu-atom--state-hover):not(.menu-atom--state-active):not(.menu-atom--active) {
+  box-shadow: inset 0 -1px 0 0 var(--menu-border-hover, var(--brand-primary, #a30f33));
+}
+
+.menu-atom--active:hover:not(.menu-atom--state-hover):not(.menu-atom--state-active) {
+  box-shadow: inset 0 -1px 0 0 var(--menu-border-active, var(--brand-primary, #a30f33));
+}
+
+.menu-atom--state-hover,
+.menu-atom--state-hover:hover,
+.menu-atom--state-hover:active {
+  box-shadow: inset 0 -1px 0 0 var(--menu-border-hover, var(--brand-primary, #a30f33));
+}
+
+.menu-atom--state-hover,
+.menu-atom--state-active {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Template: active/hover underline replaces menu bar border (6065:3302). */
+.menu .menu-atom--active,
+.menu .menu-atom--state-active,
+.menu .menu-atom--state-hover,
+.menu .menu-atom:hover {
+  margin-bottom: -1px;
+}
