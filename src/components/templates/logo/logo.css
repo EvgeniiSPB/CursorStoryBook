@@ -1,0 +1,43 @@
+.logo {
+  position: relative;
+  box-sizing: border-box;
+  overflow: clip;
+  flex-shrink: 0;
+  --fill-0: var(--text-primary, #34373c);
+}
+
+.logo__big,
+.logo__ideas {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 40px;
+  top: 32px;
+}
+
+.logo__big {
+  left: 168px;
+  right: 704px;
+}
+
+.logo__ideas {
+  left: 1064px;
+  right: 168px;
+}
+
+.logo__symbol {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  height: 44px;
+}
+
+.logo__symbol-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
