@@ -23,10 +23,20 @@
   border-radius: calc(var(--radii-static-300, 12) * 1px);
 }
 
+.layout-swap-placeholder--titleGroup {
+  --layout-swap-body: rgba(163, 15, 51, 0.12);
+  --layout-swap-border: rgba(163, 15, 51, 0.4);
+  --layout-swap-label-color: #a30f33;
+  min-height: calc(var(--layout-swap-row-height, 52) * 1px);
+  padding: calc(var(--spaces-static-400, 16) * 1px);
+  border-radius: calc(var(--radii-static-300, 12) * 1px);
+}
+
 .layout-swap-placeholder__label {
   color: var(--layout-swap-label-color, var(--text-primary, #34373c));
 }
 
-.layout-swap-placeholder--headline .layout-swap-placeholder__label {
+.layout-swap-placeholder--headline .layout-swap-placeholder__label,
+.layout-swap-placeholder--titleGroup .layout-swap-placeholder__label {
   font-weight: 500;
 }

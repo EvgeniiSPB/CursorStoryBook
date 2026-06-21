@@ -21,6 +21,8 @@ export const LAYOUT_TITLE_GROUPS_FIGMA_NODE_ID = '6069:2934';
 /** Figma `!change this` symbols used as swap references. */
 export const LAYOUT_SWAP_ROW_FIGMA_NODE_ID = '6034:2681';
 export const LAYOUT_SWAP_HEADLINE_FIGMA_NODE_ID = '6034:2679';
+/** Figma `!change this` on `titleGroups` page — pink `titleGroup` bound (6070:4444). */
+export const LAYOUT_SWAP_TITLE_GROUP_FIGMA_NODE_ID = '6070:4444';
 
 export type LayoutGap = '---' | 'tiny' | 'small' | 'medium';
 export type LayoutRows = 1 | 2 | 3 | 4 | 5;

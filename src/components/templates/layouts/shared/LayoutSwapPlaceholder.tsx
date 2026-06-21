@@ -3,19 +3,22 @@ import { TextCore } from '../../../atoms/text-core/TextCore';
 import {
   LAYOUT_SWAP_HEADLINE_FIGMA_NODE_ID,
   LAYOUT_SWAP_ROW_FIGMA_NODE_ID,
+  LAYOUT_SWAP_TITLE_GROUP_FIGMA_NODE_ID,
 } from './types';
 import './layout-swap-placeholder.css';
 
-export type LayoutSwapKind = 'swap' | 'headline';
+export type LayoutSwapKind = 'swap' | 'headline' | 'titleGroup';
 
 const KIND_LABEL: Record<LayoutSwapKind, string> = {
   swap: 'swap',
   headline: 'headline',
+  titleGroup: 'titleGroup',
 };
 
 const KIND_FIGMA_NODE: Record<LayoutSwapKind, string> = {
   swap: LAYOUT_SWAP_ROW_FIGMA_NODE_ID,
   headline: LAYOUT_SWAP_HEADLINE_FIGMA_NODE_ID,
+  titleGroup: LAYOUT_SWAP_TITLE_GROUP_FIGMA_NODE_ID,
 };
 
 export interface LayoutSwapPlaceholderProps extends HTMLAttributes<HTMLDivElement> {
@@ -54,7 +57,7 @@ export function LayoutSwapPlaceholder({
     >
       <TextCore
         typography="bodyM"
-        fontWeight={kind === 'headline' ? 'medium' : 'regular'}
+        fontWeight={kind === 'headline' || kind === 'titleGroup' ? 'medium' : 'regular'}
         text={resolvedLabel}
         className="layout-swap-placeholder__label"
       />

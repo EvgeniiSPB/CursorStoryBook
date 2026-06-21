@@ -9,6 +9,10 @@
   overflow-x: auto;
 }
 
+.layouts-showcase-canvas--title-groups {
+  padding-block: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
 .layouts-showcase-section {
   box-sizing: border-box;
   background-color: var(--background0-primary, #ffffff);
@@ -25,6 +29,12 @@
   max-width: 100%;
   padding: calc(var(--layouts-board-padding, 64) * 1px);
   box-sizing: border-box;
+}
+
+.layouts-showcase-section--title-groups {
+  flex: 0 0 auto;
+  height: fit-content;
+  align-items: center;
 }
 
 .layouts-showcase-section--playground {
