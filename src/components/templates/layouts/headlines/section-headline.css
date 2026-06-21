@@ -1,0 +1,47 @@
+.section-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: calc(var(--spaces-semantic-xl, 40) * 1px);
+}
+
+.section-headline--t-padding {
+  padding-top: calc(var(--spaces-semantic-xxxl, 160) * 1px);
+}
+
+.section-headline__row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.section-headline__headline {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  min-width: 1px;
+}
+
+.section-headline__headline .text-headline {
+  flex: 1 0 0;
+  min-width: 1px;
+  white-space: normal;
+}
+
+.section-headline__button {
+  flex-shrink: 0;
+}
+
+.section-headline__button.button-text-only--size-medium {
+  /* Figma 6027:2653 — px semantic/s, py semantic/xs (not default medium 16px). */
+  padding-block: calc(var(--spaces-semantic-xs, 8) * 1px);
+  padding-inline: calc(var(--spaces-semantic-s, 12) * 1px);
+}
+
+.section-headline__divider {
+  width: 100%;
+}

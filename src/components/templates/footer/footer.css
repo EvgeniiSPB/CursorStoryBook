@@ -1,0 +1,114 @@
+.footer {
+  box-sizing: border-box;
+  width: 100%;
+  color: var(--text-constantprimary, #ffffff);
+}
+
+.footer__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spaces-semantic-xxxl, 160) * 1px);
+  width: 100%;
+  padding:
+    calc(var(--spaces-semantic-xxxl, 160) * 1px)
+    0
+    calc(var(--spaces-semantic-l, 24) * 1px);
+  background: var(--backgrounds-dark-solid, #24292e);
+  box-sizing: border-box;
+}
+
+.footer__logo {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: calc(var(--layouts-board-width, 1600) * 1px);
+}
+
+.footer__content {
+  width: 100%;
+  padding-inline: calc(var(--spaces-semantic-xl, 40) * 1px);
+  box-sizing: border-box;
+}
+
+/* 4 колонки как на скрине: primary 50% + три равные secondary по 16.67% */
+.footer__grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 3fr)
+    minmax(0, 1fr)
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+  column-gap: calc(var(--spaces-semantic-m, 16) * 1px);
+  row-gap: calc(var(--spaces-semantic-xxl, 80) * 1px);
+  width: 100%;
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  gap: calc(var(--spaces-static-100, 4) * 1px);
+}
+
+.footer__col--primary {
+  gap: 0;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.footer__link.text-core p,
+.footer__heading.text-core p {
+  margin: 0;
+  color: inherit;
+}
+
+.footer__heading.text-core {
+  color: var(--text-constantsecondary, rgba(255, 255, 255, 0.5));
+  width: 100%;
+}
+
+.footer__link.text-core {
+  color: var(--text-constantprimary, #ffffff);
+  width: 100%;
+}
+
+.footer__link.text-core .text-core__frame,
+.footer__heading.text-core .text-core__frame {
+  width: 100%;
+}
+
+/* Figma `bottom` (6106:2876): copyright | privacy | — | credit */
+.footer__bottom {
+  display: contents;
+}
+
+.footer__bottom-copy {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.footer__bottom-privacy {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.footer__bottom-credit {
+  grid-column: 4;
+  justify-self: end;
+  min-width: 0;
+}
+
+.footer__bottom-copy .text-core__frame,
+.footer__bottom-privacy .text-core__frame {
+  width: 100%;
+}
+
+.footer__bottom-credit .footer__link--right.text-core p {
+  white-space: nowrap;
+}

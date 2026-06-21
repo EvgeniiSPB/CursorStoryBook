@@ -1,0 +1,57 @@
+/* Storybook padding guides — blue hatch + px label (Article / section-headline pattern). */
+
+.layout-padding-ruler {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 2;
+  outline: 1px solid rgba(13, 153, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-padding-ruler__label {
+  background: #0d99ff;
+  color: #fff;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 0 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-family: var(--font-families-body, Oceanic Grotesk), system-ui, sans-serif;
+}
+
+/* Vertical inset — hatch runs top → bottom. */
+.layout-padding-ruler--vertical {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--layout-padding-ruler-size, 160px);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(13, 153, 255, 0.18) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+/* Horizontal inset — hatch runs left → right. */
+.layout-padding-ruler--horizontal {
+  top: var(--layout-padding-ruler-top-inset, 0px);
+  bottom: var(--layout-padding-ruler-bottom-inset, 0px);
+  width: var(--layout-padding-ruler-size, 40px);
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(13, 153, 255, 0.18) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+.layout-padding-ruler--horizontal-left {
+  left: 0;
+}
+
+.layout-padding-ruler--horizontal-right {
+  right: 0;
+}
