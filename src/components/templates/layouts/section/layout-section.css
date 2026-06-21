@@ -1,0 +1,39 @@
+.layout-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: calc(var(--layouts-board-width, 1600) * 1px);
+  box-sizing: border-box;
+  gap: 0;
+}
+
+/* Figma `section`: row gap only when `rows >= 2` */
+.layout-section[data-gap='tiny']:is([data-rows='2'], [data-rows='3'], [data-rows='4'], [data-rows='5']) {
+  gap: calc(var(--spaces-semantic-xs, 8) * 1px);
+}
+
+.layout-section[data-gap='small']:is([data-rows='2'], [data-rows='3'], [data-rows='4'], [data-rows='5']) {
+  gap: calc(var(--spaces-semantic-s, 12) * 1px);
+}
+
+.layout-section[data-gap='medium']:is([data-rows='2'], [data-rows='3'], [data-rows='4'], [data-rows='5']) {
+  gap: calc(var(--spaces-semantic-m, 16) * 1px);
+}
+
+.layout-section__row {
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.layout-section__row > .layout-swap-row,
+.layout-section__row > .layout-row {
+  width: 100%;
+}
+
+/* Figma `section` page (6113:2696): 128px between variant symbols */
+.layouts-showcase-stack--section-variants {
+  gap: calc(var(--layouts-section-variant-gap, 128) * 1px);
+}
