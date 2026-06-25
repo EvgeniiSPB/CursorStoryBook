@@ -1,0 +1,91 @@
+.left-side-bar-heading {
+  position: sticky;
+  /* Only the heading sticks; Logo scrolls away with the rest of the content. */
+  top: 0;
+  z-index: 1;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  width: 100%;
+  max-width: 375px;
+  height: 56px;
+  padding: 18px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .left-side-bar-heading {
+    max-width: none;
+  }
+}
+
+.left-side-bar-heading--badge-crimson {
+  gap: 8px;
+}
+
+.left-side-bar-heading__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--typography\/default\/accent, #a41034);
+  word-break: break-word;
+}
+
+.left-side-bar-heading--badge-crimson .left-side-bar-heading__label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.left-side-bar-heading__counter {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 20px;
+  max-width: 42px;
+  padding: 0 6px;
+  border-radius: var(--corner-radius\/button-universal, 36px);
+}
+
+.left-side-bar-heading--badge-metallic .left-side-bar-heading__counter {
+  background: var(--backgrounds\/metalic, rgba(107, 155, 178, 0.1));
+}
+
+.left-side-bar-heading--badge-crimson .left-side-bar-heading__counter {
+  background: var(--backgrounds\/crimson, #a41034);
+}
+
+.left-side-bar-heading__counter-label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.14px;
+  text-align: center;
+  text-transform: uppercase;
+  font-feature-settings: 'case' 1, 'cpsp' 1;
+}
+
+/* Fixed widths per Figma — different sizes for 2- vs 3-digit counts. */
+.left-side-bar-heading__counter-label[data-chars='1'] {
+  width: 10px;
+}
+.left-side-bar-heading__counter-label[data-chars='2'] {
+  width: 20px;
+}
+.left-side-bar-heading__counter-label[data-chars='3'] {
+  width: 30px;
+}
+
+.left-side-bar-heading--badge-metallic .left-side-bar-heading__counter-label {
+  color: var(--typography\/primary, black);
+}
+
+.left-side-bar-heading--badge-crimson .left-side-bar-heading__counter-label {
+  color: var(--typography\/inverted\/primary, white);
+}

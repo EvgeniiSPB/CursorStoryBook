@@ -1,0 +1,63 @@
+<style>
+  /* PP Neue Montreal for the manager UI (custom sidebar).
+     URLs served by Vite dev / Storybook static at /src/assets/...
+     Loaded here because Storybook's manager esbuild bundler has no .otf loader,
+     so we can't @import the font CSS through component files. */
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/src/assets/fonts/pp-neue-montreal/PPNeueMontreal-Regular.otf')
+      format('opentype');
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/src/assets/fonts/pp-neue-montreal/PPNeueMontreal-Medium.otf')
+      format('opentype');
+  }
+</style>
+<style>
+  /* Force Storybook left nav to a fixed 375px on desktop / tablet.
+     On mobile (<= 768px) the nav stretches to the full viewport width.
+     Targets the layout root that holds --nav-width as an inline style. */
+  [style*="--nav-width"] {
+    --nav-width: 375px !important;
+  }
+
+  @media (max-width: 768px) {
+    [style*="--nav-width"] {
+      --nav-width: 100vw !important;
+    }
+  }
+
+  /* Hide the sidebar resize handle — width is locked, dragging would be misleading. */
+  [aria-label="Sidebar resize handle"] {
+    display: none !important;
+  }
+
+  /* Phase 2.1: hide Storybook's default sidebar children — our React tree
+     (mounted into #custom-sidebar-mount by .storybook/manager.tsx) takes over. */
+  [data-custom-sidebar] > *:not(#custom-sidebar-mount) {
+    display: none !important;
+  }
+  [data-custom-sidebar] {
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  /* Mount fills the Storybook sidebar slot and scrolls internally — sticky
+     elements inside (.left-side-bar-logo, .left-side-bar-heading) bind to this. */
+  #custom-sidebar-mount {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+  /* The LeftSideBar root must fill the mount and own the scroll context. */
+  #custom-sidebar-mount > .left-side-bar {
+    min-height: 100%;
+    max-width: none;
+  }
+</style>

@@ -10,6 +10,8 @@ import {
 } from '../src/tokens/line-height-mode-options';
 import { SEGMENT_OPTIONS } from '../src/tokens/segment-options';
 import '../src/styles/global.css';
+// Preload PP Neue Montreal so left-sidebar atoms render with the correct typography from the very first frame.
+import '../src/components/templates/left-side-bar/left-side-bar-fonts.css';
 
 const segmentToolbarItems = SEGMENT_OPTIONS.map(({ slug, title }) => ({
   value: slug,

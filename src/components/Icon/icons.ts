@@ -8,6 +8,8 @@ import ArrowUp20 from '../../assets/icons/20/arrow-up.svg?react';
 import ArrowUpRight20 from '../../assets/icons/20/arrow-up-right.svg?react';
 import Audio20 from '../../assets/icons/20/audio.svg?react';
 import Bookmark20 from '../../assets/icons/20/bookmark.svg?react';
+import CaretDown20 from '../../assets/icons/20/caret-down.svg?react';
+import CaretUp20 from '../../assets/icons/20/caret-up.svg?react';
 import Check20 from '../../assets/icons/20/check.svg?react';
 import Close20 from '../../assets/icons/20/close.svg?react';
 import Content20 from '../../assets/icons/20/content.svg?react';
@@ -37,6 +39,8 @@ const icons20 = {
   'arrow-up-right': ArrowUpRight20,
   audio: Audio20,
   bookmark: Bookmark20,
+  'caret-down': CaretDown20,
+  'caret-up': CaretUp20,
   check: Check20,
   close: Close20,
   content: Content20,

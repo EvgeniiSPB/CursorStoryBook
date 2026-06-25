@@ -1,0 +1,131 @@
+.left-side-bar-dropdown-1st {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  max-width: 375px;
+  background: #ffffff;
+  border-top: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .left-side-bar-dropdown-1st {
+    max-width: none;
+  }
+}
+
+/* First row in a section sits directly below the heading — the heading already
+   provides a border-bottom divider, so the row's own border-top would double up. */
+.left-side-bar-dropdown-1st--first-child {
+  border-top: 0;
+}
+
+.left-side-bar-dropdown-1st__trigger {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 56px;
+  padding: 18px 16px;
+  overflow: clip;
+  cursor: pointer;
+}
+
+.left-side-bar-dropdown-1st__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  color: #1d2126;
+  word-break: break-word;
+  transition:
+    color 250ms ease-in-out,
+    font-weight 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-1st--open .left-side-bar-dropdown-1st__label {
+  font-weight: 500;
+  color: var(--typography\/primary, black);
+}
+
+.left-side-bar-dropdown-1st--state-hover .left-side-bar-dropdown-1st__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.left-side-bar-dropdown-1st__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  transform: rotate(0deg);
+  transition: transform 250ms ease-in-out;
+}
+
+/* Caret flips to point up when the row is open. */
+.left-side-bar-dropdown-1st--open .left-side-bar-dropdown-1st__icon {
+  transform: rotate(180deg);
+}
+
+.left-side-bar-dropdown-1st__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animated reveal wrapper — grid-template-rows 0fr → 1fr expands content from
+   behind the trigger's bottom edge. overflow: hidden clips during transition.
+   minmax(0, ...) avoids subpixel artifacts where the closed track collapses to ~1px. */
+.left-side-bar-dropdown-1st__children-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 0fr);
+  overflow: hidden;
+  transition: grid-template-rows 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-1st--open .left-side-bar-dropdown-1st__children-wrap {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.left-side-bar-dropdown-1st__children {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0; /* required for the grid 0fr→1fr trick */
+  padding: 0 16px 0 40px;
+  background: #ffffff;
+  border-top: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  overflow: hidden;
+}
+
+/* Flat layout (Assets/Icons exception) — UL contains 3rd-lvl leaves directly,
+   no 2nd-lvl wrapper. Padding switches from asymmetric (Components) to symmetric
+   (Figma node 6517:31204: `py-[12px] px-[40px]`). */
+.left-side-bar-dropdown-1st--layout-flat .left-side-bar-dropdown-1st__children {
+  padding: 12px 40px;
+}
+
+.left-side-bar-dropdown-1st[data-static-state] {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Real :hover on the trigger row — affects the whole row, not just label text. */
+.left-side-bar-dropdown-1st:not([data-static-state])
+  .left-side-bar-dropdown-1st__trigger:hover
+  .left-side-bar-dropdown-1st__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.left-side-bar-dropdown-1st__trigger:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
+}

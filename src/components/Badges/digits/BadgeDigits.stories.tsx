@@ -77,7 +77,7 @@ export const Playground: Story = {
 };
 
 export const OutlinedOneTwo: Story = {
-  name: 'Outlined / 1–2 chars',
+  name: 'Outlined / 1-2 chars',
   args: { type: 'outlined', characters: '1-2' },
 };
 
@@ -87,7 +87,7 @@ export const OutlinedThree: Story = {
 };
 
 export const OutlinedConstantInvertedOneTwo: Story = {
-  name: 'Outlined constant inverted / 1–2 chars',
+  name: 'Outlined constant inverted / 1-2 chars',
   args: { type: 'outlinedConstantInverted', characters: '1-2' },
 };
 
@@ -97,7 +97,7 @@ export const OutlinedConstantInvertedThree: Story = {
 };
 
 export const TonnedOneTwo: Story = {
-  name: 'Tonned / 1–2 chars',
+  name: 'Tonned / 1-2 chars',
   args: { type: 'tonned', characters: '1-2' },
   decorators: [tonnedSegmentDecorator],
 };

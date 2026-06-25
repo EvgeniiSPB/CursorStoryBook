@@ -1,0 +1,59 @@
+.left-side-bar-dropdown-3rd {
+  display: flex;
+  box-sizing: border-box;
+  align-items: flex-start;
+  width: 100%;
+  padding: 6px 0;
+  cursor: pointer;
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+.left-side-bar-dropdown-3rd__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.17px;
+  color: #1d2126;
+  word-break: break-word;
+  transition: color 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-3rd--state-hoverOther
+  .left-side-bar-dropdown-3rd__label,
+.left-side-bar-dropdown-3rd--state-nonActive
+  .left-side-bar-dropdown-3rd__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.left-side-bar-dropdown-3rd[data-static-state] {
+  pointer-events: none;
+  cursor: default;
+}
+
+.left-side-bar-dropdown-3rd:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
+}
+
+/* When nothing is active (state="rest"), hovering dims the row to secondary
+   (mimics Figma hoverOther). */
+.left-side-bar-dropdown-3rd--state-rest:hover
+  .left-side-bar-dropdown-3rd__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+/* When some sibling is active, the dimmed nonActive rows brighten on hover —
+   secondary (50%) → primary (100%). */
+.left-side-bar-dropdown-3rd--state-nonActive:hover
+  .left-side-bar-dropdown-3rd__label {
+  color: #1d2126;
+}
+
+/* Active row stays primary on hover (don't dim the selected one). */
+.left-side-bar-dropdown-3rd--state-active:hover
+  .left-side-bar-dropdown-3rd__label {
+  color: #1d2126;
+}

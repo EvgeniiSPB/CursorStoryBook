@@ -1,0 +1,111 @@
+.left-side-bar-dropdown-2nd {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+.left-side-bar-dropdown-2nd--first-child {
+  border-top: 0;
+}
+
+.left-side-bar-dropdown-2nd__trigger {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 56px;
+  padding: 18px 0;
+  overflow: clip;
+  cursor: pointer;
+}
+
+.left-side-bar-dropdown-2nd__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  color: #1d2126;
+  word-break: break-word;
+  transition: color 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-2nd--open .left-side-bar-dropdown-2nd__label {
+  color: var(--typography\/primary, black);
+}
+
+.left-side-bar-dropdown-2nd--state-hover .left-side-bar-dropdown-2nd__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.left-side-bar-dropdown-2nd__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  transform: rotate(0deg);
+  transition: transform 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-2nd--open .left-side-bar-dropdown-2nd__icon {
+  transform: rotate(180deg);
+}
+
+.left-side-bar-dropdown-2nd__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animated reveal wrapper — same grid-template-rows trick as 1st lvl.
+   minmax(0, ...) prevents subpixel content peeking through when closed. */
+.left-side-bar-dropdown-2nd__children-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 0fr);
+  overflow: hidden;
+  transition: grid-template-rows 250ms ease-in-out;
+}
+
+.left-side-bar-dropdown-2nd--open .left-side-bar-dropdown-2nd__children-wrap {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.left-side-bar-dropdown-2nd__children {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
+  /* Left 24 (Figma); right reduced 24→16 to give long 3rd-lvl labels
+     ("Outlined constant inverted / 1-2 chars") a few more pixels to fit on one line. */
+  padding: 0 16px 12px 24px;
+  overflow: hidden;
+}
+
+.left-side-bar-dropdown-2nd[data-static-state] {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Real :hover on the trigger row — affects the whole row, not just label text. */
+.left-side-bar-dropdown-2nd:not([data-static-state])
+  .left-side-bar-dropdown-2nd__trigger:hover
+  .left-side-bar-dropdown-2nd__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.left-side-bar-dropdown-2nd__trigger:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
+}

@@ -59,6 +59,8 @@ export const ICON_NAMES_20 = [
   'arrow-up-right',
   'audio',
   'bookmark',
+  'caret-down',
+  'caret-up',
   'check',
   'close',
   'content',

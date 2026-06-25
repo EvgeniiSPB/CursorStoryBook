@@ -1,0 +1,22 @@
+/**
+ * Scoped font registration for the left side bar.
+ * Files: src/assets/fonts/pp-neue-montreal/ (OTF, Pangram Pangram).
+ */
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../../assets/fonts/pp-neue-montreal/PPNeueMontreal-Regular.otf')
+    format('opentype');
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../../assets/fonts/pp-neue-montreal/PPNeueMontreal-Medium.otf')
+    format('opentype');
+}
