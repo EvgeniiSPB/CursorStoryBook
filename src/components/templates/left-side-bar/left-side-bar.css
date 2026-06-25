@@ -10,6 +10,13 @@
   /* No `overflow-y: auto` here in the pilot — sticky binds to the page scroll
      so the heading remains pinned as the user scrolls the story canvas.
      Phase 2 (sidebar in real Storybook slot) will restore internal scrolling. */
+  /* Hide scrollbar in all engines if any ancestor / future override
+     enables scrolling on `.left-side-bar` itself. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.left-side-bar::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 768px) {

@@ -49,11 +49,17 @@
     border: 0 !important;
   }
   /* Mount fills the Storybook sidebar slot and scrolls internally — sticky
-     elements inside (.left-side-bar-logo, .left-side-bar-heading) bind to this. */
+     elements inside (.left-side-bar-logo, .left-side-bar-heading) bind to this.
+     Scrollbar is hidden in every engine; scroll still works via wheel/trackpad. */
   #custom-sidebar-mount {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE / legacy Edge */
+  }
+  #custom-sidebar-mount::-webkit-scrollbar {
+    display: none; /* WebKit (Chrome / Safari) */
   }
   /* The LeftSideBar root must fill the mount and own the scroll context. */
   #custom-sidebar-mount > .left-side-bar {

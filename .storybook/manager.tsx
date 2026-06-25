@@ -8,7 +8,7 @@ import { addons } from 'storybook/manager-api';
 import type { API } from 'storybook/manager-api';
 import { LeftSideBar } from '../src/components/templates/left-side-bar/LeftSideBar';
 import { buildSidebarFromIndex, type StoryIndex } from '../src/components/templates/left-side-bar/build-sidebar';
-import { SECTION_CONFIGS } from '../src/components/templates/left-side-bar/section-config';
+import { HIDDEN_TITLE_PREFIXES, SECTION_CONFIGS } from '../src/components/templates/left-side-bar/section-config';
 
 /**
  * Phase 2.1 — mounts the custom `LeftSideBar` into Storybook's actual sidebar slot
@@ -81,7 +81,10 @@ function SidebarApp({ api }: { api: API }) {
   // Memoize FIRST (Rules of Hooks: hooks must run in the same order every render).
   // Early returns below must NOT precede any hook call.
   const sections = useMemo(
-    () => (index ? buildSidebarFromIndex(index, SECTION_CONFIGS) : []),
+    () =>
+      index
+        ? buildSidebarFromIndex(index, SECTION_CONFIGS, HIDDEN_TITLE_PREFIXES)
+        : [],
     [index],
   );
 
