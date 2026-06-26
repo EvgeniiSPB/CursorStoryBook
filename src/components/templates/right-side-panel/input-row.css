@@ -1,0 +1,101 @@
+.rsp-input-row {
+  box-sizing: border-box;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+.rsp-input-row--first-child {
+  border-top: 0;
+}
+
+.rsp-input-row__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 16px 18px;
+}
+
+.rsp-input-row__label {
+  margin: 0;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.99px;
+  text-transform: uppercase;
+  font-feature-settings: 'case' 1, 'cpsp' 1;
+  color: var(--typography\/primary, black);
+  /* Figma 6553:41103 — label is hidden in the empty/non-focused state and revealed
+     once the user focuses or types. */
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+/* Show label once the field has a value or is focused. */
+.rsp-input-row--filled .rsp-input-row__label,
+.rsp-input-row:focus-within .rsp-input-row__label {
+  opacity: 1;
+}
+
+.rsp-input-row__field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  /* Always-solid black underline per Figma — no accent swap on focus/hover. */
+  border-bottom: 1px solid var(--border\/black, black);
+}
+
+.rsp-input-row__input {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  color: var(--typography\/primary, black);
+  /* Placeholder text shares the value's colour (Figma shows the label name as a
+     full-black placeholder). */
+  transition: opacity 200ms ease-in-out;
+}
+
+.rsp-input-row__input::placeholder {
+  color: var(--typography\/primary, black);
+  opacity: 1;
+}
+
+/* Default hover (Figma 6553:41115) — value/placeholder fades to 50%, label stays hidden. */
+.rsp-input-row:not(.rsp-input-row--filled):not(.rsp-input-row--disabled):hover
+  .rsp-input-row__input {
+  opacity: 0.5;
+}
+
+/* Filled hover (Figma 6553:41119) — only the value text fades to 50%; the
+   uppercase label stays at full opacity. */
+.rsp-input-row.rsp-input-row--filled:not(.rsp-input-row--disabled):hover
+  .rsp-input-row__input {
+  opacity: 0.5;
+}
+
+/* Focus (active state, Figma 6553:41107) — unconditionally wins over hover.
+   `!important` here is semantically correct: focus is an explicit user action
+   and must always read at full opacity, regardless of mouse position. */
+.rsp-input-row:focus-within .rsp-input-row__input,
+.rsp-input-row:focus-within .rsp-input-row__label {
+  opacity: 1 !important;
+}
+
+.rsp-input-row--disabled {
+  opacity: 0.4;
+}
+
+.rsp-input-row--disabled .rsp-input-row__input {
+  cursor: default;
+}

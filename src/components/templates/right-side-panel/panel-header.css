@@ -1,0 +1,16 @@
+.rsp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  background: #ffffff;
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+.rsp-panel-header__spacer {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}

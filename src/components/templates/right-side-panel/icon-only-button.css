@@ -1,0 +1,45 @@
+.rsp-icon-only-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--border\/carbon, #2f2f2f);
+  border-radius: var(--corner-radius\/button-universal, 36px);
+  cursor: pointer;
+  color: var(--typography\/primary, black);
+}
+
+.rsp-icon-only-button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.rsp-icon-only-button:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: 2px;
+}
+
+.rsp-icon-only-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  transform: rotate(0deg);
+  transition: transform 250ms ease-in-out;
+  transform-origin: center;
+}
+
+/* Hover: rotate the icon only — no background fill. */
+.rsp-icon-only-button:not(:disabled):hover .rsp-icon-only-button__icon {
+  transform: rotate(var(--rsp-icon-hover-rotation, 45deg));
+}
+
+.rsp-icon-only-button__icon svg {
+  display: block;
+}

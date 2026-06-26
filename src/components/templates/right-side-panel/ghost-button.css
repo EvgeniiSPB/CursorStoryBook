@@ -1,0 +1,51 @@
+.rsp-ghost-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--typography\/primary, black);
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+  transition: opacity 250ms ease-in-out;
+}
+
+.rsp-ghost-button:disabled {
+  cursor: default;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+/* Figma 6553:41055 — hover keeps full-colour icon + label, container fades to 50%. */
+.rsp-ghost-button:not(:disabled):hover {
+  opacity: 0.5;
+}
+
+.rsp-ghost-button__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: inherit;
+}
+
+.rsp-ghost-button__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rsp-ghost-button__label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.14px;
+  text-transform: uppercase;
+  font-feature-settings: 'case' 1, 'cpsp' 1;
+}
+
+.rsp-ghost-button:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: 4px;
+  border-radius: 4px;
+}

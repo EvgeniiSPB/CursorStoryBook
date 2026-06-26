@@ -1,0 +1,59 @@
+.rsp-panel {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  max-width: 375px;
+  /* Fixed to its host's height so the sticky header has a real scroll context.
+     Parent (Phase 1 story host / Phase 2 manager mount slot) must give the
+     panel an explicit height (e.g. 100vh). */
+  height: 100%;
+  background: #f8f8f8;
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rsp-panel::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .rsp-panel {
+    max-width: none;
+  }
+}
+
+.rsp-panel > .rsp-panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex-shrink: 0;
+  /* Reserve 1px so the stuck border doesn't shift layout. */
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease-in-out;
+}
+
+/* Sticky cue — body content scrolls beneath this hairline. */
+.rsp-panel--stuck > .rsp-panel-header {
+  border-bottom-color: var(--border\/black-10, rgba(0, 0, 0, 0.1));
+}
+
+.rsp-panel__body {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  /* 8px F8F8F8 gap between the header and body (mirrors left-side-bar). */
+  margin-top: 8px;
+}
+
+.rsp-panel__empty {
+  padding: 24px 16px;
+  background: #ffffff;
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  text-align: center;
+}

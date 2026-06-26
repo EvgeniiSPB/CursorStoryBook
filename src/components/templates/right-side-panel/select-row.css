@@ -1,0 +1,119 @@
+.rsp-select-row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+.rsp-select-row--first-child {
+  border-top: 0;
+}
+
+.rsp-select-row__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 56px;
+  padding: 18px 16px;
+  cursor: pointer;
+}
+
+.rsp-select-row__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  color: #1d2126;
+  word-break: break-word;
+  transition: color 250ms ease-in-out;
+}
+
+/* Hover affordance is scoped to the trigger row so hovering an option below
+   (Dropdown3rdLvl) doesn't fade the select label. */
+.rsp-select-row__trigger:hover .rsp-select-row__label {
+  color: var(--typography\/default\/secondary, rgba(29, 33, 38, 0.5));
+}
+
+.rsp-select-row__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+/* Plus ↔ minus glyph rendered as two crossing bars. On open, the vertical bar
+   rotates 90° around its own centre — sweeping into the horizontal so the two
+   bars overlap as a single minus. */
+.rsp-select-toggle-icon {
+  position: relative;
+  display: inline-block;
+  width: 15.6px;
+  height: 15.6px;
+  color: inherit;
+}
+
+.rsp-select-toggle-icon__bar {
+  position: absolute;
+  background: currentColor;
+  transition: transform 250ms ease-in-out;
+}
+
+.rsp-select-toggle-icon__bar--h {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.6px;
+  transform: translateY(-50%);
+}
+
+.rsp-select-toggle-icon__bar--v {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1.6px;
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: center;
+}
+
+.rsp-select-toggle-icon[data-open='true'] .rsp-select-toggle-icon__bar--v {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+/* Reveal wrapper — grid 0fr↔1fr trick, identical to Dropdown1stLvl. */
+.rsp-select-row__children-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 0fr);
+  overflow: hidden;
+  transition: grid-template-rows 250ms ease-in-out;
+}
+
+.rsp-select-row--open .rsp-select-row__children-wrap {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.rsp-select-row__children {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
+  padding: 0 40px 12px;
+  overflow: hidden;
+}
+
+.rsp-select-row__trigger:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
+}
