@@ -30,6 +30,9 @@ export interface LeftSideBarProps
    * active story is auto-expanded).
    */
   storageKey?: string;
+  /** Optional click handler for the top-left logo. When provided, the logo
+   *  becomes a button — used to navigate to the welcome / landing entry. */
+  onLogoClick?: () => void;
 }
 
 /** Walks the sections tree to find the chain of 1st/2nd-lvl ids that
@@ -75,6 +78,7 @@ export function LeftSideBar({
   onSelect,
   defaultOpenItemIds = [],
   storageKey,
+  onLogoClick,
   className,
   ...rest
 }: LeftSideBarProps) {
@@ -125,7 +129,7 @@ export function LeftSideBar({
 
   return (
     <nav className={classes} aria-label="Sidebar navigation" {...rest}>
-      <Logo />
+      <Logo onClick={onLogoClick} />
       {sections.map((section) => (
         <div className="left-side-bar__section" key={section.id}>
           <DropdownHeading

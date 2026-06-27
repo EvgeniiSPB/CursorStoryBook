@@ -8,6 +8,29 @@
   padding: 16px;
   background: #ffffff;
   color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
+  /* Reset native <button> styling when rendered clickable — no border, no
+     focus glow, and explicitly no hover/active state changes. */
+  margin: 0;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+button.left-side-bar-logo {
+  cursor: pointer;
+}
+
+button.left-side-bar-logo:hover,
+button.left-side-bar-logo:active,
+button.left-side-bar-logo:focus {
+  background: #ffffff;
+  color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
+}
+
+button.left-side-bar-logo:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
 }
 
 .left-side-bar-logo__mark {

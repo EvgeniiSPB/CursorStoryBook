@@ -42,4 +42,7 @@
 
 .rsp-icon-only-button__icon svg {
   display: block;
+  /* Don't let the flex slot squish a larger icon (e.g. the 28px gear glyph)
+     down to the 20px slot width — keep the SVG at its declared dimensions. */
+  flex-shrink: 0;
 }

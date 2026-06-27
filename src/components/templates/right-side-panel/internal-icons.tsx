@@ -55,6 +55,26 @@ export function MinusIcon(): ReactElement {
   );
 }
 
+/** Cog/gear icon (24×24 viewBox, thin outlined silhouette — matches the
+ *  Figma `configurate` glyph). Used by the re-open trigger that lets the
+ *  user summon the RightSidePanel after closing it manually. */
+export function GearIcon(): ReactElement {
+  return createElement(
+    'svg',
+    {
+      ...svgProps,
+      width: '24',
+      height: '24',
+      viewBox: '0 0 24 24',
+      'aria-hidden': 'true',
+    },
+    createElement('path', {
+      d: 'm13.18 4 .45 2.25c.93.27 1.81.74 2.55 1.46l2.16-.73 1.18 2.04-1.72 1.52a6 6 0 0 1 0 2.92l1.72 1.52-1.18 2.04-2.16-.73a6 6 0 0 1-2.55 1.46L13.18 20h-2.36l-.45-2.25a6 6 0 0 1-2.55-1.46l-2.16.73-1.18-2.04 1.72-1.52a6 6 0 0 1 0-2.92L4.48 9.02l1.18-2.04 2.16.73a6 6 0 0 1 2.55-1.46L10.82 4zM14 3h-4l-.5 2.49q-1.05.39-1.91 1.08l-2.38-.8-2 3.46 1.9 1.67a7 7 0 0 0 0 2.2l-1.9 1.67 2 3.46 2.38-.8q.85.69 1.91 1.08L10 21h4l.5-2.49q1.05-.39 1.91-1.08l2.38.8 2-3.46-1.9-1.67q.18-1.1 0-2.2l1.9-1.67-2-3.46-2.38.8A7 7 0 0 0 14.5 5.5zm-2 7a2 2 0 1 1 0 4 2 2 0 0 1 0-4m0-1a3 3 0 1 0 0 6 3 3 0 0 0 0-6',
+      fill: 'currentColor',
+    }),
+  );
+}
+
 export function ResetIcon(): ReactElement {
   return createElement(
     'svg',

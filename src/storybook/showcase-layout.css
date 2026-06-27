@@ -6,7 +6,12 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  /* Fills the full iframe viewport. The original `100vh - 32px` formula
+     assumed the preview-decorator parent had 16px padding around, but
+     `var(--spaces-static-400)` is unitless `16` and resolves to 0 when used
+     as `padding:` (only valid for calc-with-unit). Result: parent had 0
+     padding, child was 32px short → 32px white strip at the bottom. */
+  min-height: 100vh;
   box-sizing: border-box;
   background-color: #1e1e1e;
   /*

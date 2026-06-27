@@ -95,6 +95,14 @@ const preview: Preview = {
     ),
   ],
   parameters: {
+    options: {
+      // Force the blank welcome story to sort first so Storybook's default
+      // landing picks an empty canvas, not the alphabetically-first real
+      // component's Docs page.
+      storySort: {
+        order: ['0Welcome', '*'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

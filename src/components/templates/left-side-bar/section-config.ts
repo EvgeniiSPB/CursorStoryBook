@@ -38,6 +38,9 @@ export interface SidebarSectionConfig {
  */
 export const HIDDEN_TITLE_PREFIXES: readonly string[] = [
   'Templates/LeftSideBar',
+  // Welcome / blank landing story — auto-selected by Storybook on a fresh
+  // visit so the canvas opens empty instead of jumping into BadgeGroup.
+  '0Welcome',
 ];
 
 export const SECTION_CONFIGS: readonly SidebarSectionConfig[] = [
