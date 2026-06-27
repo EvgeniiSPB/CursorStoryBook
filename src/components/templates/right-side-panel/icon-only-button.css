@@ -1,4 +1,5 @@
 .rsp-icon-only-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -12,41 +13,37 @@
   cursor: pointer;
   /* Path fills use `currentColor`, so this also drives the icon glyph colour. */
   color: #1d2126;
-  transition: background-color 200ms ease-in-out;
 }
 
-/* Floating variant — used outside the panel header (gear / zoom buttons on
-   top of the dark canvas). White fill, no stroke. Same hover behaviour. */
+/* Floating variant — used outside the panel header (filter / zoom buttons on
+   top of the dark canvas). White fill, no stroke. Hover overlay is shared. */
 .rsp-icon-only-button--floating {
   background: #ffffff;
   border: 0;
 }
 
-/* Hover — 10% `#1d2126` tint. On the default (with-border) variant the alpha
-   blends with the panel-header's white behind. */
-.rsp-icon-only-button:not(:disabled):hover {
-  background: rgba(29, 33, 38, 0.1);
+/* Hover tint lives on a pseudo-element overlay above the base background so
+   the same animation works on both the transparent-base close-X and the
+   white-plate floating buttons. Transitioning `background-color` here gives
+   a smooth fade-in identical across all variants. */
+.rsp-icon-only-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: transparent;
+  pointer-events: none;
+  transition: background-color 200ms ease-in-out;
 }
 
-/* Floating variant keeps its white plate underneath the 10% tint so the
-   result reads as a soft light-grey hover against the dark canvas (otherwise
-   the alpha would expose the canvas through and darken the button). */
-.rsp-icon-only-button--floating:not(:disabled):hover {
-  background: linear-gradient(rgba(29, 33, 38, 0.1), rgba(29, 33, 38, 0.1)),
-    #ffffff;
+.rsp-icon-only-button:not(:disabled):hover::before {
+  background-color: rgba(29, 33, 38, 0.05);
 }
 
-.rsp-icon-only-button:disabled {
-  cursor: default;
-  opacity: 0.35;
-}
-
-.rsp-icon-only-button:focus-visible {
-  outline: 2px solid var(--typography\/default\/accent, #a41034);
-  outline-offset: 2px;
-}
-
+/* Lift the icon above the overlay so the tint doesn't dim the glyph. */
 .rsp-icon-only-button__icon {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +54,17 @@
 
 .rsp-icon-only-button__icon svg {
   display: block;
-  /* Don't let the flex slot squish a larger icon (e.g. the 24px gear glyph)
+  /* Don't let the flex slot squish a larger icon (e.g. the 24px filter glyph)
      down to the 20px slot width — keep the SVG at its declared dimensions. */
   flex-shrink: 0;
+}
+
+.rsp-icon-only-button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.rsp-icon-only-button:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: 2px;
 }
