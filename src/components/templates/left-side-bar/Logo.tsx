@@ -3,21 +3,26 @@
 import React from 'react';
 void React; // satisfy noUnusedLocals — React is used at runtime by classic JSX transform
 import type { HTMLAttributes, MouseEventHandler } from 'react';
-import { SidebarMark, SidebarWordmark } from './internal-icons';
+import { IconOnlyButton } from '../right-side-panel/IconOnlyButton';
+import { SidebarClosedIcon, SidebarMark, SidebarWordmark } from './internal-icons';
 import './logo.css';
 
 export interface LogoProps extends HTMLAttributes<HTMLElement> {
-  /** When set, the whole mark + wordmark area becomes a clickable button. */
+  /** When set, the mark + wordmark area becomes a clickable button. */
   onClick?: MouseEventHandler<HTMLElement>;
+  /** When set, a 40×40 borderless "collapse sidebar" icon-only button is
+   *  rendered at the right edge of the plate (Figma 6567:40878). */
+  onCollapse?: () => void;
 }
 
-/** Sidebar header — Figma node `6520:95024`. Renders as `<button>` when
- *  `onClick` is provided so the entire mark/wordmark area is clickable (no
- *  hover styling per spec — colour stays constant on interaction). */
-export function Logo({ className, onClick, ...props }: LogoProps) {
+/** Sidebar header — Figma node `6520:95024`. The mark + wordmark area is
+ *  rendered as `<button>` when `onClick` is provided. When `onCollapse` is
+ *  set, an additional icon-only button appears on the right for collapsing
+ *  the whole sidebar — the two click targets are separate. */
+export function Logo({ className, onClick, onCollapse, ...props }: LogoProps) {
   const classes = ['left-side-bar-logo', className].filter(Boolean).join(' ');
 
-  const content = (
+  const brandContent = (
     <>
       <span className="left-side-bar-logo__mark" aria-hidden="true">
         <SidebarMark />
@@ -29,23 +34,33 @@ export function Logo({ className, onClick, ...props }: LogoProps) {
     </>
   );
 
-  if (onClick) {
-    return (
-      <button
-        type="button"
-        className={classes}
-        data-name="logo"
-        onClick={onClick}
-        {...(props as HTMLAttributes<HTMLButtonElement>)}
-      >
-        {content}
-      </button>
-    );
-  }
+  const brand = onClick ? (
+    <button
+      type="button"
+      className="left-side-bar-logo__brand left-side-bar-logo__brand--button"
+      onClick={onClick}
+    >
+      {brandContent}
+    </button>
+  ) : (
+    <div className="left-side-bar-logo__brand">{brandContent}</div>
+  );
 
   return (
-    <div className={classes} data-name="logo" {...(props as HTMLAttributes<HTMLDivElement>)}>
-      {content}
+    <div
+      className={classes}
+      data-name="logo"
+      {...(props as HTMLAttributes<HTMLDivElement>)}
+    >
+      {brand}
+      {onCollapse && (
+        <IconOnlyButton
+          className="rsp-icon-only-button--bare left-side-bar-logo__collapse"
+          icon={<SidebarClosedIcon />}
+          ariaLabel="Collapse sidebar"
+          onClick={onCollapse}
+        />
+      )}
     </div>
   );
 }

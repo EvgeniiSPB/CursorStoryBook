@@ -1,10 +1,11 @@
 .image-container-showcase-canvas {
+  /* Pinned to the viewport so the dark canvas covers the preview decorator's
+     16px white padding on every side — no overflow, no scrollbars. */
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
-  box-sizing: border-box;
   background-color: #1e1e1e;
 }
 

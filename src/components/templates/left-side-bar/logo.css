@@ -1,15 +1,34 @@
 .left-side-bar-logo {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  /* Don't shrink — the parent `.left-side-bar` is a column flex with long
+     content; without this the plate gets squeezed under flex-shrink: 1
+     default (rendering as ~64px instead of the spec'd 72px). */
+  flex-shrink: 0;
+  width: 100%;
+  /* Figma 6567:40873 — plate is 72px tall so the 40×40 collapse button can
+     sit with 16px top/bottom margin (Figma absolute coords: top=16, h=40). */
+  height: 72px;
+  background: #ffffff;
+  color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
+}
+
+/* Brand area (mark + divider + wordmark). The collapse button is layered on
+   top via absolute positioning, so brand keeps its full width — wordmark is
+   only 162.5px wide and ends well before the button starts at x≈329. */
+.left-side-bar-logo__brand {
   display: flex;
   box-sizing: border-box;
   align-items: center;
   gap: 16px;
-  width: 100%;
-  height: 64px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
   padding: 16px;
-  background: #ffffff;
-  color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
-  /* Reset native <button> styling when rendered clickable — no border, no
-     focus glow, and explicitly no hover/active state changes. */
+  background: transparent;
+  color: inherit;
   margin: 0;
   border: 0;
   font: inherit;
@@ -17,20 +36,32 @@
   appearance: none;
 }
 
-button.left-side-bar-logo {
+.left-side-bar-logo__brand--button {
   cursor: pointer;
 }
 
-button.left-side-bar-logo:hover,
-button.left-side-bar-logo:active,
-button.left-side-bar-logo:focus {
-  background: #ffffff;
+.left-side-bar-logo__brand--button:hover,
+.left-side-bar-logo__brand--button:active,
+.left-side-bar-logo__brand--button:focus {
+  background: transparent;
   color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
 }
 
-button.left-side-bar-logo:focus-visible {
+.left-side-bar-logo__brand--button:focus-visible {
   outline: 2px solid var(--typography\/default\/accent, #a41034);
   outline-offset: -2px;
+}
+
+/* Collapse button — absolutely positioned to match Figma 6567:40878 exactly.
+   Top: 16, right: 6 (= 375 − 329 − 40 in the 375-wide reference plate). The
+   button overlays the empty right portion of the brand area without affecting
+   the wordmark, which ends much earlier (~x=234.5). Doubled-class selector
+   beats `.rsp-icon-only-button { position: relative }` which has the same
+   specificity and may otherwise win on cascade order. */
+.rsp-icon-only-button.left-side-bar-logo__collapse {
+  position: absolute;
+  top: 16px;
+  right: 6px;
 }
 
 .left-side-bar-logo__mark {

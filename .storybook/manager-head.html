@@ -21,17 +21,36 @@
   }
 </style>
 <style>
-  /* Force Storybook left nav to a fixed 375px on desktop / tablet.
-     On mobile (<= 768px) the nav stretches to the full viewport width.
-     Targets the layout root that holds --nav-width as an inline style. */
+  /* Register `--nav-width` as a real <length> so we can transition its value
+     instead of letting it snap. Without `@property`, custom properties are
+     treated as strings and can't be animated — and a hard 0 ↔ 375 snap
+     creates the visible "background appears, then text catches up" flash
+     when the sidebar opens (the Storybook grid column expands instantly,
+     375px ahead of the sliding-in mount). */
+  @property --nav-width {
+    syntax: '<length>';
+    initial-value: 375px;
+    inherits: true;
+  }
+
+  /* Force Storybook left nav to a fixed 375px on desktop / tablet, with a
+     transition so the column animates smoothly in lockstep with the
+     sidebar mount's transform (same duration + curve). */
   [style*="--nav-width"] {
     --nav-width: 375px !important;
+    transition: --nav-width 400ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (max-width: 768px) {
     [style*="--nav-width"] {
       --nav-width: 100vw !important;
     }
+  }
+
+  /* Sidebar collapsed — column shrinks to 0 over the same 400ms so the
+     canvas reflow doesn't outrun the slide. */
+  body[data-lsb-closed] [style*="--nav-width"] {
+    --nav-width: 0px !important;
   }
 
   /* Hide the sidebar resize handle — width is locked, dragging would be misleading. */
@@ -47,24 +66,82 @@
   [data-custom-sidebar] {
     padding: 0 !important;
     border: 0 !important;
+    /* Match the sidebar's own background. The slot column width is driven by
+       `--nav-width` and snaps 0 ↔ 375 instantly when the sidebar opens/closes;
+       if the slot keeps Storybook's default (white) background, that snap
+       reads as "375px-wide panel flashes in before the sidebar arrives".
+       Painting the slot in the sidebar's #f8f8f8 hides the snap — the
+       background under the sliding-in sidebar is identical to the sidebar. */
+    background: #f8f8f8 !important;
   }
-  /* Mount fills the Storybook sidebar slot and scrolls internally — sticky
-     elements inside (.left-side-bar-logo, .left-side-bar-heading) bind to this.
-     Scrollbar is hidden in every engine; scroll still works via wheel/trackpad. */
+  /* Fixed-position wrapper that ONLY transforms — mirrors
+     `#custom-right-panel-mount` exactly. Scroll context lives on the inner
+     `.left-side-bar` (set below) so the transforming element is NOT also the
+     scroll container — combining the two causes Chrome to recompute sticky /
+     scroll metrics on every animation frame, which reads as "the panel slides
+     out then the text catches up". */
   #custom-sidebar-mount {
-    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 375px;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 10;
+    background: #f8f8f8;
+    transform: translateX(0);
+    transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+  }
+
+  @media (max-width: 768px) {
+    #custom-sidebar-mount {
+      width: 100vw;
+    }
+  }
+
+  /* Inner element owns the scroll + sticky context — same separation as
+     `.rsp-panel` inside `#custom-right-panel-mount`. */
+  #custom-sidebar-mount > .left-side-bar {
     height: 100%;
+    max-width: none;
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE / legacy Edge */
   }
-  #custom-sidebar-mount::-webkit-scrollbar {
+  #custom-sidebar-mount > .left-side-bar::-webkit-scrollbar {
     display: none; /* WebKit (Chrome / Safari) */
   }
-  /* The LeftSideBar root must fill the mount and own the scroll context. */
-  #custom-sidebar-mount > .left-side-bar {
-    min-height: 100%;
-    max-width: none;
+
+  /* Collapsed state — slide off the left edge. The re-open trigger underneath
+     (`.lsb-reopen`) becomes visible as the sidebar moves off. */
+  body[data-lsb-closed] #custom-sidebar-mount {
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  /* Floating re-open trigger — same visual family as the right-panel zoom
+     cluster (`.rsp-icon-only-button--floating`). Top-left corner, 16/16 inset
+     per spec. z-index 9 so the sidebar (z-index 10) covers it while open;
+     when the sidebar slides off, the button is revealed underneath. Doubled-
+     class selector beats the component CSS's `position: relative` that would
+     otherwise win on cascade order. */
+  .rsp-icon-only-button.lsb-reopen {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 9;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-in-out;
+  }
+  .rsp-icon-only-button.lsb-reopen[data-visible] {
+    opacity: 1;
+    pointer-events: auto;
+    /* Delay fade-in so the button only becomes visible once the sidebar has
+       mostly cleared its position — avoids the button bleeding through the
+       last frames of the slide-out. */
+    transition-delay: 200ms;
   }
 </style>
 <style>
@@ -91,7 +168,9 @@
     z-index: 10;
     background: #f8f8f8;
     transform: translateX(100%);
-    transition: transform 250ms ease-in-out;
+    /* Material's emphasized curve — paired with #custom-sidebar-mount so both
+       panels share the same feel. */
+    transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
   }
 
@@ -113,6 +192,22 @@
      the (now empty) row, leaving a thin white strip below the canvas. */
   [style*="--bottom-panel-height"] {
     --bottom-panel-height: 0px !important;
+  }
+
+  /* Temporarily hide Storybook's preview toolbar (the 40px-tall row above the
+     canvas with theme / font / density chips). Re-enable by removing this
+     rule when the theme switchers become relevant again. */
+  [data-testid="sb-preview-toolbar"] {
+    display: none !important;
+  }
+
+  /* Hide Storybook's sidebar-bottom-tools strip (the white plate at the
+     bottom of the nav column with shortcuts / refresh icons). It lives
+     outside `[data-custom-sidebar]` so the catch-all hide rule above
+     doesn't reach it. */
+  [data-test-id="sidebar-bottom-tools"],
+  [data-testid="sidebar-bottom-tools"] {
+    display: none !important;
   }
 
   /* Hide the bottom-panel resize handle. Even when the panel itself is gone,

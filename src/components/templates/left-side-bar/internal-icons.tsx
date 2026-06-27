@@ -27,6 +27,18 @@ export function CaretDownIcon(): ReactElement {
   );
 }
 
+export function SidebarClosedIcon(): ReactElement {
+  return createElement(
+    'svg',
+    { ...baseSvgProps, viewBox: '0 0 20 20', 'aria-hidden': 'true' },
+    createElement('path', {
+      d: 'M15.833 4.16764C16.7535 4.16764 17.5 4.91416 17.5 5.83464V14.1676L17.4912 14.3376C17.4116 15.122 16.7883 15.7461 16.0039 15.8258L15.833 15.8346H4.16699L3.99609 15.8258C3.15584 15.7404 2.50016 15.0304 2.5 14.1676V5.83464C2.5 4.97176 3.15577 4.26188 3.99609 4.17643L4.16699 4.16764H15.833ZM4.16699 5.41764C3.93688 5.41764 3.75 5.60451 3.75 5.83464V14.1676C3.75018 14.3976 3.93698 14.5846 4.16699 14.5846H7.5V5.41764H4.16699ZM8.75 14.5846H15.833C16.063 14.5846 16.2498 14.3976 16.25 14.1676V5.83464C16.25 5.60452 16.0631 5.41764 15.833 5.41764H8.75V14.5846Z',
+      fill: 'currentColor',
+      fillOpacity: '0.9',
+    }),
+  );
+}
+
 export function SidebarMark(): ReactElement {
   return createElement(
     'svg',

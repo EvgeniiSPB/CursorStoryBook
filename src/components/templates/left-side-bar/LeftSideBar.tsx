@@ -33,6 +33,10 @@ export interface LeftSideBarProps
   /** Optional click handler for the top-left logo. When provided, the logo
    *  becomes a button — used to navigate to the welcome / landing entry. */
   onLogoClick?: () => void;
+  /** When provided, renders a collapse-sidebar icon-only button at the right
+   *  edge of the logo plate (Figma 6567:40878). The host owns the open/closed
+   *  state and the slide-out animation. */
+  onCollapse?: () => void;
 }
 
 /** Walks the sections tree to find the chain of 1st/2nd-lvl ids that
@@ -79,6 +83,7 @@ export function LeftSideBar({
   defaultOpenItemIds = [],
   storageKey,
   onLogoClick,
+  onCollapse,
   className,
   ...rest
 }: LeftSideBarProps) {
@@ -129,7 +134,7 @@ export function LeftSideBar({
 
   return (
     <nav className={classes} aria-label="Sidebar navigation" {...rest}>
-      <Logo onClick={onLogoClick} />
+      <Logo onClick={onLogoClick} onCollapse={onCollapse} />
       {sections.map((section) => (
         <div className="left-side-bar__section" key={section.id}>
           <DropdownHeading

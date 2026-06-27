@@ -22,6 +22,13 @@
   border: 0;
 }
 
+/* Bare variant — no border, transparent base. Used for the sidebar collapse
+   button inside the logo plate (Figma 6567:40878): rest = no fill, hover =
+   5% black tint (inherited from the base `::before` rule). */
+.rsp-icon-only-button--bare {
+  border: 0;
+}
+
 /* Hover tint lives on a pseudo-element overlay above the base background so
    the same animation works on both the transparent-base close-X and the
    white-plate floating buttons. Transitioning `background-color` here gives

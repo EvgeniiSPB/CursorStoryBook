@@ -17,6 +17,7 @@ import {
   PlusIcon,
   MinusIcon,
 } from '../src/components/templates/right-side-panel/internal-icons';
+import { SidebarClosedIcon } from '../src/components/templates/left-side-bar/internal-icons';
 import {
   buildControlsFromArgTypes,
   type ArgTypesLike,
@@ -35,6 +36,17 @@ addons.setConfig({
  * Reads stories from the live `api.getIndex()` and navigates via `api.selectStory()`.
  */
 
+const LSB_CLOSED_STORAGE_KEY = 'left-side-bar:closed';
+
+function readClosedFromStorage(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(LSB_CLOSED_STORAGE_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 function SidebarApp({ api }: { api: API }) {
   const [index, setIndex] = useState<StoryIndex | undefined>(
     () => api.getIndex() as StoryIndex | undefined,
@@ -42,6 +54,34 @@ function SidebarApp({ api }: { api: API }) {
   const [activeId, setActiveId] = useState<string | undefined>(
     () => api.getCurrentStoryData()?.id,
   );
+  // Persisted via localStorage — survives reloads and new tabs (sidebar
+  // visibility is a global user preference, like in Figma / VS Code).
+  const [closed, setClosed] = useState<boolean>(() => readClosedFromStorage());
+
+  // Reflect on <body> so the Storybook layout (nav-width) and the floating
+  // re-open trigger (portalled below) can react via CSS.
+  useEffect(() => {
+    if (closed) {
+      document.body.setAttribute('data-lsb-closed', '');
+    } else {
+      document.body.removeAttribute('data-lsb-closed');
+    }
+    try {
+      window.localStorage.setItem(LSB_CLOSED_STORAGE_KEY, closed ? '1' : '0');
+    } catch {
+      /* ignore quota / privacy-mode errors */
+    }
+    return () => document.body.removeAttribute('data-lsb-closed');
+  }, [closed]);
+
+  // Welcome story always greets the user with the sidebar open — its whole
+  // point is to introduce the nav, so a collapsed sidebar there is useless.
+  // Persistence still applies on every other story.
+  useEffect(() => {
+    if (activeId === '0welcome--blank') {
+      setClosed(false);
+    }
+  }, [activeId]);
 
   useEffect(() => {
     const refreshIndex = () => {
@@ -116,13 +156,32 @@ function SidebarApp({ api }: { api: API }) {
   }
 
   return (
-    <LeftSideBar
-      sections={sections}
-      activeId={activeId}
-      onSelect={(id) => api.selectStory(id)}
-      onLogoClick={() => api.selectStory('0welcome--blank')}
-      storageKey="left-side-bar:open-ids"
-    />
+    <>
+      <LeftSideBar
+        sections={sections}
+        activeId={activeId}
+        onSelect={(id) => api.selectStory(id)}
+        onLogoClick={() => api.selectStory('0welcome--blank')}
+        storageKey="left-side-bar:open-ids"
+        onCollapse={() => setClosed(true)}
+      />
+      {createPortal(
+        <button
+          type="button"
+          className="lsb-reopen rsp-icon-only-button rsp-icon-only-button--floating"
+          data-visible={closed ? '' : undefined}
+          aria-label="Open sidebar"
+          aria-hidden={!closed}
+          tabIndex={closed ? 0 : -1}
+          onClick={() => setClosed(false)}
+        >
+          <span className="rsp-icon-only-button__icon" aria-hidden="true">
+            <SidebarClosedIcon />
+          </span>
+        </button>,
+        document.body,
+      )}
+    </>
   );
 }
 
@@ -338,7 +397,7 @@ function RightPanelApp({ api }: { api: API }) {
       <div
         style={{
           position: 'fixed',
-          bottom: 16,
+          top: 16,
           right: 16,
           zIndex: 11,
           display: 'flex',
@@ -442,23 +501,28 @@ addons.register('right-side-panel-custom', (api) => {
 });
 
 addons.register('left-side-bar-custom', (api) => {
-  // Mount React into the manager's existing sidebar slot once the DOM is ready.
-  // Poll briefly because the manager renders asynchronously — region may not exist yet.
+  // Mount React into a fresh div appended directly to <body> — mirrors
+  // `right-side-panel-custom` so the floating sidebar is positioned relative
+  // to the viewport, not relative to Storybook's grid-driven sidebar slot.
+  // (When `--nav-width` snaps to 0, the slot's containing block collapses, and
+  // a `position: fixed` child inside it can desync from the viewport mid-
+  // animation if any ancestor establishes a transformed containing block.)
+  //
+  // We still flag `#storybook-sidebar-region` with `data-custom-sidebar` so
+  // CSS hides Storybook's default sidebar tree.
   const tryMount = (attempt = 0) => {
     const region = document.getElementById('storybook-sidebar-region');
     if (!region) {
       if (attempt < 100) setTimeout(() => tryMount(attempt + 1), 50);
       return;
     }
-
-    // Mark host for CSS — hides Storybook's default children, keeps our mount visible.
     region.setAttribute('data-custom-sidebar', '');
 
-    let mount = region.querySelector<HTMLElement>(':scope > #custom-sidebar-mount');
+    let mount = document.getElementById('custom-sidebar-mount');
     if (!mount) {
       mount = document.createElement('div');
       mount.id = 'custom-sidebar-mount';
-      region.appendChild(mount);
+      document.body.appendChild(mount);
     }
 
     const root = createRoot(mount);
