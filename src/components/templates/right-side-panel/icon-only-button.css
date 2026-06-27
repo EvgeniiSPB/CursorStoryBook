@@ -22,10 +22,18 @@
   border: 0;
 }
 
-/* Hover — light grey fill, no icon animation. Same effect on both default
-   (with-border) and floating (borderless) variants. */
+/* Hover — 20% `#1d2126` tint. On the default (with-border) variant the alpha
+   blends with the panel-header's white behind. */
 .rsp-icon-only-button:not(:disabled):hover {
-  background: #f8f8f8;
+  background: rgba(29, 33, 38, 0.2);
+}
+
+/* Floating variant keeps its white plate underneath the tint so the result
+   reads as a light grey hover against the dark canvas (otherwise the alpha
+   would expose the canvas through and the button would go nearly black). */
+.rsp-icon-only-button--floating:not(:disabled):hover {
+  background: linear-gradient(rgba(29, 33, 38, 0.2), rgba(29, 33, 38, 0.2)),
+    #ffffff;
 }
 
 .rsp-icon-only-button:disabled {
