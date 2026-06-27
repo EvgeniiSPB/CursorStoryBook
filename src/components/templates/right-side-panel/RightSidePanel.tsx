@@ -58,10 +58,17 @@ export function RightSidePanel({
   // they explicitly reset or close the panel (even if values happen to land
   // back on the initial set). Cleared automatically when `initialArgs` changes
   // (story switch — Phase 2 integration).
+  //
+  // We compare `initialArgs` by serialised content (not reference) because the
+  // Phase 2 manager wrapper re-snapshots `storyData` on every 200ms poll, which
+  // gives `initialArgs` a fresh object reference each tick. A naive
+  // `[initialArgs]` dep would re-fire this effect ~5×/s and wipe `dirty` out
+  // from under the user.
+  const initialArgsKey = JSON.stringify(initialArgs);
   const [dirty, setDirty] = useState(false);
   useEffect(() => {
     setDirty(false);
-  }, [initialArgs]);
+  }, [initialArgsKey]);
 
   const resetDisabled = !dirty || controls.length === 0;
 
