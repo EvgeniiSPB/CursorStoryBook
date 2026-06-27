@@ -7,10 +7,11 @@
   height: 40px;
   padding: 10px;
   background: transparent;
-  border: 1px solid var(--border\/carbon, #2f2f2f);
+  border: 1px solid #1d2126;
   border-radius: var(--corner-radius\/button-universal, 36px);
   cursor: pointer;
-  color: var(--typography\/primary, black);
+  /* Path fills use `currentColor`, so this also drives the icon glyph colour. */
+  color: #1d2126;
   transition: background-color 200ms ease-in-out;
 }
 

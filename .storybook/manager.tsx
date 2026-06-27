@@ -13,7 +13,7 @@ import { HIDDEN_TITLE_PREFIXES, SECTION_CONFIGS } from '../src/components/templa
 import { RightSidePanel } from '../src/components/templates/right-side-panel/RightSidePanel';
 import { IconOnlyButton } from '../src/components/templates/right-side-panel/IconOnlyButton';
 import {
-  GearIcon,
+  FilterIcon,
   PlusIcon,
   MinusIcon,
 } from '../src/components/templates/right-side-panel/internal-icons';
@@ -359,7 +359,7 @@ function RightPanelApp({ api }: { api: API }) {
         />
         <IconOnlyButton
           className="rsp-icon-only-button--floating"
-          icon={<GearIcon />}
+          icon={<FilterIcon />}
           ariaLabel="Show controls"
           onClick={() => setClosedByUser(false)}
         />
