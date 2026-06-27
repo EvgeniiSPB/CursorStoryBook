@@ -347,13 +347,13 @@ function RightPanelApp({ api }: { api: API }) {
       >
         <IconOnlyButton
           className="rsp-icon-only-button--floating"
-          icon={<PlusIcon size={13.5} />}
+          icon={<PlusIcon size={17.5} />}
           ariaLabel="Zoom in"
           onClick={() => dispatchZoomShortcut('in')}
         />
         <IconOnlyButton
           className="rsp-icon-only-button--floating"
-          icon={<MinusIcon size={13.5} />}
+          icon={<MinusIcon size={17.5} />}
           ariaLabel="Zoom out"
           onClick={() => dispatchZoomShortcut('out')}
         />
