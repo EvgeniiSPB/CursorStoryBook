@@ -40,6 +40,12 @@
   background-color: rgba(29, 33, 38, 0.05);
 }
 
+/* Floating buttons sit on the dark canvas where 5% reads as almost no
+   change — bump their tint to 10% for the same perceived intensity. */
+.rsp-icon-only-button--floating:not(:disabled):hover::before {
+  background-color: rgba(29, 33, 38, 0.1);
+}
+
 /* Lift the icon above the overlay so the tint doesn't dim the glyph. */
 .rsp-icon-only-button__icon {
   position: relative;
