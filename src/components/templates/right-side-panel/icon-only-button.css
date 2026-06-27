@@ -22,17 +22,17 @@
   border: 0;
 }
 
-/* Hover — 8% `#1d2126` tint. On the default (with-border) variant the alpha
+/* Hover — 10% `#1d2126` tint. On the default (with-border) variant the alpha
    blends with the panel-header's white behind. */
 .rsp-icon-only-button:not(:disabled):hover {
-  background: rgba(29, 33, 38, 0.08);
+  background: rgba(29, 33, 38, 0.1);
 }
 
-/* Floating variant keeps its white plate underneath the 8% tint so the
+/* Floating variant keeps its white plate underneath the 10% tint so the
    result reads as a soft light-grey hover against the dark canvas (otherwise
    the alpha would expose the canvas through and darken the button). */
 .rsp-icon-only-button--floating:not(:disabled):hover {
-  background: linear-gradient(rgba(29, 33, 38, 0.08), rgba(29, 33, 38, 0.08)),
+  background: linear-gradient(rgba(29, 33, 38, 0.1), rgba(29, 33, 38, 0.1)),
     #ffffff;
 }
 
