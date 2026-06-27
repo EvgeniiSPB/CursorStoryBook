@@ -11,6 +11,20 @@
   border-radius: var(--corner-radius\/button-universal, 36px);
   cursor: pointer;
   color: var(--typography\/primary, black);
+  transition: background-color 200ms ease-in-out;
+}
+
+/* Floating variant — used outside the panel header (gear / zoom buttons on
+   top of the dark canvas). White fill, no stroke. Same hover behaviour. */
+.rsp-icon-only-button--floating {
+  background: #ffffff;
+  border: 0;
+}
+
+/* Hover — light grey fill, no icon animation. Same effect on both default
+   (with-border) and floating (borderless) variants. */
+.rsp-icon-only-button:not(:disabled):hover {
+  background: #f8f8f8;
 }
 
 .rsp-icon-only-button:disabled {
@@ -30,19 +44,11 @@
   width: 20px;
   height: 20px;
   color: inherit;
-  transform: rotate(0deg);
-  transition: transform 250ms ease-in-out;
-  transform-origin: center;
-}
-
-/* Hover: rotate the icon only — no background fill. */
-.rsp-icon-only-button:not(:disabled):hover .rsp-icon-only-button__icon {
-  transform: rotate(var(--rsp-icon-hover-rotation, 45deg));
 }
 
 .rsp-icon-only-button__icon svg {
   display: block;
-  /* Don't let the flex slot squish a larger icon (e.g. the 28px gear glyph)
+  /* Don't let the flex slot squish a larger icon (e.g. the 24px gear glyph)
      down to the 20px slot width — keep the SVG at its declared dimensions. */
   flex-shrink: 0;
 }

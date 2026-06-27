@@ -334,10 +334,6 @@ function RightPanelApp({ api }: { api: API }) {
   // transformed ancestor would turn `position: fixed` into "fixed relative
   // to ancestor", pushing them off-screen along with the closed panel).
   if (showGearButton) {
-    const floatButtonStyle = {
-      background: '#ffffff',
-      border: '0',
-    } as const;
     return createPortal(
       <div
         style={{
@@ -350,25 +346,22 @@ function RightPanelApp({ api }: { api: API }) {
         }}
       >
         <IconOnlyButton
-          icon={<PlusIcon size={24} />}
+          className="rsp-icon-only-button--floating"
+          icon={<PlusIcon size={13.5} />}
           ariaLabel="Zoom in"
           onClick={() => dispatchZoomShortcut('in')}
-          rotateOnHover={0}
-          style={floatButtonStyle}
         />
         <IconOnlyButton
-          icon={<MinusIcon size={24} />}
+          className="rsp-icon-only-button--floating"
+          icon={<MinusIcon size={13.5} />}
           ariaLabel="Zoom out"
           onClick={() => dispatchZoomShortcut('out')}
-          rotateOnHover={0}
-          style={floatButtonStyle}
         />
         <IconOnlyButton
+          className="rsp-icon-only-button--floating"
           icon={<GearIcon />}
           ariaLabel="Show controls"
           onClick={() => setClosedByUser(false)}
-          rotateOnHover={30}
-          style={floatButtonStyle}
         />
       </div>,
       document.body,

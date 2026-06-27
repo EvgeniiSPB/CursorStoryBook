@@ -37,7 +37,6 @@ export function PanelHeader({
         icon={<CloseIcon />}
         ariaLabel="Close controls panel"
         onClick={onClose}
-        rotateOnHover={90}
       />
     </div>
   );

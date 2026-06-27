@@ -12,9 +12,6 @@ export interface IconOnlyButtonProps
   ariaLabel: string;
   onClick?: () => void;
   disabled?: boolean;
-  /** Degrees the icon rotates on hover (250ms ease-in-out). Default 45°
-   *  (close X → +). Pass `0` to disable. */
-  rotateOnHover?: number;
 }
 
 export function IconOnlyButton({
@@ -22,9 +19,7 @@ export function IconOnlyButton({
   ariaLabel,
   onClick,
   disabled = false,
-  rotateOnHover = 45,
   className,
-  style,
   ...props
 }: IconOnlyButtonProps) {
   const classes = ['rsp-icon-only-button', className].filter(Boolean).join(' ');
@@ -35,13 +30,6 @@ export function IconOnlyButton({
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
       aria-label={ariaLabel}
-      style={
-        {
-          ...style,
-          // CSS variable consumed by the icon's hover rotation rule.
-          '--rsp-icon-hover-rotation': `${rotateOnHover}deg`,
-        } as React.CSSProperties
-      }
       {...props}
     >
       <span className="rsp-icon-only-button__icon" aria-hidden="true">
