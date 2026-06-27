@@ -12,7 +12,11 @@ import { buildSidebarFromIndex, type StoryIndex } from '../src/components/templa
 import { HIDDEN_TITLE_PREFIXES, SECTION_CONFIGS } from '../src/components/templates/left-side-bar/section-config';
 import { RightSidePanel } from '../src/components/templates/right-side-panel/RightSidePanel';
 import { IconOnlyButton } from '../src/components/templates/right-side-panel/IconOnlyButton';
-import { GearIcon } from '../src/components/templates/right-side-panel/internal-icons';
+import {
+  GearIcon,
+  PlusIcon,
+  MinusIcon,
+} from '../src/components/templates/right-side-panel/internal-icons';
 import {
   buildControlsFromArgTypes,
   type ArgTypesLike,
@@ -139,6 +143,54 @@ interface StoryDataLike {
  *  entry in place (e.g. `prepared` flips true and `argTypes` arrive later), so
  *  a reference-equality comparison would miss those mutations and React would
  *  never re-render. We force a new top-level object each poll. */
+/** Canvas zoom — bypasses Storybook's private ZoomContext (no public API to
+ *  set it from outside, and synthetic keydown events are ignored by SB's
+ *  shortcut handler because they're untrusted). We instead inject a
+ *  stylesheet that targets the iframe-wrapper with `!important` rules,
+ *  mirroring the inline-style transform Storybook itself would write.
+ *
+ *  Selector `div:has(> #storybook-preview-iframe)` picks the immediate
+ *  parent of the preview iframe — the same element Storybook scales
+ *  internally. Modern browsers (Chrome 105+, FF 121+, Safari 15.4+) all
+ *  support `:has`, which matches Storybook v10's target matrix. */
+const ZOOM_LEVELS = [0.25, 0.5, 0.75, 0.9, 1, 1.1, 1.25, 1.5, 2, 3, 4, 8];
+const ZOOM_DEFAULT_IDX = ZOOM_LEVELS.indexOf(1);
+let zoomIdx = ZOOM_DEFAULT_IDX;
+let zoomStyleEl: HTMLStyleElement | null = null;
+
+function applyZoom(): void {
+  if (!zoomStyleEl) {
+    zoomStyleEl = document.createElement('style');
+    zoomStyleEl.id = '_rsp-zoom-override';
+    document.head.appendChild(zoomStyleEl);
+  }
+  const scale = ZOOM_LEVELS[zoomIdx];
+  if (scale === 1) {
+    zoomStyleEl.textContent = '';
+    return;
+  }
+  const dim = (100 / scale).toFixed(4);
+  zoomStyleEl.textContent = `
+    div:has(> #storybook-preview-iframe) {
+      transform: scale(${scale}) !important;
+      transform-origin: top left !important;
+      width: ${dim}% !important;
+      height: ${dim}% !important;
+    }
+  `;
+}
+
+function dispatchZoomShortcut(direction: 'in' | 'out' | 'reset'): void {
+  if (direction === 'reset') {
+    zoomIdx = ZOOM_DEFAULT_IDX;
+  } else if (direction === 'in') {
+    zoomIdx = Math.min(zoomIdx + 1, ZOOM_LEVELS.length - 1);
+  } else {
+    zoomIdx = Math.max(zoomIdx - 1, 0);
+  }
+  applyZoom();
+}
+
 function snapshotStory(api: API): StoryDataLike | undefined {
   const data = api.getCurrentStoryData() as StoryDataLike | undefined;
   if (!data) return undefined;
@@ -275,28 +327,50 @@ function RightPanelApp({ api }: { api: API }) {
 
   if (!storyData) return null;
 
-  // Closed but available — render the gear re-open trigger (40×40 round
-  // stroke button). Portalled to `document.body` so the button escapes the
-  // mount div's `transform: translateX(100%)` (a transformed ancestor would
-  // turn `position: fixed` into "fixed relative to ancestor", pushing the
-  // button off-screen along with the closed panel).
+  // Closed but available — render the floating controls strip in the bottom-
+  // right of the viewport. Layout (left → right): [+] [−] [⚙]. All three are
+  // identical 40×40 borderless circles on white. Portalled to `document.body`
+  // so the buttons escape the mount div's `transform: translateX(100%)` (a
+  // transformed ancestor would turn `position: fixed` into "fixed relative
+  // to ancestor", pushing them off-screen along with the closed panel).
   if (showGearButton) {
+    const floatButtonStyle = {
+      background: '#ffffff',
+      border: '0',
+    } as const;
     return createPortal(
-      <IconOnlyButton
-        icon={<GearIcon />}
-        ariaLabel="Show controls"
-        onClick={() => setClosedByUser(false)}
-        rotateOnHover={30}
+      <div
         style={{
           position: 'fixed',
           bottom: 16,
           right: 16,
           zIndex: 11,
-          background: '#ffffff',
-          // Borderless on dark canvas — the white fill alone provides contrast.
-          border: '0',
+          display: 'flex',
+          gap: 8,
         }}
-      />,
+      >
+        <IconOnlyButton
+          icon={<PlusIcon size={24} />}
+          ariaLabel="Zoom in"
+          onClick={() => dispatchZoomShortcut('in')}
+          rotateOnHover={0}
+          style={floatButtonStyle}
+        />
+        <IconOnlyButton
+          icon={<MinusIcon size={24} />}
+          ariaLabel="Zoom out"
+          onClick={() => dispatchZoomShortcut('out')}
+          rotateOnHover={0}
+          style={floatButtonStyle}
+        />
+        <IconOnlyButton
+          icon={<GearIcon />}
+          ariaLabel="Show controls"
+          onClick={() => setClosedByUser(false)}
+          rotateOnHover={30}
+          style={floatButtonStyle}
+        />
+      </div>,
       document.body,
     );
   }

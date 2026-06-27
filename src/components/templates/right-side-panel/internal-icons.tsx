@@ -31,10 +31,17 @@ export function CloseIcon(): ReactElement {
   );
 }
 
-export function PlusIcon(): ReactElement {
+export interface IconSizeProps {
+  /** Explicit pixel size. When omitted the SVG fills its slot via 100%. */
+  size?: number;
+}
+
+export function PlusIcon({ size }: IconSizeProps = {}): ReactElement {
+  const sized =
+    size != null ? { width: String(size), height: String(size) } : {};
   return createElement(
     'svg',
-    { ...svgProps, viewBox: '0 0 15.6 15.6', 'aria-hidden': 'true' },
+    { ...svgProps, ...sized, viewBox: '0 0 15.6 15.6', 'aria-hidden': 'true' },
     createElement('path', {
       d: 'M8.6 0.8C8.6 0.358172 8.24183 0 7.8 0C7.35817 0 7 0.358172 7 0.8V7H0.8C0.358172 7 0 7.35817 0 7.8C0 8.24183 0.358172 8.6 0.8 8.6H7V14.8C7 15.2418 7.35817 15.6 7.8 15.6C8.24183 15.6 8.6 15.2418 8.6 14.8V8.6H14.8C15.2418 8.6 15.6 8.24183 15.6 7.8C15.6 7.35817 15.2418 7 14.8 7H8.6V0.8Z',
       fill: 'currentColor',
@@ -42,10 +49,17 @@ export function PlusIcon(): ReactElement {
   );
 }
 
-export function MinusIcon(): ReactElement {
+export function MinusIcon({ size }: IconSizeProps = {}): ReactElement {
+  // `size` controls width; height auto-derives from the viewBox aspect
+  // (15.6 : 1.6) so the bar stays thin instead of stretching into a thick
+  // block when scaled to a square slot.
+  const sized =
+    size != null
+      ? { width: String(size), height: String((size * 1.6) / 15.6) }
+      : {};
   return createElement(
     'svg',
-    { ...svgProps, viewBox: '0 0 15.6 1.6', 'aria-hidden': 'true' },
+    { ...svgProps, ...sized, viewBox: '0 0 15.6 1.6', 'aria-hidden': 'true' },
     createElement('path', {
       fillRule: 'evenodd',
       clipRule: 'evenodd',
