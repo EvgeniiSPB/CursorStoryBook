@@ -369,9 +369,6 @@ function RightPanelApp({ api }: { api: API }) {
   const canShowPanel =
     !!storyData && storyData.type === 'story' && controls.length > 0;
   const shouldShow = canShowPanel && !closedByUser;
-  // The gear re-open button appears in the same conditions, minus the dismissal:
-  // it lets the user summon the panel back without navigating away.
-  const showGearButton = canShowPanel && closedByUser;
 
   // Reflect open/closed state on the body so the canvas can be padded around
   // the floating panel via CSS.
@@ -386,48 +383,49 @@ function RightPanelApp({ api }: { api: API }) {
 
   if (!storyData) return null;
 
-  // Closed but available — render the floating controls strip in the bottom-
-  // right of the viewport. Layout (left → right): [+] [−] [⚙]. All three are
-  // identical 40×40 borderless circles on white. Portalled to `document.body`
-  // so the buttons escape the mount div's `transform: translateX(100%)` (a
-  // transformed ancestor would turn `position: fixed` into "fixed relative
-  // to ancestor", pushing them off-screen along with the closed panel).
-  if (showGearButton) {
-    return createPortal(
-      <div
-        style={{
-          position: 'fixed',
-          top: 16,
-          right: 16,
-          zIndex: 11,
-          display: 'flex',
-          gap: 8,
-        }}
-      >
-        <IconOnlyButton
-          className="rsp-icon-only-button--floating"
-          icon={<PlusIcon size={17.5} />}
-          ariaLabel="Zoom in"
-          onClick={() => dispatchZoomShortcut('in')}
-        />
-        <IconOnlyButton
-          className="rsp-icon-only-button--floating"
-          icon={<MinusIcon size={17.5} />}
-          ariaLabel="Zoom out"
-          onClick={() => dispatchZoomShortcut('out')}
-        />
-        <IconOnlyButton
-          className="rsp-icon-only-button--floating"
-          icon={<FilterIcon />}
-          ariaLabel="Show controls"
-          onClick={() => setClosedByUser(false)}
-        />
-      </div>,
-      document.body,
-    );
-  }
+  // Floating controls strip in the top-right of the viewport. Layout
+  // (left → right): [+] [−] [⚙]. Visible whenever the story has controls;
+  // slides left in sync with the panel via CSS (see manager-head.html).
+  // Portalled to `document.body` so the buttons escape the mount div's
+  // `transform: translateX(100%)` (a transformed ancestor would turn
+  // `position: fixed` into "fixed relative to ancestor").
+  const floatingCluster = canShowPanel
+    ? createPortal(
+        <div
+          className="rsp-floating-cluster"
+          style={{
+            position: 'fixed',
+            top: 16,
+            right: 16,
+            zIndex: 11,
+            display: 'flex',
+            gap: 8,
+          }}
+        >
+          <IconOnlyButton
+            className="rsp-icon-only-button--floating"
+            icon={<PlusIcon size={17.5} />}
+            ariaLabel="Zoom in"
+            onClick={() => dispatchZoomShortcut('in')}
+          />
+          <IconOnlyButton
+            className="rsp-icon-only-button--floating"
+            icon={<MinusIcon size={17.5} />}
+            ariaLabel="Zoom out"
+            onClick={() => dispatchZoomShortcut('out')}
+          />
+          <IconOnlyButton
+            className="rsp-icon-only-button--floating"
+            icon={<FilterIcon />}
+            ariaLabel={closedByUser ? 'Show controls' : 'Hide controls'}
+            onClick={() => setClosedByUser((v) => !v)}
+          />
+        </div>,
+        document.body,
+      )
+    : null;
 
-  if (!shouldShow) return null;
+  if (!shouldShow) return floatingCluster;
 
   const handleUpdate = (name: string, value: unknown) => {
     const control = controls.find((c) => c.name === name);
@@ -461,14 +459,17 @@ function RightPanelApp({ api }: { api: API }) {
   const handleClose = () => setClosedByUser(true);
 
   return (
-    <RightSidePanel
-      controls={controls}
-      args={displayArgs}
-      initialArgs={storyData.initialArgs ?? {}}
-      onUpdate={handleUpdate}
-      onReset={handleReset}
-      onClose={handleClose}
-    />
+    <>
+      {floatingCluster}
+      <RightSidePanel
+        controls={controls}
+        args={displayArgs}
+        initialArgs={storyData.initialArgs ?? {}}
+        onUpdate={handleUpdate}
+        onReset={handleReset}
+        onClose={handleClose}
+      />
+    </>
   );
 }
 

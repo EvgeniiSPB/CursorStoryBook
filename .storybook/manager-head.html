@@ -187,6 +187,16 @@
     --main-width: calc(100% - 375px) !important;
   }
 
+  /* Floating zoom/controls cluster — slides left in sync with the panel,
+     preserving the 16px gap from the panel's left edge. Same curve/duration
+     as #custom-right-panel-mount so the motion reads as one piece. */
+  .rsp-floating-cluster {
+    transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  body[data-rsp-open] .rsp-floating-cluster {
+    transform: translateX(-375px);
+  }
+
   /* Collapse Storybook v10's bottom-panel slot. `showPanel: false` hides the
      panel content but the layout still reserves `--bottom-panel-height` for
      the (now empty) row, leaving a thin white strip below the canvas. */
