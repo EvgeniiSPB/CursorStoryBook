@@ -1,0 +1,14 @@
+<style>
+  /* Hide the scrollbar inside the preview iframe. Stories often render
+     taller than the viewport (e.g. the typography "all sizes" pages), which
+     made Storybook draw a thin vertical track at the right edge of the
+     canvas. Scroll still works — only the visible bar is removed. */
+  html,
+  body {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+</style>

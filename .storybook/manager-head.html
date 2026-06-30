@@ -180,11 +180,15 @@
     pointer-events: auto;
   }
 
-  /* Reserve 375px on the right for the canvas region so the panel never
-     overlaps Storybook's preview iframe.
-     `--main-width` is Storybook v10's CSS variable for the canvas column. */
-  body[data-rsp-open] [style*="--main-width"] {
-    --main-width: calc(100% - 375px) !important;
+  /* Register --right-panel-width as an animatable length, mirroring the
+     --nav-width block at the top of this file. manager.tsx sets the value
+     inline (with !important) on the LayoutContainer when the panel
+     opens/closes; this @property registration is what makes the transition
+     actually interpolate instead of snap. */
+  @property --right-panel-width {
+    syntax: '<length>';
+    initial-value: 0px;
+    inherits: true;
   }
 
   /* Floating zoom/controls cluster — slides left in sync with the panel,
@@ -202,6 +206,24 @@
      the (now empty) row, leaving a thin white strip below the canvas. */
   [style*="--bottom-panel-height"] {
     --bottom-panel-height: 0px !important;
+  }
+
+  /* Hide all scrollbars at the manager level — html/body and everything
+     inside #root. Storybook draws scrollbars on CanvasWrap, IframeWrapper,
+     and sometimes on body itself when canvas content overflows. Our custom
+     sidebar (#custom-sidebar-mount) sits outside #root, but its own
+     scrollbar styling lives in its component CSS so it's unaffected here. */
+  html,
+  body,
+  #root,
+  #root * {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  #root::-webkit-scrollbar,
+  #root *::-webkit-scrollbar {
+    display: none;
   }
 
   /* Temporarily hide Storybook's preview toolbar (the 40px-tall row above the

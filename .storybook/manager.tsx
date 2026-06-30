@@ -381,6 +381,60 @@ function RightPanelApp({ api }: { api: API }) {
     return () => document.body.removeAttribute('data-rsp-open');
   }, [shouldShow]);
 
+  // Shrink the canvas iframe column by 375px when the panel is open.
+  //
+  // Two-part override on Storybook's LayoutContainer:
+  //   1. grid-template-columns — right column 0px (closed) or 375px (open).
+  //   2. grid-template-areas — force "sidebar content panel" so the
+  //      "content" area is confined to column 2. Without this, Storybook
+  //      defaults to "sidebar content content" (content spans cols 2+3)
+  //      when its native bottom-panel is hidden, and the canvas iframe
+  //      ignores our column-3 width change entirely.
+  //
+  // Both set inline with !important — highest possible specificity, beats
+  // emotion's class-based @media rule. MutationObserver re-applies after
+  // each Storybook render so emotion's style reconciliation can't wipe us.
+  useEffect(() => {
+    const rightCol = shouldShow ? '375px' : '0px';
+    const gridCols = `minmax(0, var(--nav-width)) minmax(100px, 1fr) ${rightCol}`;
+    const gridAreas = '"sidebar content panel" "sidebar content panel"';
+    const apply = () => {
+      const layoutEl = document.querySelector(
+        '#root > div',
+      ) as HTMLElement | null;
+      if (!layoutEl) return;
+      if (
+        layoutEl.style.gridTemplateColumns === gridCols &&
+        layoutEl.style.gridTemplateAreas === gridAreas
+      ) {
+        return;
+      }
+      layoutEl.style.setProperty(
+        'grid-template-columns',
+        gridCols,
+        'important',
+      );
+      layoutEl.style.setProperty(
+        'grid-template-areas',
+        gridAreas,
+        'important',
+      );
+      layoutEl.style.setProperty(
+        'transition',
+        'grid-template-columns 400ms cubic-bezier(0.4, 0, 0.2, 1)',
+      );
+    };
+    apply();
+    const observer = new MutationObserver(apply);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+    return () => observer.disconnect();
+  }, [shouldShow]);
+
   if (!storyData) return null;
 
   // Floating controls strip in the top-right of the viewport. Layout
