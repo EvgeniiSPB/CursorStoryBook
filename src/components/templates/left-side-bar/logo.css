@@ -15,24 +15,21 @@
   color: var(--typography\/default\/primary, rgba(29, 33, 38, 0.9));
 }
 
-/* Brand area (mark + divider + wordmark). The collapse button is layered on
-   top via absolute positioning, so brand keeps its full width — wordmark is
-   only 162.5px wide and ends well before the button starts at x≈329. */
+/* Brand area (mark only). Positioned in center via justify-center on parent. */
 .left-side-bar-logo__brand {
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  justify-content: center;
   gap: 16px;
-  flex: 1 1 auto;
-  min-width: 0;
+  flex: 0 0 auto;
   height: 100%;
-  padding: 16px;
   background: transparent;
   color: inherit;
   margin: 0;
   border: 0;
   font: inherit;
-  text-align: left;
+  text-align: center;
   appearance: none;
 }
 
@@ -52,13 +49,17 @@
   outline-offset: -2px;
 }
 
-/* Collapse button — absolutely positioned to match Figma 6567:40878 exactly.
-   Top: 16, right: 6 (= 375 − 329 − 40 in the 375-wide reference plate). The
-   button overlays the empty right portion of the brand area without affecting
-   the wordmark, which ends much earlier (~x=234.5). Doubled-class selector
-   beats `.rsp-icon-only-button { position: relative }` which has the same
-   specificity and may otherwise win on cascade order. */
+/* Collapse button — absolutely positioned on the left at top: 16, left: 6.
+   Doubled-class selector beats `.rsp-icon-only-button { position: relative }`. */
 .rsp-icon-only-button.left-side-bar-logo__collapse {
+  position: absolute;
+  top: 16px;
+  left: 6px;
+}
+
+/* Search button — absolutely positioned on the right at top: 16, right: 6.
+   Doubled-class selector beats `.rsp-icon-only-button { position: relative }`. */
+.rsp-icon-only-button.left-side-bar-logo__search {
   position: absolute;
   top: 16px;
   right: 6px;

@@ -39,6 +39,18 @@ export function SidebarClosedIcon(): ReactElement {
   );
 }
 
+export function SearchIcon(): ReactElement {
+  return createElement(
+    'svg',
+    { ...baseSvgProps, viewBox: '0 0 20 20', 'aria-hidden': 'true' },
+    createElement('path', {
+      d: 'M8.5 2C11.5376 2 14 4.46243 14 7.5C14 8.83879 13.5217 10.0659 12.7266 10.9993L17.8536 16.1464C18.0488 16.3417 18.0488 16.6583 17.8536 16.8536C17.6583 17.0488 17.3417 17.0488 17.1464 16.8536L12.0177 11.7249C11.0605 12.5063 9.86722 13 8.5 13C5.46243 13 3 10.5376 3 7.5C3 4.46243 5.46243 2 8.5 2ZM8.5 3.5C6.29086 3.5 4.5 5.29086 4.5 7.5C4.5 9.70914 6.29086 11.5 8.5 11.5C10.7091 11.5 12.5 9.70914 12.5 7.5C12.5 5.29086 10.7091 3.5 8.5 3.5Z',
+      fill: 'currentColor',
+      fillOpacity: '0.9',
+    }),
+  );
+}
+
 export function SidebarMark(): ReactElement {
   return createElement(
     'svg',
