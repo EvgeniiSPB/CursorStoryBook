@@ -63,14 +63,12 @@ export function Logo({
         />
       )}
       {brand}
-      {onSearch && (
-        <IconOnlyButton
-          className="rsp-icon-only-button--bare left-side-bar-logo__search"
-          icon={<SearchIcon />}
-          ariaLabel="Search"
-          onClick={onSearch}
-        />
-      )}
+      <IconOnlyButton
+        className="rsp-icon-only-button--bare left-side-bar-logo__search"
+        icon={<SearchIcon />}
+        ariaLabel="Search"
+        onClick={onSearch}
+      />
     </div>
   );
 }
