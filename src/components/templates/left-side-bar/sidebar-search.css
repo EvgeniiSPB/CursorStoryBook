@@ -1,0 +1,111 @@
+/* Search UI — replaces the sections tree when the logo search button is
+   clicked. Figma 6733:196146 (frames 6733:165976 / 196056 / 196099 / 196074). */
+
+.left-side-bar-search {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 16px;
+  font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+}
+
+/* Input row — 40px tall field with a black bottom border. Figma renders no
+   placeholder text (the "description" label is intentionally opacity: 0). */
+.left-side-bar-search__input {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #000;
+}
+
+.left-side-bar-search__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #000;
+}
+
+.left-side-bar-search__field::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+.left-side-bar-search__field:focus {
+  outline: none;
+}
+
+/* Results — 24px top padding gap from the input, then a stack of rows. */
+.left-side-bar-search__results {
+  list-style: none;
+  margin: 0;
+  padding: 24px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-side-bar-search__row {
+  display: block;
+  width: 100%;
+}
+
+.left-side-bar-search__row-btn {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.17px;
+  color: #1d2126;
+  transition:
+    color 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+}
+
+.left-side-bar-search__row-btn:focus-visible {
+  outline: 2px solid var(--typography\/default\/accent, #a41034);
+  outline-offset: -2px;
+}
+
+/* Dim-siblings on hover — the list gains [data-hovered] when any row is
+   hovered, then every row without :hover fades to 50%. */
+.left-side-bar-search__results[data-hovered]
+  .left-side-bar-search__row-btn:not(:hover) {
+  opacity: 0.5;
+}
+
+/* Active row (matches Storybook's current story) — always primary,
+   never dimmed even when a sibling is hovered. */
+.left-side-bar-search__row-btn[data-active] {
+  opacity: 1 !important;
+}
+
+/* Empty state — centered "No results for '<query>'", secondary colour. */
+.left-side-bar-search__empty {
+  margin: 48px 0 0;
+  padding: 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.5);
+}

@@ -4,7 +4,12 @@ import React from 'react';
 void React; // satisfy noUnusedLocals — React is used at runtime by classic JSX transform
 import type { HTMLAttributes, MouseEventHandler } from 'react';
 import { IconOnlyButton } from '../right-side-panel/IconOnlyButton';
-import { SearchIcon, SidebarClosedIcon, SidebarMark } from './internal-icons';
+import {
+  CloseIcon,
+  SearchIcon,
+  SidebarClosedIcon,
+  SidebarMark,
+} from './internal-icons';
 import './logo.css';
 
 export interface LogoProps extends HTMLAttributes<HTMLElement> {
@@ -13,9 +18,11 @@ export interface LogoProps extends HTMLAttributes<HTMLElement> {
   /** When set, a 40×40 borderless "collapse sidebar" icon-only button is
    *  rendered at the left edge of the plate. */
   onCollapse?: () => void;
-  /** When set, a 40×40 borderless "search" icon-only button is rendered
-   *  at the right edge of the plate. */
+  /** Toggle the search UI. When `searchOpen` is true, the right button shows
+   *  a close (X) icon on a tinted background and clicking it closes the search. */
   onSearch?: () => void;
+  /** When true, the right icon swaps to a close X with a light grey rest tint. */
+  searchOpen?: boolean;
 }
 
 /** Sidebar header — Figma node `6520:95024`. The logo mark is rendered
@@ -26,6 +33,7 @@ export function Logo({
   onClick,
   onCollapse,
   onSearch,
+  searchOpen = false,
   ...props
 }: LogoProps) {
   const classes = ['left-side-bar-logo', className].filter(Boolean).join(' ');
@@ -64,9 +72,20 @@ export function Logo({
       )}
       {brand}
       <IconOnlyButton
-        className="rsp-icon-only-button--bare left-side-bar-logo__search"
-        icon={<SearchIcon />}
-        ariaLabel="Search"
+        className={
+          'rsp-icon-only-button--bare left-side-bar-logo__search' +
+          (searchOpen ? ' left-side-bar-logo__search--active' : '')
+        }
+        icon={
+          searchOpen ? (
+            <span className="left-side-bar-logo__close-icon">
+              <CloseIcon />
+            </span>
+          ) : (
+            <SearchIcon />
+          )
+        }
+        ariaLabel={searchOpen ? 'Close search' : 'Search'}
         onClick={onSearch}
       />
     </div>

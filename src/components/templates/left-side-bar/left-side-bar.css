@@ -19,6 +19,17 @@
   display: none;
 }
 
+/* When search is open, the sidebar switches to a full-white surface and
+   the logo plate gains a subtle bottom border (Figma frames 6733:165976
+   / 196056 / 196099 / 196074). */
+.left-side-bar.left-side-bar--search-open {
+  background: #ffffff;
+}
+
+.left-side-bar.left-side-bar--search-open .left-side-bar-logo {
+  border-bottom: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
+}
+
 @media (max-width: 768px) {
   .left-side-bar {
     max-width: none;

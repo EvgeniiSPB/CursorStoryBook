@@ -8,6 +8,7 @@ import { Dropdown1stLvl } from './Dropdown1stLvl';
 import { Dropdown2ndLvl } from './Dropdown2ndLvl';
 import { Dropdown3rdLvl } from './Dropdown3rdLvl';
 import { Logo } from './Logo';
+import { SidebarSearch } from './SidebarSearch';
 import type { SidebarSection } from './types';
 import './left-side-bar.css';
 
@@ -96,6 +97,8 @@ export function LeftSideBar({
     return initial;
   });
 
+  const [searchOpen, setSearchOpen] = useState(false);
+
   // Persist on every change to sessionStorage (per-tab scope).
   useEffect(() => {
     if (!storageKey || typeof window === 'undefined') return;
@@ -130,12 +133,34 @@ export function LeftSideBar({
     });
   };
 
-  const classes = ['left-side-bar', className].filter(Boolean).join(' ');
+  const classes = [
+    'left-side-bar',
+    searchOpen ? 'left-side-bar--search-open' : null,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <nav className={classes} aria-label="Sidebar navigation" {...rest}>
-      <Logo onClick={onLogoClick} onCollapse={onCollapse} />
-      {sections.map((section) => (
+      <Logo
+        onClick={onLogoClick}
+        onCollapse={onCollapse}
+        onSearch={() => setSearchOpen((v) => !v)}
+        searchOpen={searchOpen}
+      />
+      {searchOpen ? (
+        <SidebarSearch
+          sections={sections}
+          activeId={activeId}
+          onSelect={(id) => {
+            onSelect?.(id);
+            setSearchOpen(false);
+          }}
+          onClose={() => setSearchOpen(false)}
+        />
+      ) : (
+        sections.map((section) => (
         <div className="left-side-bar__section" key={section.id}>
           <DropdownHeading
             label={section.heading.label}
@@ -209,7 +234,8 @@ export function LeftSideBar({
             );
           })}
         </div>
-      ))}
+        ))
+      )}
     </nav>
   );
 }
