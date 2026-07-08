@@ -45,4 +45,27 @@ export const Gallery: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { IncutRelated, IncutNumbers, IncutOpinion } from '@/components/details/right';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 40 }}>`,
+          `      <IncutRelated />`,
+          `      <IncutNumbers />`,
+          `      <IncutOpinion />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

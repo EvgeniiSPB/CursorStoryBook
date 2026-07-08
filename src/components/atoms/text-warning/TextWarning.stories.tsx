@@ -91,6 +91,27 @@ export const Playground: Story = {
     bPadding: false,
     text: TEXT_WARNING_DEFAULT_TEXT,
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TextWarning } from '@/components/atoms/text-warning/TextWarning';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <TextWarning typography="bodyM" text="Warning" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {

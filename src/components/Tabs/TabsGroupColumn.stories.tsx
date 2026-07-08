@@ -82,6 +82,32 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TabsGroupColumn } from '@/components/Tabs/TabsGroupColumn';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <TabsGroupColumn`,
+          `        items={6}`,
+          `        title="Related"`,
+          `        tabLabel="Value"`,
+          `        counter="00"`,
+          `      />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

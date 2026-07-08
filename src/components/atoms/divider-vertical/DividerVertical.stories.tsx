@@ -61,6 +61,27 @@ export const Playground: Story = {
   args: {
     type: 'thin',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { DividerVertical } from '@/components/atoms/divider-vertical/DividerVertical';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <DividerVertical type="thin" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

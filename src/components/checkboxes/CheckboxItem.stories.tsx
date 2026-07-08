@@ -57,7 +57,7 @@ const meta = {
     active: { control: 'boolean' },
     disabled: { control: 'boolean' },
     state: { control: 'select', options: states },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'label' },
   },
   args: {
     children: 'Value',
@@ -81,21 +81,105 @@ export const Playground: Story = {
 export const Unchecked: Story = {
   name: 'Unchecked',
   args: { active: false, disabled: false, state: 'normal' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CheckboxItem } from '@/components/checkboxes/CheckboxItem';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CheckboxItem active={false}>Value</CheckboxItem>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const Checked: Story = {
   name: 'Checked',
   args: { active: true, disabled: false, state: 'normal' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CheckboxItem } from '@/components/checkboxes/CheckboxItem';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CheckboxItem active>Value</CheckboxItem>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const DisabledUnchecked: Story = {
   name: 'Disabled / unchecked',
   args: { active: false, disabled: true, state: 'normal' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CheckboxItem } from '@/components/checkboxes/CheckboxItem';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CheckboxItem active={false} disabled>Value</CheckboxItem>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const DisabledChecked: Story = {
   name: 'Disabled / checked',
   args: { active: true, disabled: true, state: 'normal' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CheckboxItem } from '@/components/checkboxes/CheckboxItem';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CheckboxItem active disabled>Value</CheckboxItem>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

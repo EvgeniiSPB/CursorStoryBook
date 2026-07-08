@@ -57,6 +57,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TagGroup } from '@/components/Tags/TagGroup';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <TagGroup variant="brand" firstLabel="Value" secondLabel="Value" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

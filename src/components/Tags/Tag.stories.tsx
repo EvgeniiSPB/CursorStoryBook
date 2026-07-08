@@ -48,7 +48,7 @@ const meta = {
     variant: { control: 'select', options: types },
     topic: { control: 'select', options: topics },
     state: { control: 'select', options: states },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'value' },
   },
   args: {
     children: 'Value',
@@ -63,6 +63,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Tag } from '@/components/Tags/Tag';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Tag variant="brand" topic="1stLvl">Value</Tag>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

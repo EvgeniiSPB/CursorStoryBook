@@ -233,6 +233,25 @@ export const Playground: Story = {
   args: buildPlaygroundDefaultArgs(),
   argTypes: buildPlaygroundArgTypes(),
   parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CardConstructor } from '@/components/details/card/constructor/CardConstructor';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CardConstructor cardType="firstScreen" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
     controls: {
       exclude: [
         'shape_baseLFilled',

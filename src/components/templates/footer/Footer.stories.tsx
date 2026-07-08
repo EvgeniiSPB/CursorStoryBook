@@ -34,7 +34,6 @@ const meta = {
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
-    docs: { disable: true },
   },
 } satisfies Meta<typeof Footer>;
 
@@ -47,4 +46,25 @@ export const Template: Story = {
       <Footer />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Footer } from '@/components/templates/footer/Footer';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24, background: '#1e1e1e' }}>`,
+          `      <Footer />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

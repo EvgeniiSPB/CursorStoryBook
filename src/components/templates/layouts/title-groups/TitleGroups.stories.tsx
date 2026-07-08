@@ -62,7 +62,6 @@ const meta = {
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
-    docs: { disable: true },
     globals: {
       segment: TONNED_SEGMENT,
     },
@@ -78,6 +77,25 @@ type Story = StoryObj<PlaygroundArgs>;
 
 export const Playground: Story = {
   parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TitleGroup } from '@/components/templates/layouts/title-groups/TitleGroup';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <TitleGroup />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
     controls: { sort: 'none' },
     design: {
       type: 'figma',

@@ -38,7 +38,29 @@ const boardStyle: CSSProperties = {
   maxWidth: '100%',
 };
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { CellRespondFor } from '@/components/details/left/CellRespondFor';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <CellRespondFor label="Отвечает" name="Value" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
+};
 
 export const Gallery: Story = {
   name: 'All blocks',

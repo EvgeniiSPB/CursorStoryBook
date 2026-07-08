@@ -84,6 +84,27 @@ export const AllIcons20: Story = {
       <IconShowcaseRow size={20} names={ICONS_20_ROW_2} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Icon } from '@/components/Icon/Icon';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Icon name="check" size={20} />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllIcons28: Story = {

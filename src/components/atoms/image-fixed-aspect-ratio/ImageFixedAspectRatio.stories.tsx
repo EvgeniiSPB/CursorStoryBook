@@ -80,6 +80,27 @@ export const ContainerPlayground: Story = {
     aspectRatio: '1:1',
     orientation: 'landscape',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { ImageContainerFixedAspectRatio } from '@/components/atoms/image-container-fixed-aspect-ratio/ImageContainerFixedAspectRatio';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <ImageContainerFixedAspectRatio aspectRatio="1:1" orientation="landscape" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const ContainerAllVariants: Story = {

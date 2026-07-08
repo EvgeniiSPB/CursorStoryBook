@@ -72,6 +72,27 @@ export const Playground: Story = {
     initials: AVATAR_DEFAULT_INITIALS,
     alt: 'Avatar',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Avatar } from '@/components/atoms/avatar/Avatar';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Avatar type="image" imageSize="10x" alt="Avatar" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

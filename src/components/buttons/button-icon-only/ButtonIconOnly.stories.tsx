@@ -103,6 +103,27 @@ export const Playground: Story = {
     disabled: false,
     'aria-label': 'Action',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { ButtonIconOnly } from '@/components/buttons/button-icon-only/ButtonIconOnly';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <ButtonIconOnly type="primary" size="medium" aria-label="Action" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

@@ -40,12 +40,13 @@ const meta = {
       control: 'select',
       options: digitsOptions,
     },
-    text: { control: 'text' },
-    digitsLabel: { control: 'text' },
+    text: { control: 'text', name: 'value' },
+    digitsLabel: { control: 'text', name: 'digitsLabel' },
   },
   args: {
     text: 'Value',
     digits: '2',
+    digitsLabel: '00',
   },
 } satisfies Meta<typeof BadgeGroup>;
 
@@ -59,11 +60,55 @@ export const Playground: Story = {
 export const DigitsTwo: Story = {
   name: 'digits=2',
   args: { digits: '2' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeGroup } from '@/components/Badges/badgeGroup/BadgeGroup';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeGroup text="Value" digits="2" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const DigitsThree: Story = {
   name: 'digits=3',
-  args: { digits: '3' },
+  args: { digits: '3', digitsLabel: '000' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeGroup } from '@/components/Badges/badgeGroup/BadgeGroup';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeGroup text="Value" digits="3" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

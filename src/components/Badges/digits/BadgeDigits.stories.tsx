@@ -56,11 +56,12 @@ const meta = {
       control: 'select',
       options: charactersOptions,
     },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'value' },
   },
   args: {
     type: 'outlined',
     characters: '1-2',
+    children: '00',
   },
   render: (args: BadgeDigitsProps) => (
     <div {...(args.type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}>
@@ -79,33 +80,165 @@ export const Playground: Story = {
 export const OutlinedOneTwo: Story = {
   name: 'Outlined / 1-2 chars',
   args: { type: 'outlined', characters: '1-2' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="outlined" characters="1-2" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const OutlinedThree: Story = {
   name: 'Outlined / 3 chars',
-  args: { type: 'outlined', characters: '3' },
+  args: { type: 'outlined', characters: '3', children: '000' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="outlined" characters="3" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const OutlinedConstantInvertedOneTwo: Story = {
   name: 'Outlined constant inverted / 1-2 chars',
   args: { type: 'outlinedConstantInverted', characters: '1-2' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="outlinedConstantInverted" characters="1-2" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const OutlinedConstantInvertedThree: Story = {
   name: 'Outlined constant inverted / 3 chars',
-  args: { type: 'outlinedConstantInverted', characters: '3' },
+  args: { type: 'outlinedConstantInverted', characters: '3', children: '000' },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="outlinedConstantInverted" characters="3" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const TonnedOneTwo: Story = {
   name: 'Tonned / 1-2 chars',
   args: { type: 'tonned', characters: '1-2' },
   decorators: [tonnedSegmentDecorator],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="tonned" characters="1-2" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const TonnedThree: Story = {
   name: 'Tonned / 3 chars',
-  args: { type: 'tonned', characters: '3' },
+  args: { type: 'tonned', characters: '3', children: '000' },
   decorators: [tonnedSegmentDecorator],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { BadgeDigits } from '@/components/Badges/digits/BadgeDigits';`,
+          `import '@/components/Badges/badges-shared.css';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <BadgeDigits type="tonned" characters="3" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

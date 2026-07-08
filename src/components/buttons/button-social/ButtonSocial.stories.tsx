@@ -59,7 +59,7 @@ const meta = {
     },
   },
   argTypes: {
-    children: { control: 'text' },
+    children: { control: 'text', name: 'label' },
     disabled: { control: 'boolean' },
     state: { table: { disable: true } },
     type: { table: { disable: true } },
@@ -78,6 +78,27 @@ export const Playground: Story = {
   args: {
     children: 'vk',
     disabled: false,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { ButtonSocial } from '@/components/buttons/button-social/ButtonSocial';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <ButtonSocial>vk</ButtonSocial>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
   },
 };
 

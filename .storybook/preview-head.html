@@ -11,4 +11,48 @@
   body::-webkit-scrollbar {
     display: none;
   }
+
+  /* Code-only Docs pages — strip Storybook's default DocsWrapper padding
+     (`4rem 20px`) and content centering so the dark canvas reaches the
+     edges of the preview iframe. Scoped via `:has(.code-only-docs)` so
+     other Docs pages (autodocs on Tabs / Tags / etc.) keep their default
+     look until we finish the rollout. */
+  html:has(.code-only-docs),
+  body:has(.code-only-docs) {
+    background: #161616;
+  }
+  .sbdocs.sbdocs-wrapper:has(.code-only-docs) {
+    background: #161616;
+    padding: 0;
+    gap: 0;
+    display: block;
+  }
+  .sbdocs.sbdocs-content:has(.code-only-docs) {
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    background: #161616;
+  }
+  .code-only-docs {
+    background: #161616;
+    color: #f4f4f4;
+    min-height: 100vh;
+    padding: 128px;
+    box-sizing: border-box;
+  }
+  .code-only-docs__section + .code-only-docs__section {
+    margin-top: 172px;
+  }
+  .code-only-docs h3.code-only-docs__title {
+    font-family: 'PP Neue Montreal', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    margin: 0 0 32px 0;
+  }
+  .code-only-docs h3.code-only-docs__title::first-letter {
+    text-transform: uppercase;
+  }
 </style>

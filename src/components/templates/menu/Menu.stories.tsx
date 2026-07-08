@@ -60,7 +60,6 @@ const meta = {
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
-    docs: { disable: true },
   },
   argTypes: {
     label: { control: 'text' },
@@ -92,6 +91,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { MenuAtom } from '@/components/templates/menu/MenuAtom';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <MenuAtom label="Value" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {
@@ -121,4 +141,25 @@ export const Template: Story = {
       <Menu />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Menu } from '@/components/templates/menu/Menu';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Menu />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

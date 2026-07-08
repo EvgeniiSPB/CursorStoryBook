@@ -78,7 +78,7 @@ const meta = {
     },
   },
   argTypes: {
-    children: { control: 'text' },
+    children: { control: 'text', name: 'label' },
     type: { control: 'select', options: types },
     size: { control: 'select', options: sizes },
     extraPaddings: { control: 'boolean' },
@@ -107,6 +107,27 @@ export const Playground: Story = {
     extraPaddings: false,
     fillHug: false,
     disabled: false,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { ButtonTextIcon } from '@/components/buttons/button-text-icon/ButtonTextIcon';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <ButtonTextIcon type="primary" size="medium">Value</ButtonTextIcon>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
   },
 };
 

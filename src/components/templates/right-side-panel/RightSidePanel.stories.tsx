@@ -121,6 +121,42 @@ export const RealBadgeText: Story = {
   render: () => (
     <Phase1Host argTypes={BADGE_TEXT_ARG_TYPES} initialArgs={BADGE_TEXT_INITIAL} />
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { useState } from 'react';`,
+          `import { createRoot } from 'react-dom/client';`,
+          `import { RightSidePanel } from '@/components/templates/right-side-panel/RightSidePanel';`,
+          `import { buildControlsFromArgTypes } from '@/components/templates/right-side-panel/build-controls';`,
+          ``,
+          `const argTypes = {`,
+          `  type: { control: { type: 'select' }, options: ['filled', 'outlined', 'brand', 'tonned'] },`,
+          `  icon: { control: { type: 'boolean' } },`,
+          `  children: { control: { type: 'text' } },`,
+          `};`,
+          ``,
+          `const App = () => {`,
+          `  const [args, setArgs] = useState({ type: 'filled', icon: true, children: 'Value' });`,
+          `  const controls = buildControlsFromArgTypes(argTypes, args);`,
+          `  return (`,
+          `    <RightSidePanel`,
+          `      controls={controls}`,
+          `      args={args}`,
+          `      initialArgs={{ type: 'filled', icon: true, children: 'Value' }}`,
+          `      onUpdate={(name, value) => setArgs({ ...args, [name]: value })}`,
+          `      onReset={() => setArgs({ type: 'filled', icon: true, children: 'Value' })}`,
+          `      onClose={() => {}}`,
+          `    />`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 /** Mirrors `Components/Checkboxes/CheckboxToggle` argTypes — 2 toggles + 1 select. */

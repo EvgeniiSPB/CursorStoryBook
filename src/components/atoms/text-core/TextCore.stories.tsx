@@ -83,6 +83,27 @@ export const Playground: Story = {
     fontWeight: 'regular',
     text: 'Value',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TextCore } from '@/components/atoms/text-core/TextCore';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <TextCore typography="bodyM" fontWeight="regular" text="Value" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {

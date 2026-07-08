@@ -58,7 +58,7 @@ const meta = {
   },
   argTypes: {
     type: { control: 'select', options: types },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'label' },
     disabled: { control: 'boolean' },
     state: { table: { disable: true } },
   },
@@ -78,6 +78,27 @@ export const Playground: Story = {
     children: 'Value',
     type: 'primary',
     disabled: false,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { ButtonText } from '@/components/buttons/button-text/ButtonText';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <ButtonText type="primary">Value</ButtonText>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
   },
 };
 

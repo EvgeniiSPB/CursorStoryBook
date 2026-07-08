@@ -184,6 +184,27 @@ export default meta;
 type Story = StoryObj<PlaygroundArgs>;
 
 export const Playground: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Article } from '@/components/details/article/Article';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Article left right paddingSize="---" tPadding showPaddingTop />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
   args: {
     left: true,
     right: true,

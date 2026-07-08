@@ -3,7 +3,7 @@
 import React from 'react';
 void React; // satisfy noUnusedLocals — React is used at runtime by classic JSX transform
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { addons } from 'storybook/manager-api';
 import type { API } from 'storybook/manager-api';
@@ -192,10 +192,48 @@ function SidebarApp({ api }: { api: API }) {
 
 interface StoryDataLike {
   id: string;
+  name?: string;
   type?: string;
   args?: Record<string, unknown>;
   initialArgs?: Record<string, unknown>;
   argTypes?: ArgTypesLike;
+  parameters?: {
+    rightSidePanel?: { hide?: boolean };
+  };
+}
+
+// Showcase-style story names — the panel is hidden for these because they
+// render fixed matrices/galleries where tweaking args does nothing visible.
+// Override on a per-story basis with `parameters: { rightSidePanel: { hide: true } }`.
+const SHOWCASE_STORY_NAMES = new Set([
+  'All variants',
+  'All sizes',
+  'All blocks',
+  'Gallery',
+  'Palette',
+  'All / 20px',
+  'All / 28px',
+]);
+
+// Kebab-case slugs of the same names — Storybook's story ID is
+// `<title>--<name>`, so `.endsWith('--all-variants')` reliably catches
+// showcase stories even if `data.name` isn't populated at the moment we read
+// the entry (some Storybook events fire with only `id` available).
+const SHOWCASE_ID_SUFFIXES = [
+  '--all-variants',
+  '--all-sizes',
+  '--all-blocks',
+  '--gallery',
+  '--palette',
+  '--all-20px',
+  '--all-28px',
+];
+
+function isShowcaseStory(data: StoryDataLike): boolean {
+  if (data.parameters?.rightSidePanel?.hide === true) return true;
+  if (data.name && SHOWCASE_STORY_NAMES.has(data.name)) return true;
+  if (data.id && SHOWCASE_ID_SUFFIXES.some((s) => data.id.endsWith(s))) return true;
+  return false;
 }
 
 /** Take a fresh snapshot of the current entry. Storybook v10 mutates the leaf
@@ -255,10 +293,12 @@ function snapshotStory(api: API): StoryDataLike | undefined {
   if (!data) return undefined;
   return {
     id: data.id,
+    name: data.name,
     type: data.type,
     args: data.args ? { ...data.args } : undefined,
     argTypes: data.argTypes,
     initialArgs: data.initialArgs ? { ...data.initialArgs } : undefined,
+    parameters: data.parameters,
   };
 }
 
@@ -365,21 +405,53 @@ function RightPanelApp({ api }: { api: API }) {
   );
 
   // The panel itself shows when the active entry is a real Story with at least
-  // one supported control and the user hasn't manually dismissed it.
-  const canShowPanel =
-    !!storyData && storyData.type === 'story' && controls.length > 0;
+  // one supported control, the story isn't a showcase matrix (AllVariants /
+  // Gallery / Palette — where tweaking args does nothing visible), and the
+  // user hasn't manually dismissed it.
+  const isStoryMode = !!storyData && storyData.type === 'story';
+  const isShowcase = !!storyData && isShowcaseStory(storyData);
+  const canShowPanel = isStoryMode && controls.length > 0 && !isShowcase;
+  // Zoom cluster is useful on any Story (even showcases you want to inspect at
+  // higher zoom). Filter button — only when a panel can actually show.
+  const canShowFloatingCluster = isStoryMode;
   const shouldShow = canShowPanel && !closedByUser;
 
-  // Reflect open/closed state on the body so the canvas can be padded around
-  // the floating panel via CSS.
+  // Choreograph the slide-in / slide-out so both feel smooth:
+  //   • On OPEN:  synchronously commit the panel mount (`flushSync`) so the
+  //     browser has React's DOM in place before we do anything else. Then
+  //     force a layout read + a double-`requestAnimationFrame` so the mount
+  //     div is guaranteed to have painted at `translateX(100%)` before we
+  //     toggle `data-rsp-open`, at which point the CSS transition kicks in
+  //     from a real starting state. Without this the "open" transition
+  //     often skips its first ~1 frame and reads as a hard pop/jump.
+  //   • On CLOSE: remove `data-rsp-open` immediately (starts CSS translate),
+  //     then delay React unmount by 400ms (the transition duration) so the
+  //     panel's contents stay visible until the wrapper is fully off-screen.
+  const [renderPanel, setRenderPanel] = useState(shouldShow);
   useEffect(() => {
     if (shouldShow) {
-      document.body.setAttribute('data-rsp-open', '');
-    } else {
-      document.body.removeAttribute('data-rsp-open');
+      flushSync(() => setRenderPanel(true));
+      // Force a layout read so the previous paint (with the mount div at
+      // translateX(100%)) is committed before we toggle the attribute.
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      document.body.offsetHeight;
+      let cancelled = false;
+      const raf = window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (!cancelled) document.body.setAttribute('data-rsp-open', '');
+        });
+      });
+      return () => {
+        cancelled = true;
+        window.cancelAnimationFrame(raf);
+      };
     }
-    return () => document.body.removeAttribute('data-rsp-open');
+    document.body.removeAttribute('data-rsp-open');
+    const timer = window.setTimeout(() => setRenderPanel(false), 400);
+    return () => window.clearTimeout(timer);
   }, [shouldShow]);
+
+  // (Body `data-rsp-open` toggle is handled in the choreography effect above.)
 
   // Shrink the canvas iframe column by 375px when the panel is open.
   //
@@ -409,6 +481,14 @@ function RightPanelApp({ api }: { api: API }) {
       ) {
         return;
       }
+      // Ensure the transition property is in place BEFORE we change
+      // grid-template-columns — otherwise the very first change (right after
+      // Storybook attaches this element) can snap without animating, because
+      // the browser has no prior transition rule to interpolate from.
+      layoutEl.style.setProperty(
+        'transition',
+        'grid-template-columns 400ms cubic-bezier(0.4, 0, 0.2, 1)',
+      );
       layoutEl.style.setProperty(
         'grid-template-columns',
         gridCols,
@@ -418,10 +498,6 @@ function RightPanelApp({ api }: { api: API }) {
         'grid-template-areas',
         gridAreas,
         'important',
-      );
-      layoutEl.style.setProperty(
-        'transition',
-        'grid-template-columns 400ms cubic-bezier(0.4, 0, 0.2, 1)',
       );
     };
     apply();
@@ -443,7 +519,7 @@ function RightPanelApp({ api }: { api: API }) {
   // Portalled to `document.body` so the buttons escape the mount div's
   // `transform: translateX(100%)` (a transformed ancestor would turn
   // `position: fixed` into "fixed relative to ancestor").
-  const floatingCluster = canShowPanel
+  const floatingCluster = canShowFloatingCluster
     ? createPortal(
         <div
           className="rsp-floating-cluster"
@@ -471,15 +547,22 @@ function RightPanelApp({ api }: { api: API }) {
           <IconOnlyButton
             className="rsp-icon-only-button--floating"
             icon={<FilterIcon />}
-            ariaLabel={closedByUser ? 'Show controls' : 'Hide controls'}
+            ariaLabel={
+              canShowPanel
+                ? closedByUser
+                  ? 'Show controls'
+                  : 'Hide controls'
+                : 'Controls unavailable for this story'
+            }
             onClick={() => setClosedByUser((v) => !v)}
+            disabled={!canShowPanel}
           />
         </div>,
         document.body,
       )
     : null;
 
-  if (!shouldShow) return floatingCluster;
+  if (!renderPanel) return floatingCluster;
 
   const handleUpdate = (name: string, value: unknown) => {
     const control = controls.find((c) => c.name === name);

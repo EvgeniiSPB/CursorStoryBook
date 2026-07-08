@@ -67,7 +67,7 @@ const meta = {
     counter: { control: 'text' },
     paddingSize: { control: 'select', options: ['tiny', 'small'] },
     state: { control: 'select', options: states },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'value' },
   },
   args: {
     children: 'Value',
@@ -84,6 +84,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TabItem } from '@/components/Tabs/TabItem';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div data-segment="metallic" style={{ padding: 24 }}>`,
+          `      <TabItem showIcon showCounter counter="00">Value</TabItem>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

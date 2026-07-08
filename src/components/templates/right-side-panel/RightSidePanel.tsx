@@ -110,7 +110,7 @@ export function RightSidePanel({
               return (
                 <ToggleRow
                   key={control.name}
-                  label={control.name}
+                  label={control.label ?? control.name}
                   on={Boolean(args[control.name] ?? control.value)}
                   firstChild={firstChild}
                   onChange={(next) => handleUpdate(control.name, next)}
@@ -118,12 +118,18 @@ export function RightSidePanel({
               );
             }
             if (control.kind === 'input') {
+              // Fallback to `control.value` (which build-controls populates
+              // from `argType.defaultValue` when `args[name]` is missing) so
+              // an input isn't stuck empty/inactive on stories that only
+              // declare a default without an explicit arg.
               const value =
-                args[control.name] == null ? '' : String(args[control.name]);
+                args[control.name] != null
+                  ? String(args[control.name])
+                  : control.value;
               return (
                 <InputRow
                   key={control.name}
-                  label={control.name}
+                  label={control.label ?? control.name}
                   value={value}
                   inputType={control.inputType}
                   firstChild={firstChild}
@@ -145,7 +151,7 @@ export function RightSidePanel({
             return (
               <SelectRow
                 key={control.name}
-                label={control.name}
+                label={control.label ?? control.name}
                 open={isOpen}
                 firstChild={firstChild}
                 onOpenChange={(next) =>

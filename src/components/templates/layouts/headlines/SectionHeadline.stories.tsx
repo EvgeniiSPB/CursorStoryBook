@@ -58,6 +58,27 @@ export default meta;
 type Story = StoryObj<PlaygroundArgs>;
 
 export const Playground: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { SectionHeadline } from '@/components/templates/layouts/headlines/SectionHeadline';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <SectionHeadline headlineText="Value" buttonText="Value" tPadding button />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
   args: {
     slot: SWAP,
     tPadding: true,

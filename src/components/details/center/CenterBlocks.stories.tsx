@@ -61,4 +61,27 @@ export const Gallery: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TextTitle, TextQuestion, TextAnswer } from '@/components/details/center';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 32 }}>`,
+          `      <TextTitle />`,
+          `      <TextQuestion />`,
+          `      <TextAnswer />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

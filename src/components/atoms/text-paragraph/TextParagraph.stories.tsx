@@ -83,6 +83,27 @@ export const Playground: Story = {
     bPadding: false,
     text: 'Paragraph',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TextParagraph } from '@/components/atoms/text-paragraph/TextParagraph';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <TextParagraph typography="bodyL" fontWeight="regular" text="Paragraph" />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllSizes: Story = {

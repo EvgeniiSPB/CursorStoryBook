@@ -31,6 +31,35 @@ export const ComponentsPilot: Story = {
     const [activeId, setActiveId] = useState<string | undefined>(undefined);
     return <LeftSideBar {...args} activeId={activeId} onSelect={setActiveId} />;
   },
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { useState } from 'react';`,
+          `import { createRoot } from 'react-dom/client';`,
+          `import { LeftSideBar } from '@/components/templates/left-side-bar/LeftSideBar';`,
+          `import { COMPONENTS_SECTION, ASSETS_SECTION } from '@/components/templates/left-side-bar/mock-data';`,
+          ``,
+          `const App = () => {`,
+          `  const [activeId, setActiveId] = useState<string | undefined>();`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <LeftSideBar`,
+          `        sections={[COMPONENTS_SECTION, ASSETS_SECTION]}`,
+          `        defaultOpenItemIds={['badges']}`,
+          `        activeId={activeId}`,
+          `        onSelect={setActiveId}`,
+          `      />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 /**

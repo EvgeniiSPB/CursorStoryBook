@@ -403,6 +403,25 @@ export const Playground: Story = {
   args: playgroundDefaultArgs,
   argTypes: playgroundArgTypes as Story['argTypes'],
   parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { LayoutSection } from '@/components/templates/layouts/section/LayoutSection';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <LayoutSection />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
     design: {
       type: 'figma',
       url: figmaDesignUrl(SECTION_FIGMA_NODE_ID),

@@ -47,4 +47,26 @@ export const Gallery: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TextHeadlineFull, TextQuote } from '@/components/details/full-width';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 48 }}>`,
+          `      <TextHeadlineFull />`,
+          `      <TextQuote />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

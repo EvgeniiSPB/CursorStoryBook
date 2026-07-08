@@ -126,6 +126,31 @@ export default meta;
 type Story = StoryObj<PlaygroundArgs>;
 
 export const Playground: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { LayoutSwapRow } from '@/components/templates/layouts/shared/LayoutSwapRow';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <LayoutSwapRow />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+    design: {
+      type: 'figma',
+      url: figmaDesignUrl(ROW_FIGMA_NODE_ID),
+    },
+  },
   args: {
     row: SWAP,
     hPaddings: true,
@@ -215,12 +240,6 @@ export const Playground: Story = {
       name: 'button label',
       control: 'text',
       if: { arg: 'row', eq: ROW_TYPE_BUTTON },
-    },
-  },
-  parameters: {
-    design: {
-      type: 'figma',
-      url: figmaDesignUrl(ROW_FIGMA_NODE_ID),
     },
   },
   render: (args) => (

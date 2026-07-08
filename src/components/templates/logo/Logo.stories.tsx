@@ -21,7 +21,6 @@ const meta = {
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
-    docs: { disable: true },
   },
 } satisfies Meta<typeof Logo>;
 
@@ -37,4 +36,25 @@ export const Template: Story = {
       <Logo />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { Logo } from '@/components/templates/logo/Logo';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <Logo />`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };

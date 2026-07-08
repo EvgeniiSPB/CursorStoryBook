@@ -75,44 +75,68 @@ export const Playground: Story = {
   },
 };
 
+const toggleSnippet = (jsxProps: string) => [
+  `import { createRoot } from 'react-dom/client';`,
+  `import { CheckboxToggle } from '@/components/checkboxes/CheckboxToggle';`,
+  ``,
+  `const App = () => {`,
+  `  return (`,
+  `    <div style={{ padding: 24 }}>`,
+  `      <CheckboxToggle ${jsxProps} />`,
+  `    </div>`,
+  `  );`,
+  `};`,
+  ``,
+  `const root = document.getElementById('root');`,
+  `if (root) createRoot(root).render(<App />);`,
+].join('\n');
+
 export const OffNormal: Story = {
   name: 'Off / normal',
   args: { active: false, disabled: false, state: 'normal' },
+  parameters: { docs: { source: { code: toggleSnippet('active={false}') } } },
 };
 
 export const OnNormal: Story = {
   name: 'On / normal',
   args: { active: true, disabled: false, state: 'normal' },
+  parameters: { docs: { source: { code: toggleSnippet('active') } } },
 };
 
 export const OffHover: Story = {
   name: 'Off / hover',
   args: { active: false, disabled: false, state: 'hover' },
+  parameters: { docs: { source: { code: toggleSnippet('active={false} state="hover"') } } },
 };
 
 export const OnHover: Story = {
   name: 'On / hover',
   args: { active: true, disabled: false, state: 'hover' },
+  parameters: { docs: { source: { code: toggleSnippet('active state="hover"') } } },
 };
 
 export const OffClick: Story = {
   name: 'Off / click',
   args: { active: false, disabled: false, state: 'click' },
+  parameters: { docs: { source: { code: toggleSnippet('active={false} state="click"') } } },
 };
 
 export const OnClick: Story = {
   name: 'On / click',
   args: { active: true, disabled: false, state: 'click' },
+  parameters: { docs: { source: { code: toggleSnippet('active state="click"') } } },
 };
 
 export const OffDisabled: Story = {
   name: 'Off / disabled',
   args: { active: false, disabled: true, state: 'normal' },
+  parameters: { docs: { source: { code: toggleSnippet('active={false} disabled') } } },
 };
 
 export const OnDisabled: Story = {
   name: 'On / disabled',
   args: { active: true, disabled: true, state: 'normal' },
+  parameters: { docs: { source: { code: toggleSnippet('active disabled') } } },
 };
 
 export const AllVariants: Story = {

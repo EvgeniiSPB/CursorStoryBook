@@ -36,7 +36,7 @@ const meta = {
   },
   argTypes: {
     state: { control: 'select', options: states },
-    children: { control: 'text' },
+    children: { control: 'text', name: 'value' },
   },
   args: {
     children: '00',
@@ -49,6 +49,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `import { createRoot } from 'react-dom/client';`,
+          `import { TabFeatureDigit } from '@/components/Tabs/TabFeatureDigit';`,
+          ``,
+          `const App = () => {`,
+          `  return (`,
+          `    <div style={{ padding: 24 }}>`,
+          `      <TabFeatureDigit>00</TabFeatureDigit>`,
+          `    </div>`,
+          `  );`,
+          `};`,
+          ``,
+          `const root = document.getElementById('root');`,
+          `if (root) createRoot(root).render(<App />);`,
+        ].join('\n'),
+      },
+    },
+  },
 };
 
 export const AllVariants: Story = {

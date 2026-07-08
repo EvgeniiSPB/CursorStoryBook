@@ -9,6 +9,7 @@ import {
   LINE_HEIGHT_MODE_OPTIONS,
 } from '../src/tokens/line-height-mode-options';
 import { SEGMENT_OPTIONS } from '../src/tokens/segment-options';
+import { CodeOnlyDocs } from '../src/storybook/CodeOnlyDocs';
 import '../src/styles/global.css';
 // Preload PP Neue Montreal so left-sidebar atoms render with the correct typography from the very first frame.
 import '../src/components/templates/left-side-bar/left-side-bar-fonts.css';
@@ -29,6 +30,7 @@ const lineHeightModeToolbarItems = LINE_HEIGHT_MODE_OPTIONS.map(({ slug, title }
 }));
 
 const preview: Preview = {
+  tags: ['autodocs'],
   globalTypes: {
     theme: {
       description: 'Цветовая тема (light/dark — dark после отдельной сборки токенов)',
@@ -95,6 +97,9 @@ const preview: Preview = {
     ),
   ],
   parameters: {
+    docs: {
+      page: CodeOnlyDocs,
+    },
     options: {
       // Force the blank welcome story to sort first so Storybook's default
       // landing picks an empty canvas, not the alphabetically-first real

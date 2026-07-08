@@ -65,4 +65,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Palette: Story = {};
+export const Palette: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: [
+          `/* Segment tokens are exposed as CSS variables:`,
+          ` * --segment-primary, --segment-4, --segment-24, --segment-50`,
+          ` * Switch the active segment via [data-segment="metallic"] etc. */`,
+          ``,
+          `<div data-segment="metallic" style={{ padding: 24 }}>`,
+          `  <div style={{ height: 80, background: 'var(--segment-primary)' }} />`,
+          `</div>`,
+        ].join('\n'),
+      },
+    },
+  },
+};
