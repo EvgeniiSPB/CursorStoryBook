@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../storybook/PaddingRulerFrame';
 import { showcaseCanvas } from '../../storybook/showcase-decorators';
 import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../storybook/showcase-constants';
 import { tabItemSegmentDecorator } from './decorators';
@@ -84,6 +85,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TabItem {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {

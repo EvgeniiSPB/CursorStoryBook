@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../../storybook/PaddingRulerFrame';
 import { TextDisplay } from './TextDisplay';
 import {
   TEXT_DISPLAY_FIGMA_FONT_FAMILIES,
@@ -86,6 +87,11 @@ export const Playground: Story = {
     bPadding: false,
     text: 'Display',
   },
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TextDisplay {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {

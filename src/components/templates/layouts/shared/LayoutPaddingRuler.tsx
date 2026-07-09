@@ -4,18 +4,24 @@ import './layout-padding-ruler.css';
 
 export interface LayoutVerticalPaddingRulerProps {
   px?: number;
+  /** Where the ruler anchors — `top` (default) covers the top padding zone,
+   *  `bottom` mirrors it to the bottom padding. */
+  placement?: 'top' | 'bottom';
 }
 
-/** Top padding guide — hatch direction top → bottom. */
-export function LayoutVerticalPaddingRuler({ px = 160 }: LayoutVerticalPaddingRulerProps) {
+/** Vertical padding guide — hatch direction follows `placement`. */
+export function LayoutVerticalPaddingRuler({
+  px = 160,
+  placement = 'top',
+}: LayoutVerticalPaddingRulerProps) {
+  const placementClass =
+    placement === 'bottom' ? ' layout-padding-ruler--vertical-bottom' : '';
   return (
     <div
       aria-hidden
-      className="layout-padding-ruler layout-padding-ruler--vertical"
+      className={`layout-padding-ruler layout-padding-ruler--vertical${placementClass}`}
       style={{ '--layout-padding-ruler-size': `${px}px` } as CSSProperties}
-    >
-      <span className="layout-padding-ruler__label">{px}px</span>
-    </div>
+    />
   );
 }
 
@@ -48,17 +54,13 @@ export function LayoutHPaddingRulers({
         aria-hidden
         className="layout-padding-ruler layout-padding-ruler--horizontal layout-padding-ruler--horizontal-left"
         style={sizeStyle}
-      >
-        <span className="layout-padding-ruler__label">{px}px</span>
-      </div>
+      />
       {showRightRuler ? (
         <div
           aria-hidden
           className="layout-padding-ruler layout-padding-ruler--horizontal layout-padding-ruler--horizontal-right"
           style={sizeStyle}
-        >
-          <span className="layout-padding-ruler__label">{px}px</span>
-        </div>
+        />
       ) : null}
     </>
   );

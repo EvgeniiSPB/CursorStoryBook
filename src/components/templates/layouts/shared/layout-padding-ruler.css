@@ -6,20 +6,6 @@
   pointer-events: none;
   z-index: 2;
   outline: 1px solid rgba(13, 153, 255, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.layout-padding-ruler__label {
-  background: #0d99ff;
-  color: #fff;
-  font-size: 11px;
-  line-height: 16px;
-  padding: 0 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-family: var(--font-families-body, Oceanic Grotesk), system-ui, sans-serif;
 }
 
 /* Vertical inset — hatch runs top → bottom. */
@@ -31,6 +17,18 @@
   height: var(--layout-padding-ruler-size, 160px);
   background-image: repeating-linear-gradient(
     to bottom,
+    rgba(13, 153, 255, 0.18) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+/* Bottom variant — anchor flips to bottom, hatch flows toward top so the
+   fade "points into" the padding zone. */
+.layout-padding-ruler--vertical-bottom {
+  top: auto;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    to top,
     rgba(13, 153, 255, 0.18) 0 5px,
     transparent 5px 10px
   );

@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../../storybook/PaddingRulerFrame';
 import { TextLabel } from './TextLabel';
 import {
   TEXT_LABEL_FIGMA_COLOR_CSS_VAR,
@@ -87,6 +88,11 @@ export const Playground: Story = {
     bPadding: false,
     text: 'Label',
   },
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TextLabel {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {

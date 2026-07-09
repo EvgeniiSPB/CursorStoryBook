@@ -7,7 +7,10 @@ type StoryLike = {
 };
 
 type MetaResolvedOf = {
-  csfFile: { stories: Record<string, StoryLike> };
+  csfFile: {
+    meta: { title?: string };
+    stories: Record<string, StoryLike>;
+  };
 };
 
 type StoryModuleExport = {
@@ -24,12 +27,19 @@ export const CodeOnlyDocs = () => {
     return Boolean(mod.parameters?.docs?.source?.code);
   });
 
+  // Heading = last segment of `meta.title` (e.g. `Components/Tabs/Tab Feature
+  // Digit` → `Tab Feature Digit`). Fallback to `Playground` if title is
+  // missing, matching the old per-story heading.
+  const rawTitle = resolvedOf.csfFile.meta?.title ?? '';
+  const heading = rawTitle.split('/').pop()?.trim() || 'Playground';
+
   // The outer marker element is what preview-head.html's `:has(.code-only-docs)`
   // rules target — they strip the default Storybook Docs padding / max-width so
   // the dark canvas reaches the edges of the preview iframe (which itself
   // resizes with the left sidebar / right panel columns via manager grid CSS).
   return (
     <div className="code-only-docs">
+      <h1 className="code-only-docs__title">{heading}</h1>
       {stories.map((story) => {
         // Pass the manual snippet string directly via `code` prop — bypasses
         // Storybook's own source-detection heuristics (which sometimes fall
@@ -39,7 +49,6 @@ export const CodeOnlyDocs = () => {
         const code = mod.parameters?.docs?.source?.code ?? '';
         return (
           <section key={story.id} className="code-only-docs__section">
-            <h3 className="code-only-docs__title">{story.name}</h3>
             <Source code={code} dark language="tsx" />
           </section>
         );

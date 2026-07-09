@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../../storybook/PaddingRulerFrame';
 import { TextHeadline } from './TextHeadline';
 import {
   TEXT_HEADLINE_FIGMA_FONT_FAMILIES,
@@ -86,6 +87,11 @@ export const Playground: Story = {
     bPadding: false,
     text: 'Headline',
   },
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TextHeadline {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {

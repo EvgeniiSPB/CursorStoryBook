@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../../storybook/PaddingRulerFrame';
 import { TextParagraph } from './TextParagraph';
 import {
   TEXT_PARAGRAPH_FIGMA_FONT_BY_WEIGHT,
@@ -83,6 +84,11 @@ export const Playground: Story = {
     bPadding: false,
     text: 'Paragraph',
   },
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TextParagraph {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {

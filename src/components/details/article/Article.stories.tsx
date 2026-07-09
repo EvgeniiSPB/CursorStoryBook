@@ -116,27 +116,10 @@ function PaddingTopRuler({ px }: { px: number }) {
         backgroundImage:
           'repeating-linear-gradient(-45deg, rgba(13,153,255,0.18) 0 5px, transparent 5px 10px)',
         outline: '1px solid rgba(13,153,255,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         pointerEvents: 'none',
         zIndex: 2,
       }}
-    >
-      <span
-        style={{
-          background: '#0d99ff',
-          color: '#fff',
-          fontSize: 11,
-          lineHeight: '16px',
-          padding: '0 6px',
-          borderRadius: 4,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {px}px
-      </span>
-    </div>
+    />
   );
 }
 

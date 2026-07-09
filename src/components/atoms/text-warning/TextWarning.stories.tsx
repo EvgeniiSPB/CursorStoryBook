@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { PaddingRulerFrame } from '../../../storybook/PaddingRulerFrame';
 import { TextWarning } from './TextWarning';
 import {
   TEXT_WARNING_DEFAULT_TEXT,
@@ -91,6 +92,11 @@ export const Playground: Story = {
     bPadding: false,
     text: TEXT_WARNING_DEFAULT_TEXT,
   },
+  render: (args) => (
+    <PaddingRulerFrame>
+      <TextWarning {...args} />
+    </PaddingRulerFrame>
+  ),
   parameters: {
     docs: {
       source: {
