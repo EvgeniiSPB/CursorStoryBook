@@ -58,3 +58,15 @@
   min-width: 0;
   min-height: 0;
 }
+
+/* Optional surface override for playground sections. Story authors opt-in by
+   adding `--playground-surface-{light|inverted}` alongside the base
+   `--playground` modifier. Placed AFTER the base rule so cascade wins
+   (both are single-class specificity). Stories that don't opt in keep the
+   default white from `.showcase-layout-section`. */
+.showcase-layout-section--playground-surface-light {
+  background-color: var(--background0-primary, #ffffff);
+}
+.showcase-layout-section--playground-surface-inverted {
+  background-color: #000000;
+}

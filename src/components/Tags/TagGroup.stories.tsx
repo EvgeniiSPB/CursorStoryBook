@@ -9,6 +9,15 @@ import './tag-showcase.css';
 const variants: TagType[] = ['brand', 'brandConstantInverted'];
 const states: TagState[] = ['normal', 'hover', 'click'];
 
+// Playground surface — mirrors Tag's logic (brandConstantInverted → dark).
+type PlaygroundSurface = 'light' | 'inverted';
+
+function tagGroupPlaygroundSurface(
+  variant: TagType | undefined,
+): PlaygroundSurface {
+  return variant === 'brandConstantInverted' ? 'inverted' : 'light';
+}
+
 const TAG_GROUP_PLAYGROUND_BOUND_W_PX = 72;
 const TAG_GROUP_PLAYGROUND_BOUND_H_PX = 20;
 
@@ -18,16 +27,24 @@ const playgroundSectionStyle = {
   '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
 } as CSSProperties;
 
-const playgroundSection: Decorator = (Story) => (
-  <div
-    className="showcase-layout-section showcase-layout-section--playground"
-    style={playgroundSectionStyle}
-  >
-    <div className="showcase-layout-playground">
-      <Story />
+const playgroundSection: Decorator = (Story, { args }) => {
+  const variant = args.variant as TagType | undefined;
+  const surface = tagGroupPlaygroundSurface(variant);
+  return (
+    <div
+      className={[
+        'showcase-layout-section',
+        'showcase-layout-section--playground',
+        `showcase-layout-section--playground-surface-${surface}`,
+      ].join(' ')}
+      style={playgroundSectionStyle}
+    >
+      <div className="showcase-layout-playground">
+        <Story />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const meta = {
   title: 'Components/Tags/TagGroup',

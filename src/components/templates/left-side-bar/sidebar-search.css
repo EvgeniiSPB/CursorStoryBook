@@ -8,6 +8,21 @@
   width: 100%;
   padding: 0 16px;
   font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
+  /* Standard ease-in-out fade on entry — matches the row-btn transition
+     already used inside this component (see `.left-side-bar-search__row-btn`
+     below) and the 250ms curve used elsewhere across the panel UI. */
+  animation: left-side-bar-search-fade-in 250ms ease-in-out;
+}
+
+@keyframes left-side-bar-search-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Input row — 40px tall field with a black bottom border. Figma renders no

@@ -410,10 +410,15 @@ function RightPanelApp({ api }: { api: API }) {
   // user hasn't manually dismissed it.
   const isStoryMode = !!storyData && storyData.type === 'story';
   const isShowcase = !!storyData && isShowcaseStory(storyData);
-  const canShowPanel = isStoryMode && controls.length > 0 && !isShowcase;
+  // Welcome landing story has no visible content (blank render) — nothing to
+  // zoom or configure, so we hide the whole floating cluster there.
+  const isBlankLanding =
+    !!storyData?.id && storyData.id.startsWith('0welcome');
+  const canShowPanel =
+    isStoryMode && controls.length > 0 && !isShowcase && !isBlankLanding;
   // Zoom cluster is useful on any Story (even showcases you want to inspect at
   // higher zoom). Filter button — only when a panel can actually show.
-  const canShowFloatingCluster = isStoryMode;
+  const canShowFloatingCluster = isStoryMode && !isBlankLanding;
   const shouldShow = canShowPanel && !closedByUser;
 
   // Choreograph the slide-in / slide-out so both feel smooth:

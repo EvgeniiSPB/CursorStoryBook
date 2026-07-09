@@ -8,7 +8,11 @@
      Parent (Phase 1 story host / Phase 2 manager mount slot) must give the
      panel an explicit height (e.g. 100vh). */
   height: 100%;
-  background: #f8f8f8;
+  /* White canvas below the last control. The 8px beige separator that used to
+     come from a `#f8f8f8` panel background is now drawn as a border on the
+     header (see `.rsp-panel > .rsp-panel-header` below), so we only need one
+     colour for the rest of the panel. */
+  background: #ffffff;
   font-family: 'PP Neue Montreal', system-ui, -apple-system, sans-serif;
   overflow-y: auto;
   scrollbar-width: none;
@@ -30,22 +34,34 @@
   top: 0;
   z-index: 1;
   flex-shrink: 0;
-  /* Reserve 1px so the stuck border doesn't shift layout. */
-  border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease-in-out;
+  background: #ffffff;
+  /* 8px F8F8F8 separator below the header (mirrors left-side-bar). Rendered as
+     a border on the header itself so it stays attached — no gap to expose
+     panel background, no risk of the body under-filling. */
+  border-bottom: 8px solid #f8f8f8;
+  /* Reserve the sticky-hairline slot at all times so the stuck class doesn't
+     shift layout — the 1px shadow is drawn INSIDE the border zone. */
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 200ms ease-in-out;
 }
 
-/* Sticky cue — body content scrolls beneath this hairline. */
+/* Sticky cue — a 1px hairline painted inside the border-bottom's 8px band
+   while scrolled. Uses inset box-shadow so nothing about the box model
+   changes (border/margin stay identical). */
 .rsp-panel--stuck > .rsp-panel-header {
-  border-bottom-color: var(--border\/black-10, rgba(0, 0, 0, 0.1));
+  box-shadow: inset 0 -8px 0 -7px var(--border\/black-10, rgba(0, 0, 0, 0.1));
 }
 
 .rsp-panel__body {
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  /* 8px F8F8F8 gap between the header and body (mirrors left-side-bar). */
-  margin-top: 8px;
+}
+
+/* Closing divider under the last row — mirrors the `border-top` separator
+   that lives on every row (see input-row.css / select-row.css /
+   toggle-row.css) so the list has a visual bottom edge. */
+.rsp-panel__body > :last-child {
+  border-bottom: 1px solid var(--border\/black-10, rgba(0, 0, 0, 0.1));
 }
 
 .rsp-panel__empty {

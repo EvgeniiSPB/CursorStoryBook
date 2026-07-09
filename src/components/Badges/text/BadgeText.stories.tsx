@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { showcaseCanvas } from '../../../storybook/showcase-decorators';
 import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../../storybook/showcase-constants';
 import { BadgeText, type BadgeTextProps, type BadgeTextType } from './BadgeText';
@@ -7,6 +7,16 @@ import { tonnedSegmentDecorator, TONNED_SEGMENT } from '../decorators';
 import '../badge-showcase.css';
 
 const types: BadgeTextType[] = ['filled', 'outlined', 'brand', 'tonned'];
+
+// Playground surface — `filled` uses light glyph on dark fill (designed for a
+// dark background), others read fine on the default light surface.
+type PlaygroundSurface = 'light' | 'inverted';
+
+function badgeTextPlaygroundSurface(
+  type: BadgeTextType | undefined,
+): PlaygroundSurface {
+  return type === 'filled' ? 'inverted' : 'light';
+}
 
 const BADGE_TEXT_PLAYGROUND_BOUND_W_PX = 72;
 const BADGE_TEXT_PLAYGROUND_BOUND_H_PX = 24;
@@ -16,17 +26,6 @@ const playgroundSectionStyle = {
   '--showcase-playground-bound-h': `${BADGE_TEXT_PLAYGROUND_BOUND_H_PX}px`,
   '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
 } as CSSProperties;
-
-const playgroundSection: Decorator = (Story) => (
-  <div
-    className="showcase-layout-section showcase-layout-section--playground"
-    style={playgroundSectionStyle}
-  >
-    <div className="showcase-layout-playground">
-      <Story />
-    </div>
-  </div>
-);
 
 const meta = {
   title: 'Components/Badges/Text',
@@ -49,19 +48,38 @@ const meta = {
     type: 'filled',
     icon: true,
   },
-  render: (args: BadgeTextProps) => (
-    <div {...(args.type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}>
-      <BadgeText {...args} />
-    </div>
-  ),
+  render: (args: BadgeTextProps) => {
+    // Wrap in the playground surface here so ALL non-showcase stories —
+    // Playground + every named variant like `Filled / with icon` — get the
+    // same dynamic white/black container. AllVariants defines its own render.
+    const surface = badgeTextPlaygroundSurface(args.type);
+    return (
+      <div
+        className={[
+          'showcase-layout-section',
+          'showcase-layout-section--playground',
+          `showcase-layout-section--playground-surface-${surface}`,
+        ].join(' ')}
+        style={playgroundSectionStyle}
+      >
+        <div className="showcase-layout-playground">
+          <div
+            {...(args.type === 'tonned'
+              ? { 'data-segment': TONNED_SEGMENT }
+              : {})}
+          >
+            <BadgeText {...args} />
+          </div>
+        </div>
+      </div>
+    );
+  },
 } satisfies Meta<typeof BadgeText>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  decorators: [playgroundSection],
-};
+export const Playground: Story = {};
 
 export const Filled: Story = {
   args: { type: 'filled', icon: false },

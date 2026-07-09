@@ -9,6 +9,16 @@ const types: TagType[] = ['brand', 'brandConstantInverted'];
 const topics: TagTopic[] = ['1stLvl', '2ndLvl'];
 const states: TagState[] = ['normal', 'hover', 'click'];
 
+// Playground surface — `brandConstantInverted` is a variant designed for a
+// dark background; flip the playground to inverted so contrast reads right.
+type PlaygroundSurface = 'light' | 'inverted';
+
+function tagPlaygroundSurface(
+  variant: TagType | undefined,
+): PlaygroundSurface {
+  return variant === 'brandConstantInverted' ? 'inverted' : 'light';
+}
+
 const figmaColumns: { variant: TagType; topic: TagTopic }[] = [
   { variant: 'brand', topic: '1stLvl' },
   { variant: 'brand', topic: '2ndLvl' },
@@ -25,16 +35,24 @@ const playgroundSectionStyle = {
   '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
 } as CSSProperties;
 
-const playgroundSection: Decorator = (Story) => (
-  <div
-    className="showcase-layout-section showcase-layout-section--playground"
-    style={playgroundSectionStyle}
-  >
-    <div className="showcase-layout-playground">
-      <Story />
+const playgroundSection: Decorator = (Story, { args }) => {
+  const variant = args.variant as TagType | undefined;
+  const surface = tagPlaygroundSurface(variant);
+  return (
+    <div
+      className={[
+        'showcase-layout-section',
+        'showcase-layout-section--playground',
+        `showcase-layout-section--playground-surface-${surface}`,
+      ].join(' ')}
+      style={playgroundSectionStyle}
+    >
+      <div className="showcase-layout-playground">
+        <Story />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const meta = {
   title: 'Components/Tags/Tag',

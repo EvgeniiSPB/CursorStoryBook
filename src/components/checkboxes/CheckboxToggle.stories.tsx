@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { showcaseCanvas } from '../../storybook/showcase-decorators';
 import { CheckboxToggle } from './CheckboxToggle';
 import {
@@ -28,17 +28,6 @@ const boardSectionStyle = {
   '--showcase-board-padding': CHECKBOX_TOGGLE_BOARD_PADDING_PX,
 } as CSSProperties;
 
-const playgroundSection: Decorator = (Story) => (
-  <div
-    className="showcase-layout-section showcase-layout-section--playground"
-    style={playgroundSectionStyle}
-  >
-    <div className="showcase-layout-playground">
-      <Story />
-    </div>
-  </div>
-);
-
 const meta = {
   title: 'Components/Checkboxes/CheckboxToggle',
   component: CheckboxToggle,
@@ -62,13 +51,29 @@ const meta = {
     disabled: false,
     state: 'normal',
   },
+  // Wrap in the playground surface (light — checkbox has no inverted variant)
+  // so all non-showcase stories share the same container. AllVariants
+  // overrides `render`.
+  render: (args) => (
+    <div
+      className={[
+        'showcase-layout-section',
+        'showcase-layout-section--playground',
+        'showcase-layout-section--playground-surface-light',
+      ].join(' ')}
+      style={playgroundSectionStyle}
+    >
+      <div className="showcase-layout-playground">
+        <CheckboxToggle {...args} />
+      </div>
+    </div>
+  ),
 } satisfies Meta<typeof CheckboxToggle>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  decorators: [playgroundSection],
   args: {
     active: false,
     disabled: false,
@@ -167,7 +172,6 @@ export const AllVariants: Story = {
 
 export const Interactive: Story = {
   name: 'Interactive (hover / click)',
-  decorators: [playgroundSection],
   args: { state: undefined, active: false, disabled: false },
   argTypes: {
     state: { control: false },

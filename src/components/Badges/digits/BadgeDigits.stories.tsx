@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
-import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useArgs, useEffect } from 'storybook/preview-api';
 import { showcaseCanvas } from '../../../storybook/showcase-decorators';
 import { SHOWCASE_PLAYGROUND_PADDING_PX } from '../../../storybook/showcase-constants';
 import {
@@ -19,6 +20,29 @@ const types: BadgeDigitsType[] = [
 
 const charactersOptions: BadgeDigitsCharacters[] = ['1-2', '3'];
 
+// Auto-sync `children` with the `characters` selector on Playground so
+// switching 1-2 ↔ 3 updates the right-panel input from '00' ↔ '000'. Sync
+// runs when the current value looks like a stray zeros-only default (empty,
+// '0', '00', '000', …) — a user-typed override like '42' is preserved.
+const CHARACTERS_DEFAULT_LABEL: Record<BadgeDigitsCharacters, string> = {
+  '1-2': '00',
+  '3': '000',
+};
+const ZEROS_ONLY = /^0*$/;
+
+// Playground surface follows the button-icon-only pattern: variants designed
+// for a dark background flip the playground background to black so contrast
+// stays legible. Others use the default light surface.
+type PlaygroundSurface = 'light' | 'inverted';
+
+function badgeDigitsPlaygroundSurface(
+  type: BadgeDigitsType | undefined,
+): PlaygroundSurface {
+  // Only `outlinedConstantInverted` is designed for a dark background. Tonned
+  // uses metallic segment colours that read fine on the default light surface.
+  return type === 'outlinedConstantInverted' ? 'inverted' : 'light';
+}
+
 const BADGE_DIGITS_PLAYGROUND_BOUND_W_PX = 36;
 const BADGE_DIGITS_PLAYGROUND_BOUND_H_PX = 20;
 
@@ -27,17 +51,6 @@ const playgroundSectionStyle = {
   '--showcase-playground-bound-h': `${BADGE_DIGITS_PLAYGROUND_BOUND_H_PX}px`,
   '--showcase-playground-padding': `${SHOWCASE_PLAYGROUND_PADDING_PX}px`,
 } as CSSProperties;
-
-const playgroundSection: Decorator = (Story) => (
-  <div
-    className="showcase-layout-section showcase-layout-section--playground"
-    style={playgroundSectionStyle}
-  >
-    <div className="showcase-layout-playground">
-      <Story />
-    </div>
-  </div>
-);
 
 const meta = {
   title: 'Components/Badges/Digits',
@@ -63,19 +76,54 @@ const meta = {
     characters: '1-2',
     children: '00',
   },
-  render: (args: BadgeDigitsProps) => (
-    <div {...(args.type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}>
-      <BadgeDigits {...args} />
-    </div>
-  ),
+  render: (args: BadgeDigitsProps) => {
+    const [, updateArgs] = useArgs<BadgeDigitsProps>();
+    // Defensive lookup — if args.characters arrives as something outside the
+    // declared options (URL pollution, reset edge cases), fall back to '1-2'.
+    const characters: BadgeDigitsCharacters = args.characters === '3' ? '3' : '1-2';
+    const expected = CHARACTERS_DEFAULT_LABEL[characters];
+    useEffect(() => {
+      const current = args.children;
+      if (
+        typeof current === 'string' &&
+        ZEROS_ONLY.test(current) &&
+        current !== expected
+      ) {
+        updateArgs({ children: expected });
+      }
+    }, [args.characters, expected, args.children]);
+    // Wrap in the playground surface here (instead of via story-level
+    // decorator) so ALL non-showcase stories — Playground plus every named
+    // variant like `Outlined / 3 chars` — get the same white/black container.
+    // AllVariants defines its own render, so it isn't affected.
+    const surface = badgeDigitsPlaygroundSurface(args.type);
+    return (
+      <div
+        className={[
+          'showcase-layout-section',
+          'showcase-layout-section--playground',
+          `showcase-layout-section--playground-surface-${surface}`,
+        ].join(' ')}
+        style={playgroundSectionStyle}
+      >
+        <div className="showcase-layout-playground">
+          <div
+            {...(args.type === 'tonned'
+              ? { 'data-segment': TONNED_SEGMENT }
+              : {})}
+          >
+            <BadgeDigits {...args} />
+          </div>
+        </div>
+      </div>
+    );
+  },
 } satisfies Meta<typeof BadgeDigits>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  decorators: [playgroundSection],
-};
+export const Playground: Story = {};
 
 export const OutlinedOneTwo: Story = {
   name: 'Outlined / 1-2 chars',
