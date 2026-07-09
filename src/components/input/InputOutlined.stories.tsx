@@ -9,9 +9,60 @@ import {
   INPUT_OUTLINED_PLAYGROUND_PADDING_PX,
   INPUT_OUTLINED_VARIANTS,
   inputOutlinedVariantKey,
-  type InputOutlinedState,
+  type InputOutlinedVariant,
 } from './types';
 import './input-outlined-showcase.css';
+
+// Figma `input - outlined` has exactly 7 valid states. Booleans (placeholder /
+// active / filled / disabled) + state (normal / hover / click) are not
+// independent — most combinations aren't defined. Expose a single named
+// selector matching the Figma variant grid via a tiny wrapper component so
+// `variant` is a real prop Storybook picks up — args on unknown keys can be
+// dropped by argTypes filtering, which is what caused the panel to appear to
+// do nothing on placeholder / hover / click.
+type PlaygroundVariant =
+  | 'placeholder'
+  | 'placeholder / hover'
+  | 'placeholder / click'
+  | 'active'
+  | 'filled'
+  | 'placeholder / disabled'
+  | 'filled / disabled';
+
+const PLAYGROUND_VARIANTS: readonly PlaygroundVariant[] = [
+  'placeholder',
+  'placeholder / hover',
+  'placeholder / click',
+  'active',
+  'filled',
+  'placeholder / disabled',
+  'filled / disabled',
+];
+
+const PLAYGROUND_PROPS: Record<PlaygroundVariant, InputOutlinedVariant> = {
+  'placeholder':            { placeholder: true,  active: false, filled: false, disabled: false, state: 'normal' },
+  'placeholder / hover':    { placeholder: true,  active: false, filled: false, disabled: false, state: 'hover'  },
+  'placeholder / click':    { placeholder: true,  active: false, filled: false, disabled: false, state: 'click'  },
+  'active':                 { placeholder: false, active: true,  filled: false, disabled: false, state: 'normal' },
+  'filled':                 { placeholder: false, active: false, filled: true,  disabled: false, state: 'normal' },
+  'placeholder / disabled': { placeholder: true,  active: false, filled: false, disabled: true,  state: 'normal' },
+  'filled / disabled':      { placeholder: false, active: false, filled: false, disabled: true,  state: 'normal' },
+};
+
+interface InputOutlinedPlaygroundProps {
+  variant: PlaygroundVariant;
+  label: string;
+  value: string;
+}
+
+function InputOutlinedPlayground({
+  variant,
+  label,
+  value,
+}: InputOutlinedPlaygroundProps) {
+  const props = PLAYGROUND_PROPS[variant];
+  return <InputOutlined {...props} label={label} value={value} />;
+}
 
 const showcaseCanvas: Decorator = (Story) => (
   <div
@@ -40,11 +91,9 @@ const playgroundSection: Decorator = (Story) => (
   </div>
 );
 
-const states: InputOutlinedState[] = ['normal', 'hover', 'click'];
-
 const meta = {
   title: 'Components/Input/InputOutlined',
-  component: InputOutlined,
+  component: InputOutlinedPlayground,
   decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
@@ -57,33 +106,20 @@ const meta = {
   argTypes: {
     label: { control: 'text' },
     value: { control: 'text' },
-    placeholder: { control: 'boolean' },
-    active: { control: 'boolean' },
-    filled: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    state: { control: 'select', options: states },
+    variant: { control: 'select', options: PLAYGROUND_VARIANTS },
   },
   args: {
     label: 'Label',
     value: 'Value',
-    placeholder: false,
-    active: false,
-    filled: false,
-    disabled: false,
+    variant: 'placeholder',
   },
-} satisfies Meta<typeof InputOutlined>;
+} satisfies Meta<typeof InputOutlinedPlayground>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   decorators: [playgroundSection],
-  args: {
-    placeholder: false,
-    active: false,
-    filled: false,
-    disabled: false,
-  },
   parameters: {
     docs: {
       source: {

@@ -37,6 +37,7 @@ const meta = {
   argTypes: {
     state: { control: 'select', options: states },
     children: { control: 'text', name: 'value' },
+    active: { table: { disable: true } },
   },
   args: {
     children: '00',

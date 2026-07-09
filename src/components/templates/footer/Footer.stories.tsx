@@ -5,27 +5,16 @@ import { Footer } from './Footer';
 import { FOOTER_WIDTH_PX } from './types';
 import '../logo/logo.css';
 import './footer.css';
+import './footer-showcase.css';
 
 const showcaseCanvas: Decorator = (Story) => (
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      minHeight: '100vh',
-      padding: 64,
-      boxSizing: 'border-box',
-      background: '#1e1e1e',
-    }}
-    data-font-mode={FIGMA_BODY_FONT_MODE_SLUG}
-  >
+  <div className="footer-showcase-canvas" data-font-mode={FIGMA_BODY_FONT_MODE_SLUG}>
     <Story />
   </div>
 );
 
-const boardStyle = {
-  width: FOOTER_WIDTH_PX,
-  maxWidth: '100%',
+const templateSectionStyle = {
+  '--footer-width': `${FOOTER_WIDTH_PX}px`,
 } as CSSProperties;
 
 const meta = {
@@ -42,7 +31,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Template: Story = {
   render: () => (
-    <div style={boardStyle}>
+    <div
+      className="footer-showcase-section footer-showcase-section--template"
+      style={templateSectionStyle}
+    >
       <Footer />
     </div>
   ),

@@ -1,0 +1,28 @@
+.footer-showcase-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+  overflow-x: auto;
+}
+
+.footer-showcase-section {
+  box-sizing: border-box;
+  background-color: var(--background0-primary, #ffffff);
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  flex-shrink: 0;
+}
+
+/* Mirrors `.logo-showcase-section--template`: 64px inset around the fixed
+   footer width so the dark footer sits on a white board like other Templates. */
+.footer-showcase-section--template {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: calc(var(--footer-width, 1600px) + 2 * var(--x-base-1600, 64px));
+  padding: calc(var(--x-base-1600, 64) * 1px);
+  box-sizing: border-box;
+}

@@ -56,8 +56,8 @@ const meta = {
     type: { control: 'select', options: typeOptions },
     imageSize: { control: 'select', options: imageSizeOptions },
     initials: { control: 'text' },
-    src: { control: 'text' },
-    alt: { control: 'text' },
+    src: { table: { disable: true } },
+    alt: { table: { disable: true } },
   },
 } satisfies Meta<typeof Avatar>;
 

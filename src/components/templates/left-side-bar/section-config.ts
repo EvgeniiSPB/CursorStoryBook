@@ -41,6 +41,12 @@ export const HIDDEN_TITLE_PREFIXES: readonly string[] = [
   // Welcome / blank landing story — auto-selected by Storybook on a fresh
   // visit so the canvas opens empty instead of jumping into BadgeGroup.
   '0Welcome',
+  // Design-system internals — the Swap primitives and the plain Image
+  // Container aren't consumed directly by app authors. `Atoms/Image Fixed
+  // Aspect Ratio` stays visible.
+  'Atoms/Swap Gravity',
+  'Atoms/Swap Static',
+  'Atoms/Image Container',
 ];
 
 export const SECTION_CONFIGS: readonly SidebarSectionConfig[] = [

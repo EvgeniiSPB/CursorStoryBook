@@ -69,6 +69,7 @@ const meta = {
     paddingSize: { control: 'select', options: ['tiny', 'small'] },
     state: { control: 'select', options: states },
     children: { control: 'text', name: 'value' },
+    labelFill: { table: { disable: true } },
   },
   args: {
     children: 'Value',
