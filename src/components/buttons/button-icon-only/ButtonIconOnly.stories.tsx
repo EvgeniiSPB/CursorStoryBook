@@ -13,6 +13,7 @@ import {
   buttonIconOnlyPlaygroundSurface,
   buttonIconOnlyVariantKey,
   type ButtonIconOnlySize,
+  type ButtonIconOnlyState,
   type ButtonIconOnlyType,
 } from './types';
 import './button-icon-only-showcase.css';
@@ -80,7 +81,8 @@ const meta = {
     extraPaddings: { control: 'boolean' },
     disabled: { control: 'boolean' },
     'aria-label': { control: 'text' },
-    state: { table: { disable: true } },
+    state: { control: 'select', options: ['normal', 'hover', 'click'] satisfies ButtonIconOnlyState[] },
+    brandSegment: { table: { disable: true } },
   },
   args: {
     type: 'primary',
@@ -88,6 +90,7 @@ const meta = {
     extraPaddings: false,
     disabled: false,
     'aria-label': 'Action',
+    state: 'normal',
   },
 } satisfies Meta<typeof ButtonIconOnly>;
 
@@ -102,6 +105,7 @@ export const Playground: Story = {
     extraPaddings: false,
     disabled: false,
     'aria-label': 'Action',
+    state: 'normal',
   },
   parameters: {
     docs: {

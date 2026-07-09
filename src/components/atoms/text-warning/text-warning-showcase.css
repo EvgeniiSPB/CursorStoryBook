@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: calc(100vh - (var(--spaces-static-400, 16) * 1px * 2));
+  min-height: 100vh;
   box-sizing: border-box;
   background-color: #1e1e1e;
   --text-warning-color: var(--error-primary, #a70025);

@@ -11,7 +11,7 @@ const toneByType: Record<BadgeTextType, IconTone> = {
 export function BadgeTextIcon({ type }: { type: BadgeTextType }) {
   return (
     <Icon
-      name="check"
+      name="placeholder"
       size={20}
       tone={toneByType[type]}
       className="badge-text__icon"

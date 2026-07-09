@@ -56,7 +56,7 @@ const meta = {
   },
   argTypes: {
     variant: { control: 'select', options: variants },
-    state: { control: 'select', options: states },
+    state: { table: { disable: true } },
     firstState: { control: 'select', options: states },
     secondState: { control: 'select', options: states },
     firstLabel: { control: 'text' },
