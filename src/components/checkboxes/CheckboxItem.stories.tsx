@@ -55,8 +55,8 @@ const meta = {
     state: 'normal',
   },
   // Wrap in the playground surface (light — checkbox has no inverted variant)
-  // so ALL non-showcase stories share the same container: Playground + each
-  // named variant + Interactive. AllVariants overrides `render`.
+  // so all non-showcase stories share the same container. AllVariants
+  // overrides `render`.
   render: (args) => (
     <div
       className={[
@@ -213,10 +213,3 @@ export const AllVariants: Story = {
   ),
 };
 
-export const Interactive: Story = {
-  name: 'Interactive (hover / click)',
-  args: { state: undefined, active: false, disabled: false },
-  argTypes: {
-    state: { control: false },
-  },
-};

@@ -170,10 +170,3 @@ export const AllVariants: Story = {
   ),
 };
 
-export const Interactive: Story = {
-  name: 'Interactive (hover / click)',
-  args: { state: undefined, active: false, disabled: false },
-  argTypes: {
-    state: { control: false },
-  },
-};
