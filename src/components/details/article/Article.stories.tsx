@@ -137,7 +137,6 @@ type PlaygroundArgs = {
   middleSmallBlock: string;
   middleMediumBlock: string;
   middleLargeBlock: string;
-  showPaddingTop: boolean;
   leftCell?: ReactNode;
   rightCell?: ReactNode;
   fullWidthCell?: ReactNode;
@@ -177,7 +176,7 @@ export const Playground: Story = {
           `const App = () => {`,
           `  return (`,
           `    <div style={{ padding: 24 }}>`,
-          `      <Article left right paddingSize="---" tPadding showPaddingTop />`,
+          `      <Article left right paddingSize="tiny" tPadding />`,
           `    </div>`,
           `  );`,
           `};`,
@@ -202,7 +201,6 @@ export const Playground: Story = {
     middleSmallBlock: SWAP,
     middleMediumBlock: SWAP,
     middleLargeBlock: SWAP,
-    showPaddingTop: true,
   },
   argTypes: {
     leftCell: { table: { disable: true } },
@@ -216,23 +214,27 @@ export const Playground: Story = {
 
     paddingSize: { control: 'inline-radio', options: ARTICLE_PADDING_SIZES },
 
-    showPaddingTop: {
-      name: 'show padding-top ruler',
-      control: 'boolean',
-      if: { arg: 'tPadding', truthy: true },
-    },
-
     leftBlock: {
       name: 'leftCell',
       control: 'select',
       options: [...ARTICLE_LEFT_BLOCKS, SWAP],
-      if: { arg: 'left', truthy: true },
+      showIf: {
+        and: [
+          { arg: 'left', truthy: true },
+          { arg: 'fullWidth', truthy: false },
+        ],
+      },
     },
     rightBlock: {
       name: 'rightCell',
       control: 'select',
       options: [...ARTICLE_RIGHT_BLOCKS, SWAP],
-      if: { arg: 'right', truthy: true },
+      showIf: {
+        and: [
+          { arg: 'right', truthy: true },
+          { arg: 'fullWidth', truthy: false },
+        ],
+      },
     },
     fullWidthBlock: {
       name: 'fullWidthCell',
@@ -244,31 +246,61 @@ export const Playground: Story = {
       name: 'middleCell',
       control: 'select',
       options: [...ARTICLE_MIDDLE_BLOCKS['---'], SWAP],
-      if: { arg: 'paddingSize', eq: '---' },
+      showIf: {
+        and: [
+          { arg: 'paddingSize', eq: '---' },
+          { arg: 'fullWidth', truthy: false },
+          { arg: 'tPadding', truthy: false },
+        ],
+      },
     },
     middleTinyBlock: {
       name: 'middleTiny',
       control: 'select',
       options: [...ARTICLE_MIDDLE_BLOCKS.tiny, SWAP],
-      if: { arg: 'paddingSize', eq: 'tiny' },
+      showIf: {
+        and: [
+          { arg: 'paddingSize', eq: 'tiny' },
+          { arg: 'fullWidth', truthy: false },
+          { arg: 'tPadding', truthy: true },
+        ],
+      },
     },
     middleSmallBlock: {
       name: 'middleSmall',
       control: 'select',
       options: [...ARTICLE_MIDDLE_BLOCKS.small, SWAP],
-      if: { arg: 'paddingSize', eq: 'small' },
+      showIf: {
+        and: [
+          { arg: 'paddingSize', eq: 'small' },
+          { arg: 'fullWidth', truthy: false },
+          { arg: 'tPadding', truthy: true },
+        ],
+      },
     },
     middleMediumBlock: {
       name: 'middleMedium',
       control: 'select',
       options: [...ARTICLE_MIDDLE_BLOCKS.medium, SWAP],
-      if: { arg: 'paddingSize', eq: 'medium' },
+      showIf: {
+        and: [
+          { arg: 'paddingSize', eq: 'medium' },
+          { arg: 'fullWidth', truthy: false },
+          { arg: 'tPadding', truthy: true },
+        ],
+      },
     },
     middleLargeBlock: {
       name: 'middleLarge',
       control: 'select',
       options: [...ARTICLE_MIDDLE_BLOCKS.large, SWAP],
-      if: { arg: 'paddingSize', eq: 'large' },
+      showIf: {
+        and: [
+          { arg: 'paddingSize', eq: 'large' },
+          { arg: 'fullWidth', truthy: false },
+          { arg: 'tPadding', truthy: true },
+        ],
+      },
     },
   },
   render: (args) => {
@@ -279,7 +311,7 @@ export const Playground: Story = {
     const middleProps = { [MIDDLE_SLOT_PROP[args.paddingSize]]: renderBlock(middleName) };
 
     const paddingPx = ARTICLE_TOP_PADDING_PX[args.paddingSize];
-    const showRuler = args.showPaddingTop && args.tPadding && args.paddingSize !== '---';
+    const showRuler = args.tPadding && args.paddingSize !== '---';
 
     return (
       <div className="showcase-layout-section showcase-layout-section--board" style={boardScrollStyle}>

@@ -1,12 +1,4 @@
-/* Full viewport canvas — centers icon grid in Storybook preview */
-.icon-showcase-canvas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
+@import '../../storybook/showcase-layout.css';
 
 /* Figma icon board: 40px gap (--spaces-static-1000) */
 .icon-showcase {

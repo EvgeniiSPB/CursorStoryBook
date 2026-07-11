@@ -120,32 +120,3 @@ export const ContainerAllVariants: Story = {
   ),
 };
 
-export const Overview: Story = {
-  name: 'Overview',
-  render: () => (
-    <div className="image-fixed-aspect-ratio-showcase-block" style={{ gap: '48px' }}>
-      <section className="image-fixed-aspect-ratio-showcase-block">
-        <h3 className="image-fixed-aspect-ratio-showcase-block__title">
-          2:1 Fixed Aspect Ratio Spacer ({FIXED_ASPECT_RATIO_SPACER_FIGMA_NODE_ID})
-        </h3>
-        <FixedAspectRatioSpacerBoard />
-      </section>
-      <section className="image-fixed-aspect-ratio-showcase-block">
-        <h3 className="image-fixed-aspect-ratio-showcase-block__title">
-          image - container (fixed aspect ratio) ({IMAGE_CONTAINER_FIXED_ASPECT_RATIO_FIGMA_NODE_ID})
-        </h3>
-        <div className="image-fixed-aspect-ratio-showcase-section image-fixed-aspect-ratio-showcase-section--board image-fixed-aspect-ratio-showcase-section--board-container">
-          <div className="image-container-fixed-aspect-ratio-showcase">
-            {IMAGE_CONTAINER_FIXED_ASPECT_RATIO_VARIANTS.map((variant) => (
-              <ImageContainerFixedAspectRatio
-                key={imageContainerFixedAspectRatioVariantKey(variant)}
-                aspectRatio={variant.aspectRatio}
-                orientation={variant.orientation}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
-  ),
-};

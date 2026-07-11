@@ -12,6 +12,7 @@ import {
   BUTTON_SOCIAL_SEGMENT,
   BUTTON_SOCIAL_VARIANTS,
   buttonSocialVariantKey,
+  type ButtonSocialState,
 } from './types';
 import './button-social-showcase.css';
 import './button-social-board.css';
@@ -61,12 +62,16 @@ const meta = {
   argTypes: {
     children: { control: 'text', name: 'label' },
     disabled: { control: 'boolean' },
-    state: { table: { disable: true } },
+    state: {
+      control: 'select',
+      options: ['normal', 'hover', 'click'] satisfies ButtonSocialState[],
+    },
     type: { table: { disable: true } },
   },
   args: {
     children: 'vk',
     disabled: false,
+    state: 'normal',
   },
 } satisfies Meta<typeof ButtonSocial>;
 
@@ -78,6 +83,7 @@ export const Playground: Story = {
   args: {
     children: 'vk',
     disabled: false,
+    state: 'normal',
   },
   parameters: {
     docs: {

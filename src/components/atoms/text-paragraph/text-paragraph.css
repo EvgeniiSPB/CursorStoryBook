@@ -14,6 +14,21 @@
   padding-bottom: calc(var(--text-paragraph-frame-padding) * 1px);
 }
 
+/*
+ * Figma `02 - lineHeights` collection modes on `text - paragraph` (171:839):
+ *   tight → lineHeights/body/L = 20
+ *   wide  → lineHeights/body/L = alias base/400 = 24
+ * Class shadows the canvas-level var so each paragraph controls its own mode.
+ * Frame padding token reads the same variable, so tPadding/bPadding scale with the mode.
+ */
+.text-paragraph__frame--line-height-tight {
+  --line-heights-body-l: 20;
+}
+
+.text-paragraph__frame--line-height-wide {
+  --line-heights-body-l: var(--line-heights-base-400, 24);
+}
+
 .text-paragraph {
   margin: 0;
   padding: 0;

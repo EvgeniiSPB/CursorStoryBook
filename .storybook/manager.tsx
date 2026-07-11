@@ -162,7 +162,7 @@ function SidebarApp({ api }: { api: API }) {
         activeId={activeId}
         onSelect={(id) => api.selectStory(id)}
         onLogoClick={() => api.selectStory('0welcome--blank')}
-        storageKey="left-side-bar:open-ids"
+        storageKey="left-side-bar:open-ids:v2"
         onCollapse={() => setClosed(true)}
       />
       {createPortal(

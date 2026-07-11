@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 void React; // satisfy noUnusedLocals — React is used at runtime by classic JSX transform
-import { useEffect, useState, type HTMLAttributes } from 'react';
+import { useEffect, useMemo, useState, type HTMLAttributes } from 'react';
 import { DropdownHeading } from './DropdownHeading';
 import { Dropdown1stLvl } from './Dropdown1stLvl';
 import { Dropdown2ndLvl } from './Dropdown2ndLvl';
@@ -19,7 +19,10 @@ export interface LeftSideBarProps
   activeId?: string;
   /** Fired when user clicks a 3rd-lvl leaf row. */
   onSelect?: (id: string) => void;
-  /** Item ids (1st or 2nd lvl) that should be open on first render. */
+  /** Item ids (1st or 2nd lvl) that should be open on first render.
+   *  Seeds `openManual` — the auto-lock rule doesn't fire until the user
+   *  clicks a 1st-lvl group, at which point the "one explorer" invariant
+   *  kicks in (any additional non-active 1st-lvl ids collapse). */
   defaultOpenItemIds?: readonly string[];
   /**
    * If set, the open/close state of each 1st/2nd-lvl row is persisted to
@@ -88,49 +91,109 @@ export function LeftSideBar({
   className,
   ...rest
 }: LeftSideBarProps) {
-  const [openIds, setOpenIds] = useState<Set<string>>(() => {
-    const initial = new Set<string>(defaultOpenItemIds);
-    readPersistedIds(storageKey).forEach((id) => initial.add(id));
-    if (activeId) {
-      findPathToLeaf(sections, activeId).forEach((id) => initial.add(id));
+  // Enumerate 1st-level ids from the tree — needed to distinguish 1st-lvl
+  // (subject to the "auto-lock active + one explorer" rule) from 2nd-lvl
+  // (free-form toggle inside its 1st-lvl parent).
+  const firstLvlIds = useMemo(() => {
+    const set = new Set<string>();
+    for (const section of sections) {
+      for (const item of section.items) set.add(item.id);
     }
+    return set;
+  }, [sections]);
+
+  // Active-branch path is derived every render from `activeId` — that's the
+  // single source of truth for "which branch am I in". Auto-lock rule:
+  //   effective open = activePath (auto)  ∪  openManual (user's explicit set)
+  // constrained by: `openManual` may hold at most one 1st-lvl id — the one
+  // "explorer" branch the user is peeking into. Toggle logic enforces this.
+  const activePath = useMemo(
+    () => (activeId ? findPathToLeaf(sections, activeId) : []),
+    [sections, activeId],
+  );
+  const activePathSet = useMemo(() => new Set(activePath), [activePath]);
+  const activePath1st = activePath[0] ?? null;
+
+  const [openManual, setOpenManual] = useState<Set<string>>(() => {
+    const seed = new Set<string>(defaultOpenItemIds);
+    readPersistedIds(storageKey).forEach((id) => seed.add(id));
+    // Enforce the "at most one 1st-lvl id" invariant on the seed. Stale
+    // sessionStorage from the pre-auto-lock era (or over-eager
+    // defaultOpenItemIds) can carry several — keep only the last one so
+    // rendering doesn't unpin a bunch of branches on first mount. Insertion
+    // order is preserved, so "last" = most recently added.
+    const initial = new Set<string>();
+    let last1st: string | null = null;
+    for (const id of seed) {
+      if (firstLvlIds.has(id)) {
+        last1st = id;
+      } else {
+        initial.add(id);
+      }
+    }
+    if (last1st) initial.add(last1st);
     return initial;
   });
 
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // Persist on every change to sessionStorage (per-tab scope).
+  // Persist on every change to sessionStorage (per-tab scope). We store the
+  // user-explicit set only; `activePath` is re-derived from the URL on load.
   useEffect(() => {
     if (!storageKey || typeof window === 'undefined') return;
     try {
-      window.sessionStorage.setItem(storageKey, JSON.stringify([...openIds]));
+      window.sessionStorage.setItem(storageKey, JSON.stringify([...openManual]));
     } catch {
       /* ignore quota / privacy-mode errors */
     }
-  }, [openIds, storageKey]);
+  }, [openManual, storageKey]);
 
-  // When the active story changes (e.g. user clicks a leaf, follows a deep
-  // link, or hits browser back), reveal the path to it without collapsing any
-  // group the user opened manually.
-  useEffect(() => {
-    if (!activeId) return;
-    const path = findPathToLeaf(sections, activeId);
-    if (path.length === 0) return;
-    setOpenIds((prev) => {
-      if (path.every((id) => prev.has(id))) return prev;
-      const next = new Set(prev);
-      path.forEach((id) => next.add(id));
-      return next;
-    });
-  }, [activeId, sections]);
+  // Derive the single exploratory 1st-lvl id from `openManual`. This is the
+  // ONLY 1st-lvl id (non-active) that renders as open — any drift in
+  // `openManual` (multiple 1st-lvl ids from stale storage / HMR / aggressive
+  // defaults) is silently ignored at the render layer. We pick the LAST
+  // matching id in insertion order = most recently added.
+  const explorer1st = useMemo(() => {
+    let last: string | null = null;
+    for (const id of openManual) {
+      if (firstLvlIds.has(id) && !activePathSet.has(id)) last = id;
+    }
+    return last;
+  }, [openManual, firstLvlIds, activePathSet]);
 
   const toggle = (id: string) => {
-    setOpenIds((prev) => {
+    const isFirstLvl = firstLvlIds.has(id);
+    // Active-branch 1st-lvl is locked open (its whole point is anchoring
+    // the user's current location) — click is a no-op.
+    if (isFirstLvl && id === activePath1st) return;
+    setOpenManual((prev) => {
+      if (isFirstLvl) {
+        // Decision based on VISUAL state (explorer1st), not raw openManual —
+        // avoids the "clicking a visibly-closed group closes it further"
+        // bug when `openManual` has drift.
+        const isCurrentlyOpen = id === explorer1st;
+        const next = new Set<string>();
+        // Reset all 1st-lvl slots (drops the previous explorer + any stale
+        // 1st-lvl entries). 2nd-lvl toggles survive so their expanded state
+        // is preserved when re-opening their parent later.
+        prev.forEach((existing) => {
+          if (!firstLvlIds.has(existing)) next.add(existing);
+        });
+        if (!isCurrentlyOpen) next.add(id);
+        return next;
+      }
+      // 2nd-lvl — free-form toggle within its parent 1st-lvl.
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
+  };
+
+  const isOpen = (id: string) => {
+    if (activePathSet.has(id)) return true;
+    if (firstLvlIds.has(id)) return id === explorer1st;
+    return openManual.has(id);
   };
 
   const classes = [
@@ -168,7 +231,7 @@ export function LeftSideBar({
             badge={section.heading.badge ?? 'metallic'}
           />
           {section.items.map((item, itemIdx) => {
-            const isOpen = openIds.has(item.id);
+            const isItemOpen = isOpen(item.id);
 
             const leafState = (leafId: string) =>
               activeId === leafId
@@ -183,7 +246,7 @@ export function LeftSideBar({
                 <Dropdown1stLvl
                   key={item.id}
                   label={item.label}
-                  open={isOpen}
+                  open={isItemOpen}
                   firstChild={itemIdx === 0}
                   layout="flat"
                   onClick={() => toggle(item.id)}
@@ -205,12 +268,12 @@ export function LeftSideBar({
               <Dropdown1stLvl
                 key={item.id}
                 label={item.label}
-                open={isOpen}
+                open={isItemOpen}
                 firstChild={itemIdx === 0}
                 onClick={() => toggle(item.id)}
               >
                 {item.children?.map((child, childIdx) => {
-                  const isChildOpen = openIds.has(child.id);
+                  const isChildOpen = isOpen(child.id);
                   return (
                     <Dropdown2ndLvl
                       key={child.id}

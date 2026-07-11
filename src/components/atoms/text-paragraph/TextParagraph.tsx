@@ -12,6 +12,8 @@ export interface TextParagraphProps extends HTMLAttributes<HTMLParagraphElement>
   fontWeight?: TextParagraphFontWeight;
   tPadding?: boolean;
   bPadding?: boolean;
+  /** Figma `02 - lineHeights`: `wide` (24px) для больших блоков текста, `tight` (20px) по умолчанию. */
+  wide?: boolean;
   text?: string;
 }
 
@@ -20,6 +22,7 @@ export function TextParagraph({
   fontWeight = 'regular',
   tPadding = false,
   bPadding = false,
+  wide = true,
   text = 'Paragraph',
   className,
   style,
@@ -29,6 +32,7 @@ export function TextParagraph({
     'text-paragraph__frame',
     tPadding ? 'text-paragraph__frame--t-padding' : '',
     bPadding ? 'text-paragraph__frame--b-padding' : '',
+    wide ? 'text-paragraph__frame--line-height-wide' : 'text-paragraph__frame--line-height-tight',
   ]
     .filter(Boolean)
     .join(' ');

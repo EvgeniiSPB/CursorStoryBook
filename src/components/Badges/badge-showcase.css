@@ -23,12 +23,15 @@
 }
 
 /* Split-canvas board: two halves side-by-side, dark half hosts variants
-   designed for inverted surfaces (outlinedConstantInverted / filled). The
-   modifier zeroes the board's inner padding so each half can paint edge-to-
-   edge; `overflow: hidden` preserves the board's rounded corners. */
+   designed for inverted surfaces (outlinedConstantInverted / filled).
+   The board itself is transparent — each half paints its own background and
+   its own outer-side rounding, so we never composite a rectangular dark
+   child over a rounded white parent (which leaks white along the anti-
+   aliased curve). Mirrors the single-element gradient approach used by
+   .button-icon-only-board. */
 .showcase-layout-section--board.badge-showcase-board--split {
   padding: 0;
-  overflow: hidden;
+  background-color: transparent;
 }
 
 .badge-showcase--split {
@@ -50,7 +53,10 @@
    variant to the black edge (design ask), while keeping 64px on the outer
    (left) side to preserve the board's original breathing room. */
 .badge-showcase__half--light {
+  background-color: var(--background0-primary, #ffffff);
   padding-right: calc(var(--x-base-1200, 48) * 1px);
+  border-top-left-radius: calc(var(--radii-static-200, 8) * 1px);
+  border-bottom-left-radius: calc(var(--radii-static-200, 8) * 1px);
 }
 
 .badge-showcase__half--dark {
@@ -59,4 +65,6 @@
   /* Match the light half's top padding so badges from both halves share the
      same top baseline. Right/bottom/left keep 48px per design ask. */
   padding-top: calc(var(--showcase-board-padding, var(--x-base-1600, 64)) * 1px);
+  border-top-right-radius: calc(var(--radii-static-200, 8) * 1px);
+  border-bottom-right-radius: calc(var(--radii-static-200, 8) * 1px);
 }

@@ -17,14 +17,6 @@ const meta = {
       },
     },
   },
-  args: {
-    label: 'Отвечает',
-    name: 'Value',
-  },
-  argTypes: {
-    label: { control: 'text' },
-    name: { control: 'text' },
-  },
 } satisfies Meta<typeof CellRespondFor>;
 
 export default meta;
@@ -38,7 +30,15 @@ const boardStyle: CSSProperties = {
   maxWidth: '100%',
 };
 
-export const Playground: Story = {
+export const Gallery: Story = {
+  name: 'All blocks',
+  render: () => (
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div style={boardStyle}>
+        <CellRespondFor />
+      </div>
+    </div>
+  ),
   parameters: {
     docs: {
       source: {
@@ -60,15 +60,4 @@ export const Playground: Story = {
       },
     },
   },
-};
-
-export const Gallery: Story = {
-  name: 'All blocks',
-  render: () => (
-    <div className="showcase-layout-section showcase-layout-section--board">
-      <div style={boardStyle}>
-        <CellRespondFor />
-      </div>
-    </div>
-  ),
 };

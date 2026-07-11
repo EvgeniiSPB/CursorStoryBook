@@ -68,6 +68,7 @@ const meta = {
     },
     tPadding: { control: 'boolean' },
     bPadding: { control: 'boolean' },
+    wide: { control: 'boolean' },
     text: { control: 'text' },
   },
 } satisfies Meta<typeof TextParagraph>;
@@ -82,6 +83,7 @@ export const Playground: Story = {
     fontWeight: 'regular',
     tPadding: false,
     bPadding: false,
+    wide: true,
     text: 'Paragraph',
   },
   render: (args) => (
@@ -99,7 +101,7 @@ export const Playground: Story = {
           `const App = () => {`,
           `  return (`,
           `    <div style={{ padding: 24 }}>`,
-          `      <TextParagraph typography="bodyL" fontWeight="regular" text="Paragraph" />`,
+          `      <TextParagraph typography="bodyL" fontWeight="regular" wide text="Paragraph" />`,
           `    </div>`,
           `  );`,
           `};`,

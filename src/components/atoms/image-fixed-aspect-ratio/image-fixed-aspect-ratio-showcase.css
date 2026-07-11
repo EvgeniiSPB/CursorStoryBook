@@ -42,20 +42,6 @@
   width: 704px;
 }
 
-.image-fixed-aspect-ratio-showcase-block {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--x-base-800, 32) * 1px);
-}
-
-.image-fixed-aspect-ratio-showcase-block__title {
-  margin: 0;
-  font-family: var(--font-families-body, 'Oceanic Grotesk'), system-ui, sans-serif;
-  font-size: calc(var(--font-sizes-body-s, 14) * 1px);
-  line-height: 1.4;
-  color: var(--text-secondary, #5c6166);
-}
-
 /* Figma 246:4103 — 4×2 grid, 64px column gap */
 .image-container-fixed-aspect-ratio-showcase {
   display: grid;

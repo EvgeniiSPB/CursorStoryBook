@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { showcaseCanvas } from '../../storybook/showcase-decorators';
 import { Icon } from './Icon';
 import type { IconName20, IconName28 } from './types';
 import {
@@ -48,13 +49,7 @@ const ICONS_28_ROW: IconName28[] = [
 const meta = {
   title: 'Icons/Icon',
   component: Icon,
-  decorators: [
-    (Story) => (
-      <div className="icon-showcase-canvas">
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [showcaseCanvas],
   parameters: {
     layout: 'fullscreen',
   },
@@ -79,9 +74,11 @@ type Story = StoryObj<typeof meta>;
 export const AllIcons20: Story = {
   name: 'All / 20px',
   render: () => (
-    <div className="icon-showcase">
-      <IconShowcaseRow size={20} names={ICONS_20_ROW_1} />
-      <IconShowcaseRow size={20} names={ICONS_20_ROW_2} />
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="icon-showcase">
+        <IconShowcaseRow size={20} names={ICONS_20_ROW_1} />
+        <IconShowcaseRow size={20} names={ICONS_20_ROW_2} />
+      </div>
     </div>
   ),
   parameters: {
@@ -110,8 +107,10 @@ export const AllIcons20: Story = {
 export const AllIcons28: Story = {
   name: 'All / 28px',
   render: () => (
-    <div className="icon-showcase">
-      <IconShowcaseRow size={28} names={ICONS_28_ROW} />
+    <div className="showcase-layout-section showcase-layout-section--board">
+      <div className="icon-showcase">
+        <IconShowcaseRow size={28} names={ICONS_28_ROW} />
+      </div>
     </div>
   ),
 };

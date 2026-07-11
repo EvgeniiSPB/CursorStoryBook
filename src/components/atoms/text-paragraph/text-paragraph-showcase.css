@@ -33,7 +33,8 @@
   padding: calc(var(--x-base-1600, 64) * 1px) 0;
 }
 
-/* Playground — fixed size = largest bound + 128px padding */
+/* Playground — starts at largest bound + 128px padding, grows up to
+   752px + padding when text is long. Height auto-fits wrapped lines. */
 .text-paragraph-showcase-section--playground {
   display: flex;
   align-items: center;
@@ -41,15 +42,27 @@
   box-sizing: border-box;
   flex-shrink: 0;
   padding: var(--text-paragraph-playground-padding, 128px);
-  width: calc(
+  width: fit-content;
+  min-width: calc(
     var(--text-paragraph-playground-bound-w, 89px) +
       2 * var(--text-paragraph-playground-padding, 128px)
   );
-  height: calc(
+  max-width: calc(
+    var(--text-paragraph-playground-content-max-w, 752px) +
+      2 * var(--text-paragraph-playground-padding, 128px)
+  );
+  min-height: calc(
     var(--text-paragraph-playground-bound-h, 24px) +
       2 * var(--text-paragraph-playground-padding, 128px)
   );
-  overflow: hidden;
+}
+
+/* Playground paragraph wraps up to 752px, then flows down; the section
+   above grows in height to fit the wrapped lines. Scoped override — global
+   `.text-paragraph` keeps `white-space: nowrap` for other consumers. */
+.text-paragraph-showcase-section--playground .text-paragraph {
+  white-space: normal;
+  max-width: var(--text-paragraph-playground-content-max-w, 752px);
 }
 
 .text-paragraph-showcase-playground {

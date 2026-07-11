@@ -6,6 +6,8 @@
   width: calc(var(--button-icon-only-board-width, 1304) * 1px);
   height: calc(var(--button-icon-only-board-height, 980) * 1px);
   box-sizing: border-box;
+  border-radius: calc(var(--radii-static-200, 8) * 1px);
+  overflow: hidden;
   background: linear-gradient(
     90deg,
     #ffffff 0%,
