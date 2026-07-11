@@ -18,6 +18,12 @@ const types: BadgeDigitsType[] = [
   'tonned',
 ];
 
+// AllVariants splits the board into a light half + a dark half so
+// `outlinedConstantInverted` (white border/text) stays legible. Mirrors the
+// button-icon-only board split.
+const ALL_VARIANTS_LIGHT_TYPES: BadgeDigitsType[] = ['outlined', 'tonned'];
+const ALL_VARIANTS_DARK_TYPES: BadgeDigitsType[] = ['outlinedConstantInverted'];
+
 const charactersOptions: BadgeDigitsCharacters[] = ['1-2', '3'];
 
 // Auto-sync `children` with the `characters` selector on Playground so
@@ -291,21 +297,29 @@ export const TonnedThree: Story = {
 
 export const AllVariants: Story = {
   name: 'All variants',
-  render: () => (
-    <div className="showcase-layout-section showcase-layout-section--board">
-      <div className="badge-showcase">
-        {types.map((type) => (
-          <div
-            key={type}
-            className="badge-showcase__column"
-            {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
-          >
-            {charactersOptions.map((characters) => (
-              <BadgeDigits key={characters} type={type} characters={characters} />
-            ))}
-          </div>
+  render: () => {
+    const renderColumn = (type: BadgeDigitsType) => (
+      <div
+        key={type}
+        className="badge-showcase__column"
+        {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
+      >
+        {charactersOptions.map((characters) => (
+          <BadgeDigits key={characters} type={type} characters={characters} />
         ))}
       </div>
-    </div>
-  ),
+    );
+    return (
+      <div className="showcase-layout-section showcase-layout-section--board badge-showcase-board--split">
+        <div className="badge-showcase badge-showcase--split">
+          <div className="badge-showcase__half badge-showcase__half--light">
+            {ALL_VARIANTS_LIGHT_TYPES.map(renderColumn)}
+          </div>
+          <div className="badge-showcase__half badge-showcase__half--dark">
+            {ALL_VARIANTS_DARK_TYPES.map(renderColumn)}
+          </div>
+        </div>
+      </div>
+    );
+  },
 };

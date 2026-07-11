@@ -8,6 +8,12 @@ import '../badge-showcase.css';
 
 const types: BadgeTextType[] = ['filled', 'outlined', 'brand', 'tonned'];
 
+// AllVariants splits the board into a light half + a dark half so `filled`
+// (white body / dark glyph, designed for inverted surfaces) stays legible.
+// Mirrors the button-icon-only board split.
+const ALL_VARIANTS_LIGHT_TYPES: BadgeTextType[] = ['outlined', 'brand', 'tonned'];
+const ALL_VARIANTS_DARK_TYPES: BadgeTextType[] = ['filled'];
+
 // Playground surface — `filled` uses light glyph on dark fill (designed for a
 // dark background), others read fine on the default light surface.
 type PlaygroundSurface = 'light' | 'inverted';
@@ -297,20 +303,28 @@ export const TonnedWithIcon: Story = {
 
 export const AllVariants: Story = {
   name: 'All variants',
-  render: () => (
-    <div className="showcase-layout-section showcase-layout-section--board">
-      <div className="badge-showcase">
-        {types.map((type) => (
-          <div
-            key={type}
-            className="badge-showcase__column"
-            {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
-          >
-            <BadgeText type={type} icon />
-            <BadgeText type={type} icon={false} />
-          </div>
-        ))}
+  render: () => {
+    const renderColumn = (type: BadgeTextType) => (
+      <div
+        key={type}
+        className="badge-showcase__column"
+        {...(type === 'tonned' ? { 'data-segment': TONNED_SEGMENT } : {})}
+      >
+        <BadgeText type={type} icon />
+        <BadgeText type={type} icon={false} />
       </div>
-    </div>
-  ),
+    );
+    return (
+      <div className="showcase-layout-section showcase-layout-section--board badge-showcase-board--split">
+        <div className="badge-showcase badge-showcase--split">
+          <div className="badge-showcase__half badge-showcase__half--light">
+            {ALL_VARIANTS_LIGHT_TYPES.map(renderColumn)}
+          </div>
+          <div className="badge-showcase__half badge-showcase__half--dark">
+            {ALL_VARIANTS_DARK_TYPES.map(renderColumn)}
+          </div>
+        </div>
+      </div>
+    );
+  },
 };

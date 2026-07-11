@@ -21,3 +21,42 @@
   gap: calc(var(--spaces-static-300, 12) * 1px);
   align-items: center;
 }
+
+/* Split-canvas board: two halves side-by-side, dark half hosts variants
+   designed for inverted surfaces (outlinedConstantInverted / filled). The
+   modifier zeroes the board's inner padding so each half can paint edge-to-
+   edge; `overflow: hidden` preserves the board's rounded corners. */
+.showcase-layout-section--board.badge-showcase-board--split {
+  padding: 0;
+  overflow: hidden;
+}
+
+.badge-showcase--split {
+  flex-wrap: nowrap;
+  gap: 0;
+  align-items: stretch;
+}
+
+.badge-showcase__half {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spaces-static-400, 16) * 1px);
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: calc(var(--showcase-board-padding, var(--x-base-1600, 64)) * 1px);
+}
+
+/* Trim the gutter at the light/dark boundary — 48px from the last light
+   variant to the black edge (design ask), while keeping 64px on the outer
+   (left) side to preserve the board's original breathing room. */
+.badge-showcase__half--light {
+  padding-right: calc(var(--x-base-1200, 48) * 1px);
+}
+
+.badge-showcase__half--dark {
+  background-color: #000000;
+  padding: calc(var(--x-base-1200, 48) * 1px);
+  /* Match the light half's top padding so badges from both halves share the
+     same top baseline. Right/bottom/left keep 48px per design ask. */
+  padding-top: calc(var(--showcase-board-padding, var(--x-base-1600, 64)) * 1px);
+}
