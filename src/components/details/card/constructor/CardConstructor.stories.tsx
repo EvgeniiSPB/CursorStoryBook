@@ -331,10 +331,18 @@ export const Playground: Story = {
   },
 };
 
+// Match the Figma `card / placeholder` frame (4217:1161): 128px inset and
+// 128px vertical gap between symbols.
+const variantsBoardSectionStyle: CSSProperties = {
+  ...boardScrollStyle,
+  '--showcase-board-width': `${CARD_PLACEHOLDER_BOARD_WIDTH_PX}px`,
+  '--showcase-board-padding': CARD_PLACEHOLDER_BOARD_PADDING_PX,
+} as CSSProperties;
+
 const variantsBoardStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: CARD_PLACEHOLDER_BOARD_PADDING_PX,
 };
 
 export const AllVariants: Story = {
@@ -343,12 +351,15 @@ export const AllVariants: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: `All ${CARD_VARIANTS.length} Figma variants from card / placeholder (${CARD_PLACEHOLDER_FIGMA_NODE_ID}). Swappable slots show the dashed swap placeholder; no swap pickers.`,
+        story: `The ${CARD_VARIANTS.length} card symbols from Figma \`card / placeholder\` (${CARD_PLACEHOLDER_FIGMA_NODE_ID}) — one canonical configuration per card kind. The Figma placeholder symbol itself is intentionally omitted.`,
       },
     },
   },
   render: () => (
-    <div className="showcase-layout-section showcase-layout-section--board" style={boardScrollStyle}>
+    <div
+      className="showcase-layout-section showcase-layout-section--board"
+      style={variantsBoardSectionStyle}
+    >
       <div style={variantsBoardStyle}>
         {CARD_VARIANTS.map((variant) => {
           const size = CARD_SIZE_PX[variant.card];
@@ -356,24 +367,21 @@ export const AllVariants: Story = {
           return (
             <div
               key={cardVariantKey(variant)}
-              style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+              style={{ overflowX: 'auto', maxWidth: '100%' }}
             >
-              <code style={{ fontSize: 12, color: '#6b6e73' }}>{cardVariantKey(variant)}</code>
-              <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
-                <div style={{ width: size.width, minWidth: size.width }}>
-                  <CardShell
-                    card={variant.card}
-                    state={variant.state}
-                    radius={variant.radius}
-                    rows={variant.rows}
-                    theme={variant.theme}
-                    segment={
-                      CARD_CAPABILITIES[variant.card].segment
-                        ? (CARD_DEFAULT_SEGMENT[variant.card] ?? 'crimson')
-                        : undefined
-                    }
-                  />
-                </div>
+              <div style={{ width: size.width, minWidth: size.width }}>
+                <CardShell
+                  card={variant.card}
+                  state={variant.state}
+                  radius={variant.radius}
+                  rows={variant.rows}
+                  theme={variant.theme}
+                  segment={
+                    CARD_CAPABILITIES[variant.card].segment
+                      ? (CARD_DEFAULT_SEGMENT[variant.card] ?? 'crimson')
+                      : undefined
+                  }
+                />
               </div>
             </div>
           );

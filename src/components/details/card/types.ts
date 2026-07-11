@@ -264,31 +264,21 @@ export interface CardVariant {
   theme?: CardTheme;
 }
 
+// One entry per card kind — mirrors the 7 Figma symbols in the `card /
+// placeholder` frame (4217:1161). Each card renders in its canonical
+// configuration (default state / radius / rows / theme) rather than the full
+// state × radius × rows × theme cross-product.
 function buildCardVariants(): CardVariant[] {
-  const variants: CardVariant[] = [];
-  for (const card of CARD_KINDS) {
+  return CARD_KINDS.map((card) => {
     const caps = CARD_CAPABILITIES[card];
-    const states = caps.state ? CARD_STATES : [undefined];
-    const radii = caps.radius ? CARD_RADII : [undefined];
-    const rows = caps.rows ? CARD_ROWS : [undefined];
-    const themes = caps.theme ? CARD_THEMES : [undefined];
-    for (const theme of themes) {
-      for (const state of states) {
-        for (const radius of radii) {
-          for (const row of rows) {
-            variants.push({
-              card,
-              state: state as CardState | undefined,
-              radius: radius as CardRadius | undefined,
-              rows: row as CardRows | undefined,
-              theme: theme as CardTheme | undefined,
-            });
-          }
-        }
-      }
-    }
-  }
-  return variants;
+    return {
+      card,
+      state: caps.state ? ('normal' as CardState) : undefined,
+      radius: caps.radius ? ('x6' as CardRadius) : undefined,
+      rows: caps.rows ? (1 as CardRows) : undefined,
+      theme: caps.theme ? ('light' as CardTheme) : undefined,
+    };
+  });
 }
 
 export const CARD_VARIANTS: readonly CardVariant[] = buildCardVariants();
