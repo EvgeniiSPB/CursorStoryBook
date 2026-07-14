@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Logo } from '../components/templates/logo';
 import { showcaseCanvas } from './showcase-decorators';
 
 // Blank landing story. Title starts with a digit so it sorts ASCII-first
@@ -22,5 +23,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Blank: Story = {
-  render: () => <></>,
+  render: () => (
+    <Logo tone="constantInverted" style={{ width: 'min(1600px, 90%)' }} />
+  ),
 };
